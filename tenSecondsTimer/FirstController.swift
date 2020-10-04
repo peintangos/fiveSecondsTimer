@@ -23,62 +23,64 @@ class FirstController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        円形のサークルの座標を決定し、アニメーションが始まる位置と終わる位置を決定。viewに追加
-        let center = CGPoint(x: 245, y: 220) // 中心座標
-        let radius = self.shapeLayer.bounds.size.width / 3.0  // 半径
-        let startAngle = CGFloat(Double.pi*1.5)  // 開始点(真上)
-        let endAngle = startAngle + 2.0 * CGFloat(Double.pi)  // 終了点(開始点から一周)
-        let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-        self.shapeLayer.path = path.cgPath
-        self.view.layer.addSublayer(self.shapeLayer)
-        
-        timerSecond.text = "00"
-        timerSecond.center = CGPoint(x: self.view.bounds.size.width/2.0  - 50, y: self.view.bounds.height/2.0 - 20)
-        timerMsec.text = "00"
-        
-//        円形のサークル内のメッセージを作成
-        top.center = CGPoint(x: self.view.bounds.size.width/2.0  - 50, y: self.view.bounds.height/2.0 - 20)
-        top.text = "5秒で止めれるかな？"
-        top.textColor = UIColor.gray
-        top.frame.size = CGSize(width: 200, height: 20)
-        top.isHidden = true
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        //        円形のサークルの座標を決定し、アニメーションが始まる位置と終わる位置を決定。viewに追加
+                let center = CGPoint(x: 245, y: 220) // 中心座標
+                let radius = self.shapeLayer.bounds.size.width / 3.0  // 半径
+                let startAngle = CGFloat(Double.pi*1.5)  // 開始点(真上)
+                let endAngle = startAngle + 2.0 * CGFloat(Double.pi)  // 終了点(開始点から一周)
+                let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+                self.shapeLayer.path = path.cgPath
+                self.view.layer.addSublayer(self.shapeLayer)
+                
+                timerSecond.text = "00"
+                timerMsec.text = "00"
 
-//        スタートボタンを円形に
-        start.layer.cornerRadius = 40
+                
+        //        円形のサークル内のメッセージを作成
+                top.center = CGPoint(x: self.view.bounds.size.width/2.0  - 50, y: self.view.bounds.height/2.0 + 50)
+                top.text = "5秒で止めれるかな？"
+                top.textColor = UIColor.gray
+                top.frame.size = CGSize(width: 200, height: 20)
+                top.isHidden = true
 
-//        ストップボタンを円形に
-        stop.layer.cornerRadius = 40
-        stop.isEnabled = false
+        //        スタートボタンを円形に
+                start.layer.cornerRadius = 40
 
-//        炎アイコンを中心に設定し、メラメラするように設定
-        fire.center = CGPoint(x: self.view.bounds.size.width/2.0, y: self.view.bounds.height/2.0 - 100)
-        fire.isHidden = true
-        vibrated(view: fire)
+        //        ストップボタンを円形に
+                stop.layer.cornerRadius = 40
+                stop.isEnabled = false
 
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
-        
-        self.isFirst = true
-        
-//        タイトルラベルを作成し、追加
-        self.titleLabel.text = "FiveSecondsTimer"
-        self.titleLabel.textAlignment = NSTextAlignment.center
-        self.titleLabel.frame = CGRect(x:40,y:20,width: 300,height: 70)
-        self.titleLabel.center = CGPoint(x: myBoundSize.width/2, y:80)
-        self.titleLabel.font = UIFont.systemFont(ofSize: 30)
-        self.titleLabel.textColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1)
-        self.titleLabel.layer.borderWidth = 2.0
-        self.titleLabel.layer.borderColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1).cgColor
-        self.titleLabel.layer.cornerRadius = 4.0
-        self.view.addSubview(self.titleLabel)
-        self.view.bringSubviewToFront(self.titleLabel)
+        //        炎アイコンを中心に設定し、メラメラするように設定
+                fire.center = CGPoint(x: self.view.bounds.size.width/2.0, y: self.view.bounds.height/2.0 - 50)
+                fire.isHidden = true
+                vibrated(view: fire)
+
+                print(Realm.Configuration.defaultConfiguration.fileURL!)
+                
+                self.isFirst = true
+                
+        //        タイトルラベルを作成し、追加
+                self.titleLabel.text = "FiveSecondsTimer"
+                self.titleLabel.textAlignment = NSTextAlignment.center
+                self.titleLabel.frame = CGRect(x:40,y:20,width: 300,height: 70)
+                self.titleLabel.center = CGPoint(x: myBoundSize.width/2, y:80)
+                self.titleLabel.font = UIFont.systemFont(ofSize: 30)
+                self.titleLabel.textColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1)
+                self.titleLabel.layer.borderWidth = 2.0
+                self.titleLabel.layer.borderColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1).cgColor
+                self.titleLabel.layer.cornerRadius = 4.0
+                self.view.addSubview(self.titleLabel)
+                self.view.bringSubviewToFront(self.titleLabel)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        // 円形のサークルが画面の中心になるようにする
+//         円形のサークルが画面の中心になるようにする
         self.shapeLayer.position = CGPoint(x: myBoundSize.width/2, y: myBoundSize.height/2)
         
-//        なぜかわからないが、この記述をviewDidLoad()にしても、反映されなかった
+//        viewDidLoadも、viewWillApearでも設定が反映されなかった。
         timerSecond.center = CGPoint(x: 25, y: 70)
         timerMsec.center = CGPoint(x: 85, y: 70)
         
@@ -101,7 +103,6 @@ class FirstController: UIViewController, UITextFieldDelegate {
     let tenSeconds:Double = 5
     let hundredSeconds:Double = 100
     @IBAction func startTimer(_ sender: Any) {
-
 //        ボタンの表示/非表示、Enable/Disableを制御
         self.stop.isEnabled = true
         self.start.isEnabled = false
@@ -112,7 +113,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
 //        計測開始
         startTime = Date()
         
-        // アニメーション開始
+//         アニメーション開始
         let anim = CABasicAnimation(keyPath: "strokeEnd")
         let randomInt = Int.random(in: 1..<5)
         switch randomInt {
