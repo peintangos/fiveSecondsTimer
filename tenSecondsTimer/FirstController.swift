@@ -7,8 +7,11 @@
 
 import UIKit
 import RealmSwift
+
+//　　画面サイズの定数
 let myBoundSize: CGSize = UIScreen.main.bounds.size
 class FirstController: UIViewController, UITextFieldDelegate {
+//    円形のサークルを作成
     let shapeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
@@ -20,28 +23,43 @@ class FirstController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let center = CGPoint(x: 245, y: 180) // 中心座標
+//        円形のサークルの座標を決定し、アニメーションが始まる位置と終わる位置を決定。viewに追加
+        let center = CGPoint(x: 245, y: 220) // 中心座標
         let radius = self.shapeLayer.bounds.size.width / 3.0  // 半径
         let startAngle = CGFloat(Double.pi*1.5)  // 開始点(真上)
         let endAngle = startAngle + 2.0 * CGFloat(Double.pi)  // 終了点(開始点から一周)
         let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         self.shapeLayer.path = path.cgPath
         self.view.layer.addSublayer(self.shapeLayer)
+        
         timerSecond.text = "00"
+        timerSecond.center = CGPoint(x: self.view.bounds.size.width/2.0  - 50, y: self.view.bounds.height/2.0 - 20)
         timerMsec.text = "00"
+        
+//        円形のサークル内のメッセージを作成
         top.center = CGPoint(x: self.view.bounds.size.width/2.0  - 50, y: self.view.bounds.height/2.0 - 20)
-        fire.center = CGPoint(x: self.view.bounds.size.width/2.0, y: self.view.bounds.height/2.0 - 100)
         top.text = "5秒で止めれるかな？"
         top.textColor = UIColor.gray
         top.frame.size = CGSize(width: 200, height: 20)
         top.isHidden = true
-        fire.isHidden = true
+
+//        スタートボタンを円形に
         start.layer.cornerRadius = 40
+
+//        ストップボタンを円形に
         stop.layer.cornerRadius = 40
         stop.isEnabled = false
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
-        self.isFirst = true
+
+//        炎アイコンを中心に設定し、メラメラするように設定
+        fire.center = CGPoint(x: self.view.bounds.size.width/2.0, y: self.view.bounds.height/2.0 - 100)
+        fire.isHidden = true
         vibrated(view: fire)
+
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
+        
+        self.isFirst = true
+        
+//        タイトルラベルを作成し、追加
         self.titleLabel.text = "FiveSecondsTimer"
         self.titleLabel.textAlignment = NSTextAlignment.center
         self.titleLabel.frame = CGRect(x:40,y:20,width: 300,height: 70)
@@ -54,11 +72,18 @@ class FirstController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(self.titleLabel)
         self.view.bringSubviewToFront(self.titleLabel)
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        // 画面の中心になるようにする
+        // 円形のサークルが画面の中心になるようにする
         self.shapeLayer.position = CGPoint(x: myBoundSize.width/2, y: myBoundSize.height/2)
+        
+//        なぜかわからないが、この記述をviewDidLoad()にしても、反映されなかった
+        timerSecond.center = CGPoint(x: 25, y: 70)
+        timerMsec.center = CGPoint(x: 85, y: 70)
+        
     }
+    
     var timer : Timer!
     var startTime = Date()
     @IBOutlet weak var top: UILabel!
@@ -68,20 +93,24 @@ class FirstController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var start: UIButton!
     @IBOutlet weak var timerSecond: UILabel!
     @IBOutlet weak var timerMsec: UILabel!
+//    タイトルのみソースコードで設定
     var titleLabel = UILabel()
-    
+//    連続して2回目以降計測しようとするとメラメラが止まってしまうことへの対策
     var isFirst: Bool = true
     var timeDifference: Int = 0
     let tenSeconds:Double = 5
     let hundredSeconds:Double = 100
     @IBAction func startTimer(_ sender: Any) {
+
+//        ボタンの表示/非表示、Enable/Disableを制御
         self.stop.isEnabled = true
         self.start.isEnabled = false
-        startTime = Date()
         self.timerSecond.isHidden = true
         self.timerMsec.isHidden = true
-        top.isHidden = false
         fire.isHidden = false
+        top.isHidden = false
+//        計測開始
+        startTime = Date()
         
         // アニメーション開始
         let anim = CABasicAnimation(keyPath: "strokeEnd")
@@ -103,24 +132,34 @@ class FirstController: UIViewController, UITextFieldDelegate {
         anim.toValue = 1.0
         shapeLayer.add(anim, forKey: "circleAnim")
     }
+//    5秒からの差分を計算するメソッド
     func calculate(second:Double) -> Double{
         if second >= self.tenSeconds {
             return second - self.tenSeconds
         }
         return Double(5) - second
     }
+    
     @IBAction func stopTimer(_ sender: Any) {
+//        Disable/Enableを制御
         self.stop.isEnabled = false
         self.start.isEnabled = true
+//        表示/非表示の制御
+        self.top.isHidden = true
+        self.fire.isHidden = true
+        self.timerSecond.isHidden = false
+        self.timerMsec.isHidden = false
+        
+//        円形のサークルが、ストップボタンを押すと止まるように設定（.speed = 0 とすると、2回目こうやるときに動かなくなってしまったので、こちらを使用）
         shapeLayer.removeAllAnimations()
-//        shapeLayer.speed = 0
+
         let currentTime = Date().timeIntervalSince(startTime)
         // currentTime/60 の余り
         let second = (Int)(fmod(currentTime, 60))
         let secondDouble = (Double)(fmod(currentTime, 60))
         // floor 切り捨て、小数点以下を取り出して *100
         let msec = (Int)((currentTime - floor(currentTime))*100)
-        let msecDouble = (Double)((currentTime - floor(currentTime))*100)
+//        let msecDouble = (Double)((currentTime - floor(currentTime))*100)
 
         // %02d： ２桁表示、0で埋める
         let sSecond = String(format:"%02d", second)
@@ -128,10 +167,8 @@ class FirstController: UIViewController, UITextFieldDelegate {
 
         timerSecond.text = sSecond
         timerMsec.text = sMsec
-        top.isHidden = true
-        fire.isHidden = true
-        self.timerSecond.isHidden = false
-        self.timerMsec.isHidden = false
+        
+//        アラートの作成
         let alert = UIAlertController(title:nil,message: nil,preferredStyle: .alert)
         alert.title = "記録は\(self.timerSecond.text!)秒\(self.timerMsec.text!)ミリでした!"
         alert.addAction(UIAlertAction(title: "記録を登録する!", style: .default, handler: {(action) -> Void in
@@ -141,6 +178,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
                 textField.delegate = self
             }
             alertInput.addAction(UIAlertAction(title: "登録する", style: .default, handler: { (action) in
+//                DBに登録
                 let realm = try! Realm()
                 let record = Record()
                 record.date = Date()
@@ -152,11 +190,14 @@ class FirstController: UIViewController, UITextFieldDelegate {
                 try! realm.write{
                     realm.add(record)
                 }
+//                登録した場合のみ、バッチをつける
                 self.tabBarController?.tabBar.items?[1].badgeValue = "New"
                 self.tabBarController?.tabBar.items?[1].badgeColor = UIColor.orange
             }))
+//            セカンドコントローラをアップデートする（これ必要かわからん）
             let secondController = SecondController()
             secondController.update()
+            
             self.present(alertInput, animated: true, completion: nil)
         }))
         alert.addAction(UIAlertAction(title: "記録を見にいく!", style: .default, handler: {(action) -> Void in
@@ -168,24 +209,10 @@ class FirstController: UIViewController, UITextFieldDelegate {
         alert.addAction(UIAlertAction(title: "もう一回挑戦する!", style: .default, handler:nil))
         self.present(alert, animated: true, completion: nil)
     }
-      func degreesToRadians(degrees: Float) -> Float {
+    
+    func degreesToRadians(degrees: Float) -> Float {
         return degrees * Float(Double.pi) / 180.0
       }
-    func vibrated(vibrated:Bool, view: UIView) {
-        if vibrated {
-            var animation: CABasicAnimation
-            animation = CABasicAnimation(keyPath: "transform.rotation")
-            animation.duration = 0.15
-            animation.fromValue = degreesToRadians(degrees: 3.0)
-            animation.toValue = degreesToRadians(degrees: -3.0)
-            animation.repeatCount = Float.infinity
-            animation.autoreverses = true
-            view.layer.add(animation, forKey: "VibrateAnimationKey")
-        }
-        else {
-            view.layer.removeAnimation(forKey: "VibrateAnimationKey")
-        }
-    }
     func vibrated(view: UIView) {
         if isFirst{
             var animation: CABasicAnimation
