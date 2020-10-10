@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="upu-kM-qq3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SGH-9F-sRl">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
@@ -9,12 +9,58 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Player1-->
+        <scene sceneID="5mz-1q-tuY">
+            <objects>
+                <viewController storyboardIdentifier="Player1ViewController" title="Player1" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Foh-W9-oQJ" customClass="Player1ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3gi-TY-CIi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="NwT-9j-6Fg"/>
+                        <color key="backgroundColor" red="0.84313725490000002" green="0.90196078430000004" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="W2v-hV-i1V"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mU8-HZ-Ooe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1830" y="699"/>
+        </scene>
+        <!--Player2-->
+        <scene sceneID="kd6-Xw-cCI">
+            <objects>
+                <viewController storyboardIdentifier="Player2ViewController" title="Player2" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YmH-65-vzV" customClass="Player2ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sQf-I7-u0p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="QpZ-t1-ARY"/>
+                        <color key="backgroundColor" red="0.84313725490000002" green="0.90196078430000004" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CEB-r2-eC7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-936" y="699"/>
+        </scene>
+        <!--ResultsPlayWithOthers-->
+        <scene sceneID="cys-iN-UGY">
+            <objects>
+                <viewController storyboardIdentifier="ResultsPlayWithOthers" title="ResultsPlayWithOthers" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Hcz-mk-v4S" customClass="ResultsPlayWithOthersViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ShT-9g-pdf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="HG8-BB-Q3w"/>
+                        <color key="backgroundColor" red="0.84313725490000002" green="0.90196078430000004" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rag-6d-ale" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5" y="707"/>
+        </scene>
         <!--records-->
         <scene sceneID="g0x-Wf-1Vg">
             <objects>
                 <viewController title="records" id="k1a-wW-v5C" customClass="SecondController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3zY-sC-osN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="dYv-Ht-5cv"/>
                         <color key="backgroundColor" red="0.84313725490000002" green="0.90196078430000004" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -30,11 +76,11 @@
             <objects>
                 <viewController title="timer" id="1dD-F5-kOT" customClass="FirstController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kWf-5p-3QO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="17B-Uv-sxe">
-                                <rect key="frame" x="294" y="567" width="80" height="80"/>
+                                <rect key="frame" x="294" y="547" width="80" height="80"/>
                                 <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="YqC-Rt-uxu"/>
@@ -50,7 +96,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiv-aM-NC8">
-                                <rect key="frame" x="40" y="567" width="80" height="80"/>
+                                <rect key="frame" x="40" y="547" width="80" height="80"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
                                 <constraints>
@@ -121,12 +167,51 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rBC-WK-sT5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-936.23188405797111" y="-646.46739130434787"/>
+            <point key="canvasLocation" x="-936" y="-655"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Tsb-oT-wYV">
+            <objects>
+                <viewController id="SGH-9F-sRl" customClass="ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bqQ-JH-aCj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxk-Fi-vNj">
+                                <rect key="frame" x="169" y="282" width="77" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="一人で遊ぶ"/>
+                                <connections>
+                                    <segue destination="upu-kM-qq3" kind="show" id="c03-zA-oKL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BnB-op-OTz">
+                                <rect key="frame" x="171" y="343" width="77" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="二人で遊ぶ"/>
+                                <connections>
+                                    <action selector="tapOthers:" destination="SGH-9F-sRl" eventType="touchUpInside" id="eps-nu-aX3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BLh-Ba-uSt"/>
+                        <color key="backgroundColor" red="0.84313725490000002" green="0.90196078430000004" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="playSelf" destination="vxk-Fi-vNj" id="sP2-BY-wzr"/>
+                        <outlet property="playWithOthers" destination="BnB-op-OTz" id="J9d-gu-7F0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mik-nk-Yy9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2846.376811594203" y="-343.20652173913044"/>
         </scene>
         <!--My Tab Bar Controller-->
         <scene sceneID="5r3-mC-rCO">
             <objects>
                 <tabBarController id="upu-kM-qq3" customClass="MyTabBarController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="1ce-LB-2DA"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HRO-GX-iqb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -62,17 +62,20 @@ class FirstController: UIViewController, UITextFieldDelegate {
                 self.isFirst = true
                 
         //        タイトルラベルを作成し、追加
-                self.titleLabel.text = "FiveSecondsTimer"
+                self.titleLabel.text = "5SecondsTimer"
                 self.titleLabel.textAlignment = NSTextAlignment.center
                 self.titleLabel.frame = CGRect(x:40,y:20,width: 300,height: 70)
                 self.titleLabel.center = CGPoint(x: myBoundSize.width/2, y:80)
-                self.titleLabel.font = UIFont.systemFont(ofSize: 30)
+                self.titleLabel.font = UIFont.systemFont(ofSize: 20)
                 self.titleLabel.textColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1)
                 self.titleLabel.layer.borderWidth = 2.0
                 self.titleLabel.layer.borderColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1).cgColor
                 self.titleLabel.layer.cornerRadius = 4.0
                 self.view.addSubview(self.titleLabel)
                 self.view.bringSubviewToFront(self.titleLabel)
+    }
+    func setTitle(label:UILabel){
+        
     }
     
     override func viewDidLayoutSubviews() {
