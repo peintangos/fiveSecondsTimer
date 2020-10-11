@@ -21,6 +21,7 @@
 		0F302DEA25299D9D001044CC /* Player1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F302DE925299D9D001044CC /* Player1ViewController.swift */; };
 		0F302DEF25299DBB001044CC /* Player2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F302DEE25299DBB001044CC /* Player2ViewController.swift */; };
 		0F342F95252839520083DD75 /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F342F94252839520083DD75 /* MyTabBarController.swift */; };
+		0F4451772532FCD100A62BCD /* DetailSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4451762532FCD100A62BCD /* DetailSettingViewController.swift */; };
 		0F5653092531913900FDFFEA /* EachRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5653082531913900FDFFEA /* EachRecord.swift */; };
 		0F56530E2531B10700FDFFEA /* ResultsInOthers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56530D2531B10700FDFFEA /* ResultsInOthers.swift */; };
 		0F9512BA2532C8C700AEB137 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9512B92532C8C700AEB137 /* SettingViewController.swift */; };
@@ -66,6 +67,7 @@
 		0F302DE925299D9D001044CC /* Player1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player1ViewController.swift; sourceTree = "<group>"; };
 		0F302DEE25299DBB001044CC /* Player2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player2ViewController.swift; sourceTree = "<group>"; };
 		0F342F94252839520083DD75 /* MyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
+		0F4451762532FCD100A62BCD /* DetailSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingViewController.swift; sourceTree = "<group>"; };
 		0F5653082531913900FDFFEA /* EachRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachRecord.swift; sourceTree = "<group>"; };
 		0F56530D2531B10700FDFFEA /* ResultsInOthers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsInOthers.swift; sourceTree = "<group>"; };
 		0F9512B92532C8C700AEB137 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				0F038058252070EF00053C62 /* SceneDelegate.swift */,
 				0F03805A252070EF00053C62 /* ViewController.swift */,
 				0F03805C252070EF00053C62 /* Main.storyboard */,
+				0F4451762532FCD100A62BCD /* DetailSettingViewController.swift */,
 				0F03805F252070F100053C62 /* Assets.xcassets */,
 				0F038061252070F100053C62 /* LaunchScreen.storyboard */,
 				0F038064252070F100053C62 /* Info.plist */,
@@ -362,6 +365,7 @@
 				0F9512BA2532C8C700AEB137 /* SettingViewController.swift in Sources */,
 				0F0380A22520B45700053C62 /* Record.swift in Sources */,
 				0F302DEA25299D9D001044CC /* Player1ViewController.swift in Sources */,
+				0F4451772532FCD100A62BCD /* DetailSettingViewController.swift in Sources */,
 				0F5653092531913900FDFFEA /* EachRecord.swift in Sources */,
 				0F56530E2531B10700FDFFEA /* ResultsInOthers.swift in Sources */,
 				0F038057252070EF00053C62 /* AppDelegate.swift in Sources */,
