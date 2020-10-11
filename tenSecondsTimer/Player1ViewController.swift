@@ -40,8 +40,6 @@ class Player1ViewController: UIViewController {
         record.timerMill = timerMill.text!
         record.timeDifference = self.calculate(second:timerSecDouble)
         record.orderAll = Int.random(in: 1..<100000)
-        print("player1のorderAll\(record.orderAll)")
-        print("\(record.name!)")
         orderAllNew = record.orderAll
         try! realm.write{
             realm.add(record)
@@ -111,13 +109,17 @@ class Player1ViewController: UIViewController {
         stopButton.backgroundColor = UIColor.white
         stopButton.layer.cornerRadius = 50
         stopButton.isEnabled = false
-        let image = UIImage(systemName: "pause")
+        let image = UIImage(named: "del")
+        image?.withTintColor(.orange)
         let imageView = UIImageView(image: image)
         imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         imageView.tintColor = .orange
-//　　本当は、以下のようにしたかったができなくなったので、無理やり数字で合わせた
-//        imageView.center = stopButton.center
+        
         stopButton.addSubview(imageView)
+        stopButton.imageView?.contentMode = .scaleToFill
+        stopButton.contentHorizontalAlignment = .fill
+        stopButton.contentVerticalAlignment = .fill
+        stopButton.alpha = 0.5
         return stopButton
     }
     
@@ -143,14 +145,17 @@ class Player1ViewController: UIViewController {
         startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 200 , width: 100, height: 100)
         startButton.backgroundColor = UIColor.white
         startButton.layer.cornerRadius = 50
-        let image = UIImage(systemName: "flame")
-        let imageView = UIImageView(image: image)
+        let imageView = UIImageView();
+        let image = UIImage(named:"cheer")
+        imageView.image = image
         
         imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         imageView.tintColor = .orange
-//　　本当は、以下のようにしたかったができなくなったので、無理やり数字で合わせた
-//        imageView.center = stopButton.center
         startButton.addSubview(imageView)
+//        画像をボタンの中に広げる
+        startButton.imageView?.contentMode = .scaleAspectFit
+        startButton.contentHorizontalAlignment = .fill
+        startButton.contentVerticalAlignment = .fill
         return startButton
     }
 //    ワッカのアニメーションを動かす
@@ -199,7 +204,7 @@ class Player1ViewController: UIViewController {
     @objc func tapStart(_ sender:UIButton){
         startTime = Date()
         startCircling(shapelayer: self.shapeLayer)
-        changeButtonSetting(stopbutton: self.stopButton!,messageNew: self.message,imageview: self.imageView)
+        changeButtonSetting(stopbutton: self.stopButton!,startbutton:self.startButton!,messageNew: self.message,imageview: self.imageView)
         noDisplay(timerSec: timerSec, timerMill: timerMill)
         vibrated(view: self.imageView)
     }
@@ -211,10 +216,13 @@ class Player1ViewController: UIViewController {
         stopBeer(imageView: self.imageView)
         display(timersec: self.timerSec, timermill: self.timerMill, messageNew: self.message)
     }
-    func changeButtonSetting(stopbutton stopbutton:UIButton,messageNew:UILabel,imageview imageview:UIView){
+    func changeButtonSetting(stopbutton stopbutton:UIButton,startbutton :UIButton,messageNew:UILabel,imageview imageview:UIView){
         stopbutton.isEnabled = true
         messageNew.isHidden = false
         imageview.isHidden = false
+        stopbutton.alpha = 1.0
+        startbutton.alpha = 0.5
+        
     }
     func stopBeer(imageView imageview:UIView){
         imageview.isHidden = true

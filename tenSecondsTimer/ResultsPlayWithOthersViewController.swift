@@ -19,19 +19,17 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
 //
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-//        print((indexPath as NSIndexPath).row)
 //        例えばここをtableCells?にすると二重にOptionalがつくことになる。というかnameで強制アンラップしても返ってくる値はオプショナルになる。
 //        下記に例を記
 //        ① オプショナル2重
 //        ② オプショナル1重
 //        ③ オプショナル2重を2回の強制アンラップで解除
 //
-        
         print(tableCells?[(indexPath as NSIndexPath).row])
         print(tableCells?[(indexPath as NSIndexPath).row].name!)
         print((tableCells?[(indexPath as NSIndexPath).row].name!)!)
         cell.textLabel?.text = "\((indexPath as NSIndexPath).row + 1)位\(tableCells![(indexPath as NSIndexPath).row].name!)"
-        cell.detailTextLabel?.text = tableCells![(indexPath as NSIndexPath).row].timeDifference.description
+        cell.detailTextLabel?.text = "タイム：\(tableCells![(indexPath as NSIndexPath).row].timerSecond!)\(tableCells![(indexPath as NSIndexPath).row].timerMill!) 解離：\(tableCells![(indexPath as NSIndexPath).row].timeDifference.description)"
 
         return cell
     }
@@ -50,7 +48,6 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
         view.addSubview(myTableView)
         let realm = try! Realm()
         self.tableCells = realm.objects(EachRecord.self).sorted(byKeyPath: "timeDifference", ascending: true).filter("orderAll = \(orderAllNew!)")
-        print("最後のorderAllNew\(orderAllNew)")
 //
     }
     func makeStartTimer() -> UIButton{
@@ -59,7 +56,7 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
         startButton.backgroundColor = UIColor.white
         startButton.layer.cornerRadius = 50
         startButton.titleLabel?.text = "終わる"
-        let image = UIImage(systemName: "beer")
+        let image = UIImage(named: "back")
         let imageView = UIImageView(image: image)
         
         imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
@@ -67,12 +64,18 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
 //　　本当は、以下のようにしたかったができなくなったので、無理やり数字で合わせた
 //        imageView.center = stopButton.center
         startButton.addSubview(imageView)
+        startButton.imageView?.contentMode = .scaleAspectFit
+        startButton.contentHorizontalAlignment = .fill
+        startButton.contentVerticalAlignment = .fill
         return startButton
     }
     @objc func end(){
 //        これだと途中までしかモーダルが閉じなかった。
 //        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "結果発表"
     }
     /*
     // MARK: - Navigation

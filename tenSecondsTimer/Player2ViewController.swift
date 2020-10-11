@@ -57,7 +57,7 @@ class Player2ViewController: UIViewController {
         print("33")
         startTime = Date()
         player1.startCircling(shapelayer:self.shapeLayer)
-        player1.changeButtonSetting(stopbutton: self.stopButton!, messageNew: self.message, imageview: self.imageView)
+        player1.changeButtonSetting(stopbutton: self.stopButton!,startbutton: self.startButton!, messageNew: self.message, imageview: self.imageView)
         player1.noDisplay(timerSec:self.timerSec, timerMill:self.timerMill)
         player1.vibrated(view: self.imageView)
     }
@@ -70,7 +70,6 @@ class Player2ViewController: UIViewController {
         player1.display(timersec: self.timerSec, timermill: self.timerMill, messageNew: self.message)
         calc(startTime: self.startTime)
         saveResults(timerMill: self.timerMill, timerSecond: self.timerSec, timerSecDouble: self.timserSecDouble!)
-        print("結果発表に移る")
 //        コードのみで画面遷移をする方法（ググった。）
         let player2ViewController = self.storyboard?.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
         self.present(player2ViewController, animated: true, completion: nil)

@@ -22,19 +22,29 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath as NSIndexPath).section == 0 {
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-            cell.textLabel?.text = tableCells[(indexPath as NSIndexPath).row].timeDifference.description
-            cell.detailTextLabel?.text = self.moldTime(tableCells[(indexPath as NSIndexPath).row].date!)
-            if tableCells[(indexPath as NSIndexPath).row].timeDifference <= 3 {
-//                セルの背景色を変えたい場合は以下
-//                cell.contentView.backgroundColor = UIColor.orange
-                cell.textLabel?.textColor = UIColor.orange
-            }
+            cell.textLabel?.text = "\((indexPath as NSIndexPath).row + 1)位 \(tableCells[(indexPath as NSIndexPath).row].timeDifference.description)"
+            cell.detailTextLabel?.text = "日付：\(self.moldTime(tableCells[(indexPath as NSIndexPath).row].date!)) 名前：\(tableCells[(indexPath as NSIndexPath).row].name!)"
             return cell
         }
         else {
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-            cell.textLabel?.text = self.tableCellsHistory[(indexPath as NSIndexPath).row].name
-            cell.detailTextLabel?.text = "\(self.moldTime(self.tableCellsHistory[(indexPath as NSIndexPath).row].date!))\(self.tableCellsHistory[(indexPath as NSIndexPath).row].timeDifference)"
+            cell.textLabel?.text = "名前：\(self.tableCellsHistory[(indexPath as NSIndexPath).row].name!)"
+            cell.detailTextLabel?.text = "日付：\(self.moldTime(self.tableCellsHistory[(indexPath as NSIndexPath).row].date!))タイム：\(self.tableCellsHistory[(indexPath as NSIndexPath).row].timeDifference)"
+//            if tableCells[(indexPath as NSIndexPath).row].timeDifference <= 0.3 {
+////                セルの背景色を変えたい場合は以下
+////                cell.contentView.backgroundColor = UIColor.orange
+//                cell.textLabel?.textColor = UIColor.red
+//            }
+//            if tableCells[(indexPath as NSIndexPath).row].timeDifference <= 0.4 {
+////                セルの背景色を変えたい場合は以下
+////                cell.contentView.backgroundColor = UIColor.orange
+//                cell.textLabel?.textColor = UIColor.blue
+//            }
+//            if tableCells[(indexPath as NSIndexPath).row].timeDifference <= 0.5 {
+////                セルの背景色を変えたい場合は以下
+////                cell.contentView.backgroundColor = UIColor.orange
+//                cell.textLabel?.textColor = UIColor.green
+//            }
             return cell
             
         }
