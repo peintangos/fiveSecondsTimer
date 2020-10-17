@@ -11,44 +11,64 @@ import RealmSwift
 //　　画面サイズの定数
 let myBoundSize: CGSize = UIScreen.main.bounds.size
 class FirstController: UIViewController, UITextFieldDelegate {
-//    円形のサークルを作成
+    func makeTimerSec(timersec:UILabel){
+        timersec.text = "00"
+        timersec.frame = CGRect(x: Int(UIScreen.main.bounds.size.width)/2 - widthTimerSec, y: Int(self.view.bounds.height)/2 - heightTimerSec/2, width: widthTimerSec, height: heightTimerSec)
+//        timerSec.backgroundColor = .orange
+        timersec.textAlignment = NSTextAlignment.center
+        timersec.font = UIFont.systemFont(ofSize: 40)
+        timersec.textColor = .white
+        self.view.addSubview(timersec)
+    }
+    
+    func makeTimerMill(timermill:UILabel){
+        timermill.text = "00"
+        timermill.frame = CGRect(x: Int(UIScreen.main.bounds.size.width)/2, y: Int(self.view.bounds.height)/2 - heightTimerSec/2, width: widthTimerSec, height: heightTimerSec)
+        timermill.textAlignment = NSTextAlignment.center
+        //        timerMill.backgroundColor = .darkGray
+        timermill.font = UIFont.systemFont(ofSize: 40)
+        timermill.textColor = .white
+        self.view.addSubview(timermill)
+    }
+    func makeCircle(shapeLayer shapelayer:CAShapeLayer){
+        let center = CGPoint(x: self.view.center.x, y: self.view.center.y) // 中心座標
+//        下の数字は目分量。最悪です
+        let radius = shapelayer.bounds.size.width / 3.2  // 半径
+        let startAngle = CGFloat(Double.pi*1.5)  // 開始点(真上)
+        let endAngle = startAngle + 2.0 * CGFloat(Double.pi)  // 終了点(開始点から一周)
+        let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        shapelayer.path = path.cgPath
+    }
     let shapeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-//        layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
+        layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = UIColor.orange.cgColor
         layer.lineWidth = 2
         return layer
-    }()
+}()
     let widthTimerSec = 100
     let heightTimerSec = 100
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("ビューのバウンズ-viewDidLoad\(self.view.bounds)")
-        print("ビューのフレーム-viewDidLoad\(self.view.frame)")
     }
     
 
     override func viewWillAppear(_ animated: Bool) {
-        //        円形のサークルの座標を決定し、アニメーションが始まる位置と終わる位置を決定。viewに追加
-        print("ビューのバウンズ-viewWillAppear\(self.view.bounds)")
-        print("ビューのバウンズ-viewWillAppear\(self.view.frame)")
-        //        self.view.boundsにアクセスできるタイミングがここなので、ここで初期化している
-        shapeLayer.frame = CGRect(x: 0, y: 0, width:Double(self.view.bounds.width), height: Double(self.view.bounds.height))
-        let hankei = self.shapeLayer.bounds.size.width / 2.5
-//        中心座標が、少し下目なので、半径/4くらいだけ上にずらす。
-        let center = CGPoint(x: self.view.center.x, y: self.view.center.y - hankei/4) // 中心座標
-        let startAngle = CGFloat(Double.pi*1.5)  // 開始点(真上)
-        let endAngle = startAngle + 2.0 * CGFloat(Double.pi)  // 終了点(開始点から一周)
-        let path = UIBezierPath(arcCenter: center, radius: hankei, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-        self.shapeLayer.path = path.cgPath
-//        self.shapeLayer.backgroundColor = UIColor.orange.cgColor
-//        self.view.backgroundColor = UIColor.green
-        print(self.shapeLayer.bounds)
-        print(self.shapeLayer.frame)
-        print("パス\(self.shapeLayer.frame)")
-        print("パス\(self.shapeLayer.bounds)")
+//        //        円形のサークルの座標を決定し、アニメーションが始まる位置と終わる位置を決定。viewに追加
+//
+//        //        self.view.boundsにアクセスできるタイミングがここなので、ここで初期化している
+//        shapeLayer.frame = CGRect(x: 0, y: 0, width:Double(self.view.bounds.width), height: Double(self.view.bounds.height))
+//        let hankei = self.shapeLayer.bounds.size.width / 2.5
+////        中心座標が、少し下目なので、半径/4くらいだけ上にずらす。
+//        let center = CGPoint(x: self.view.center.x, y: self.view.center.y - hankei/4) // 中心座標
+//        let startAngle = CGFloat(Double.pi*1.5)  // 開始点(真上)
+//        let endAngle = startAngle + 2.0 * CGFloat(Double.pi)  // 終了点(開始点から一周)
+//        let path = UIBezierPath(arcCenter: center, radius: hankei, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+//        self.shapeLayer.path = path.cgPath
+////        self.shapeLayer.backgroundColor = UIColor.orange.cgColor
+////        self.view.backgroundColor = UIColor.green
                 self.view.layer.addSublayer(self.shapeLayer)
                 
                 timerSecond.text = "00"
@@ -95,10 +115,12 @@ class FirstController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLayoutSubviews() {
             super.viewDidLayoutSubviews()
-//         円形のサークルが画面の中心になるようにする
-        self.shapeLayer.position = CGPoint(x: myBoundSize.width/2, y: myBoundSize.height/2)
+        makeTimerSec(timersec: self.timerSecond)
+        makeTimerMill(timermill: self.timerMsec)
+        makeCircle(shapeLayer: self.shapeLayer)
         
     }
+    
     
     var timer : Timer!
     var startTime = Date()
@@ -107,8 +129,8 @@ class FirstController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var stack: UIStackView!
     @IBOutlet weak var stop: UIButton!
     @IBOutlet weak var start: UIButton!
-    @IBOutlet weak var timerSecond: UILabel!
-    @IBOutlet weak var timerMsec: UILabel!
+    var timerSecond = UILabel()
+    var timerMsec = UILabel()
 //    タイトルのみソースコードで設定
     var titleLabel = UILabel()
 //    連続して2回目以降計測しようとするとメラメラが止まってしまうことへの対策
@@ -224,6 +246,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
         alert.addAction(UIAlertAction(title: "もう一回挑戦する!", style: .default, handler:nil))
         self.present(alert, animated: true, completion: nil)
     }
+
     
     func degreesToRadians(degrees: Float) -> Float {
         return degrees * Float(Double.pi) / 180.0

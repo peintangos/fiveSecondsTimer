@@ -112,23 +112,6 @@
                                     <action selector="startTimer:" destination="1dD-F5-kOT" eventType="touchUpInside" id="2iC-Pj-Eyc"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0j1-3H-myo">
-                                <rect key="frame" x="101.66666666666667" y="250" width="210.66666666666663" height="54"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTg-h1-7tL">
-                                        <rect key="frame" x="0.0" y="0.0" width="105.33333333333333" height="54"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
-                                        <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor"/>
-                                        <color key="highlightedColor" systemColor="secondarySystemBackgroundColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3hR-dU-aIm">
-                                        <rect key="frame" x="105.33333333333334" y="0.0" width="105.33333333333334" height="54"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
-                                        <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor"/>
-                                        <color key="highlightedColor" systemColor="secondarySystemBackgroundColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="767-xB-YBn">
                                 <rect key="frame" x="186" y="173" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -143,11 +126,9 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="s5a-Ma-bsL"/>
-                        <color key="backgroundColor" red="0.84313725490196079" green="0.90196078431372551" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.84313725490000002" green="0.90196078430000004" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="0j1-3H-myo" firstAttribute="top" secondItem="s5a-Ma-bsL" secondAttribute="top" constant="250" id="WXx-Me-qr0"/>
                             <constraint firstItem="s5a-Ma-bsL" firstAttribute="bottom" secondItem="17B-Uv-sxe" secondAttribute="bottom" constant="40" id="ZPI-ZB-Nd4"/>
-                            <constraint firstItem="0j1-3H-myo" firstAttribute="centerX" secondItem="kWf-5p-3QO" secondAttribute="centerX" id="fvV-gF-amK"/>
                             <constraint firstItem="s5a-Ma-bsL" firstAttribute="trailing" secondItem="17B-Uv-sxe" secondAttribute="trailing" constant="40" id="jOA-ds-Zfm"/>
                             <constraint firstItem="s5a-Ma-bsL" firstAttribute="bottom" secondItem="eiv-aM-NC8" secondAttribute="bottom" constant="40" id="pjJ-Nk-mFZ"/>
                             <constraint firstItem="eiv-aM-NC8" firstAttribute="leading" secondItem="s5a-Ma-bsL" secondAttribute="leading" constant="40" id="vWn-Xf-tgV"/>
@@ -157,11 +138,8 @@
                     <tabBarItem key="tabBarItem" title="timer" image="tortoise" catalog="system" id="w2N-ha-PPn"/>
                     <connections>
                         <outlet property="fire" destination="t4v-1E-qEt" id="New-TY-3Tm"/>
-                        <outlet property="stack" destination="0j1-3H-myo" id="65V-Dc-SnA"/>
                         <outlet property="start" destination="eiv-aM-NC8" id="lDC-Wg-nou"/>
                         <outlet property="stop" destination="17B-Uv-sxe" id="HfH-3t-yy0"/>
-                        <outlet property="timerMsec" destination="3hR-dU-aIm" id="HbX-aP-Axj"/>
-                        <outlet property="timerSecond" destination="eTg-h1-7tL" id="OeI-71-V1u"/>
                         <outlet property="top" destination="767-xB-YBn" id="AQz-HG-KNr"/>
                     </connections>
                 </viewController>
@@ -233,10 +211,26 @@
                         <viewLayoutGuide key="safeArea" id="Ij9-L1-Sua"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="TxR-UB-6H9"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i9E-jK-7Oh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-21" y="-1384"/>
+            <point key="canvasLocation" x="885.50724637681162" y="-1384.2391304347827"/>
+        </scene>
+        <!--Change Icons View Controller-->
+        <scene sceneID="Kas-iJ-Wcj">
+            <objects>
+                <viewController storyboardIdentifier="ChangeIcons" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dXW-bb-fsb" customClass="ChangeIconsViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ojo-4M-ACg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Ubj-IJ-nlF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Qa-Jn-gwe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1907.2463768115942" y="-1900.271739130435"/>
         </scene>
         <!--My Tab Bar Controller-->
         <scene sceneID="5r3-mC-rCO">
@@ -257,6 +251,21 @@
             </objects>
             <point key="canvasLocation" x="-1829" y="-343"/>
         </scene>
+        <!--Just Get Middle View Controller-->
+        <scene sceneID="HTZ-oD-UKn">
+            <objects>
+                <viewController storyboardIdentifier="JustGetMiddle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Fms-8x-PjJ" customClass="JustGetMiddleViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zIF-1i-Qiw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="idk-uJ-e4M"/>
+                        <color key="backgroundColor" red="0.84313725490000002" green="0.90196078430000004" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2qD-Qw-ihe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1845" y="-2020"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="jjo-st-RUz">
             <objects>
@@ -275,6 +284,24 @@
             </objects>
             <point key="canvasLocation" x="-1830.4347826086957" y="-1225.271739130435"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="WEC-rX-1E1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yNe-lE-jdE" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="41q-XO-Mrb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xXc-dZ-s8A" kind="relationship" relationship="rootViewController" id="SWO-BL-9oC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WSx-mc-A62" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-21.739130434782609" y="-1384.2391304347827"/>
+        </scene>
     </scenes>
     <resources>
         <image name="cylinder.split.1x2" catalog="system" width="121" height="128"/>
@@ -282,9 +309,6 @@
         <image name="restart" catalog="system" width="120" height="128"/>
         <image name="stop" catalog="system" width="128" height="113"/>
         <image name="tortoise" catalog="system" width="128" height="68"/>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

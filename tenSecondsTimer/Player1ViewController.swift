@@ -14,7 +14,8 @@ let widthMessage = 250
 let heightMessage = 100
 let imageWidth = 100
 let imageHeight = 100
-class Player1ViewController: UIViewController {
+class Player1ViewController: UIViewController, UITextFieldDelegate {
+    var name:String?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -37,7 +38,7 @@ class Player1ViewController: UIViewController {
         let realm = try! Realm()
 //        登録したいのにエラーが出る、、
         let record = EachRecord.create(realm: realm)
-        record.name = "player1"
+        record.name = name!
         record.timerSecond = timerSecond.text!
         record.timerMill = timerMill.text!
         record.timeDifference = self.calculate(second:timerSecDouble)
@@ -130,7 +131,7 @@ class Player1ViewController: UIViewController {
         self.stopButton = makeStopTimer()
         self.view.addSubview(self.stopButton!)
         self.view.addSubview(self.startButton!)
-        self.view.addSubview(makeTitle(name:"プレイヤー1の挑戦です"))
+        self.view.addSubview(makeTitle(name:"\(name!)の挑戦です"))
         self.startButton!.addTarget(self, action: #selector(tapStart(_:)), for: UIControl.Event.touchUpInside)
         self.stopButton!.addTarget(self, action: #selector(tapStop(_:)), for: UIControl.Event.touchUpInside)
     }
@@ -304,14 +305,16 @@ class Player1ViewController: UIViewController {
 //        記録をDBに書き込む
     }
     func makeAlertController(){
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        alert.title = "次のプレイヤーへ移る"
+        let alert = UIAlertController(title: "次のプレイヤーを入力する", message: nil, preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.delegate = self
+        }
         alert.addAction(UIAlertAction(title: "次へ", style: .default, handler:{ [self](action) -> Void in
             
-            
+        
             
             let player2ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Player2ViewController") as! Player2ViewController
-            
+            player2ViewController.name = alert.textFields?[0].text!
 //            self.navigationController?.pushViewController(player2ViewController, animated: true)
 //            以下の方法で自作クラスを画面間で受け渡そうとしたけどできなかった。Stringはできたので、おそらく自作クラスをセットできないんだろうな。
 //            player2ViewController.eachRecord = EachRecord(name: "プレイヤー1", timerSecond: self.timerSec, timerMsec: self.timerMill, timeDifference: self.calculate(startTime))

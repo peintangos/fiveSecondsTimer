@@ -7,67 +7,98 @@
 
 import UIKit
 
-let web = ["アイコンの設定","秒数の設定","背景色の設定"]
-class SettingViewController: UITableViewController{
+let web = ["秒数の設定","名前の省略"]
+let web2 = ["アイコンの設定","背景色の設定"]
+let rule = ["ルールの設定","レイアウトの設定"]
+
+class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationBarDelegate{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0{
+            return 2
+        }else {
+            return 2;
+        }
+    
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return rule[section]
+    }
+    var switchS = UISwitch(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        if indexPath.section == 0{
+            if indexPath.row == 1 {
+                cell.accessoryView = switchS
+//                cell.backgroundColor = .lightGray
+                switchS.frame.origin = CGPoint(x: cell.frame.width, y: (cell.frame.height - 31) / 2)
+                cell.autoresizingMask = .flexibleHeight
+                cell.addSubview(switchS)
+                self.view.bringSubviewToFront(switchS)
+            }else {
+                cell.accessoryType = .disclosureIndicator
+            }
+            cell.textLabel?.text = web[indexPath.row]
+        }else {
+            cell.textLabel?.text = web2[indexPath.row]
+            cell.accessoryType = .disclosureIndicator
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(identifier: "ChangeIcons") as ChangeIconsViewController
+//        self.navigationController?.pushViewController(vc, animated: true)
+        self.present(vc, animated: true, completion: nil)
+
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return rule.count
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        super.viewDidLoad()
-//        view.backgroundColor = .gray
-//        self.tableView.backgroundColor = .gray
-        self.setNavigationBar()
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-
+//        self.view.backgroundColor = .white
+        self.switchS.addTarget(self, action: #selector(tappedSwitch), for: UIControl.Event.touchUpInside)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-//        こいつを設定してあげないと表が上に行ってしまう。上に行った結果ナビゲーションとかぶってしまうので、一旦下に下げる。
-//        下に下げるとその上に乗っているナビゲーションも一緒に下がってしまうので、ナビゲーションの位置は変える
-        tableView.contentInset.top = 50
+    @objc func tappedSwitch(sender:UISwitch){
+        print("33")
     }
-    
-    func setNavigationBar() {
-        let screenSize: CGRect = UIScreen.main.bounds
-//        もし、TableViewControllerを設定しない場合なぜかずれてしまうので、ここでyを0にすると少しずれてしまうので20を設定する
-        let navBar = UINavigationBar(frame: CGRect(x: 0, y: -50, width: screenSize.width, height: screenSize.height))
-        let navItem = UINavigationItem(title: "設定画面")
-        let doneItem = UIBarButtonItem(title: "完了", style: UIBarButtonItem.Style.done, target: nil, action: #selector(done))
-//        navBar.backgroundColor = .gray
-        navItem.rightBarButtonItem = doneItem
-        navBar.setItems([navItem], animated: false)
-        self.view.addSubview(navBar)
-    }
-    @objc func done() {
+    @objc func goBack(){
         self.dismiss(animated: true, completion: nil)
     }
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3;
-    }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath)
-        cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = web[(indexPath as NSIndexPath).row]
-        cell.contentView.isUserInteractionEnabled = false
-        return cell
-    }
-//    タップしても画面遷移をしない。。
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            print("タップされた")
-            let secondVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailSettingController")
-            self.navigationController?.pushViewController(secondVC!, animated: true)
-    }
+    var myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), style: .grouped)
 
+    override func viewDidLayoutSubviews() {
+        myTableView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+        myTableView.dataSource = self
+        myTableView.delegate = self
+        myTableView.contentInset.top = 44 - self.view.safeAreaInsets.top
+        self.view.bringSubviewToFront(self.switchS)
+        self.view.addSubview(myTableView)
+        self.view.sendSubviewToBack(myTableView)
+        
+        let navBar = UINavigationBar()
 
-    /*
-    // MARK: - Navigation
+        //xとyで位置を、widthとheightで幅と高さを指定する
+        navBar.frame = CGRect(x: 0, y: self.view.safeAreaInsets.top, width: self.view.frame.width, height: 44)
+        
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        //ナビゲーションアイテムのタイトルを設定
+        let navItem : UINavigationItem = UINavigationItem(title: "設定画面")
+
+        //ナビゲーションバー右のボタンを設定
+        navItem.rightBarButtonItem = UIBarButtonItem(title: "完了", style: UIBarButtonItem.Style.plain, target: self, action:#selector(self.goBack))
+        
+        //ナビゲーションバーにアイテムを追加
+        navBar.pushItem(navItem, animated: true)
+
+        //Viewにナビゲーションバーを追加
+        self.view.addSubview(navBar)
+//        self.view.sendSubviewToBack(navBar)
+//        navBar.backgroundColor = .orange
+        
     }
-    */
-
 }

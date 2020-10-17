@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 
 class Player2ViewController: UIViewController {
+    var name:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class Player2ViewController: UIViewController {
         self.stopButton = player1.makeStopTimer()
         self.view.addSubview(self.stopButton!)
         self.view.addSubview(self.startButton!)
-        self.view.addSubview(player1.makeTitle(name:"プレイヤー2の挑戦です"))
+        self.view.addSubview(player1.makeTitle(name:"\(name!)の挑戦です"))
         self.startButton!.addTarget(self, action: #selector(tapStart(_:)), for: UIControl.Event.touchUpInside)
         self.stopButton!.addTarget(self, action: #selector(tapStop(_:)), for: UIControl.Event.touchUpInside)
     }
@@ -89,7 +90,7 @@ class Player2ViewController: UIViewController {
         let realm = try! Realm()
 //        登録したいのにエラーが出る、、
         let record = EachRecord.create(realm: realm)
-        record.name = "player2"
+        record.name = name!
         record.timerSecond = timerSecond.text!
         record.timerMill = timerMill.text!
         record.orderNum = 2

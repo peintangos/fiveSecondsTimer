@@ -62,6 +62,8 @@ class ViewController: UIViewController,UITextFieldDelegate{
     }
     @objc func getMiddle(){
         print("タッチされてるよ")
+        let nextView = storyboard!.instantiateViewController(identifier: "JustGetMiddle")
+        self.present(nextView, animated: true, completion: nil)
     }
     
     func makeSettingButton() -> UIButton{
@@ -144,11 +146,20 @@ class ViewController: UIViewController,UITextFieldDelegate{
         //        }))
         //        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
         //        self.present(alert, animated: true, completion: nil)
-//        牡蠣では
-        print("3")
+        var nav = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: .alert)
+        
+        nav.addTextField { (textField) in
+            textField.delegate = self
+        }
+       nav.addAction(UIAlertAction(title: "始める！", style: .default, handler: { (action) in
         let storyboard = UIStoryboard(name: "Main",bundle: nil)
         let nextView = storyboard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
-        present(nextView, animated: true, completion: nil)
+        nextView.name = nav.textFields?[0].text!
+        self.present(nextView, animated: true, completion: nil)
+        }))
+        self.present(nav, animated: true, completion: nil)
+
+
     }
     
 }
