@@ -19,6 +19,8 @@ class Player1ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print(Realm.Configuration.defaultConfiguration.fileURL!)
+        print("モーダルビューのバウンズ-viewDidLoad\(self.view.bounds)")
+        print("モーダルビューのフレーム-viewDidLoad\(self.view.frame)")
     }
     
     var timerSec = UILabel()
@@ -54,7 +56,7 @@ class Player1ViewController: UIViewController {
     
     func makeTimerSec(timersec:UILabel){
         timersec.text = "00"
-        timersec.frame = CGRect(x: Int(UIScreen.main.bounds.size.width)/2 - widthTimerSec, y: Int(self.view.bounds.height)/2 - heightTimerSec, width: widthTimerSec, height: heightTimerSec)
+        timersec.frame = CGRect(x: Int(UIScreen.main.bounds.size.width)/2 - widthTimerSec, y: Int(self.view.bounds.height)/2 - heightTimerSec/2, width: widthTimerSec, height: heightTimerSec)
 //        timerSec.backgroundColor = .orange
         timersec.textAlignment = NSTextAlignment.center
         timersec.font = UIFont.systemFont(ofSize: 40)
@@ -62,7 +64,7 @@ class Player1ViewController: UIViewController {
     }
     func makeTimerMill(timermill:UILabel){
         timermill.text = "00"
-        timermill.frame = CGRect(x: Int(UIScreen.main.bounds.size.width)/2, y: Int(self.view.bounds.height)/2 - heightTimerSec, width: widthTimerSec, height: heightTimerSec)
+        timermill.frame = CGRect(x: Int(UIScreen.main.bounds.size.width)/2, y: Int(self.view.bounds.height)/2 - heightTimerSec/2, width: widthTimerSec, height: heightTimerSec)
         timermill.textAlignment = NSTextAlignment.center
 //        timerMill.backgroundColor = .darkGray
         timermill.font = UIFont.systemFont(ofSize: 40)
@@ -105,7 +107,7 @@ class Player1ViewController: UIViewController {
 //    Stopタイマーを作るメソッド
     func makeStopTimer() -> UIButton{
         var stopButton = UIButton()
-        stopButton.frame = CGRect(x: self.view.bounds.width/2 + 50, y: self.view.bounds.height - 200 , width: 100, height: 100)
+        stopButton.frame = CGRect(x: self.view.bounds.width/2 + 50, y: self.view.bounds.height - 150 , width: 100, height: 100)
         stopButton.backgroundColor = UIColor.white
         stopButton.layer.cornerRadius = 50
         stopButton.isEnabled = false
@@ -142,7 +144,7 @@ class Player1ViewController: UIViewController {
 //    Startタイマーを作るメソッド
     func makeStartTimer() -> UIButton{
         let startButton = UIButton()
-        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 200 , width: 100, height: 100)
+        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 150 , width: 100, height: 100)
         startButton.backgroundColor = UIColor.white
         startButton.layer.cornerRadius = 50
         let imageView = UIImageView();
@@ -160,7 +162,7 @@ class Player1ViewController: UIViewController {
     }
 //    ワッカのアニメーションを動かす
     func makeCircle(shapeLayer shapelayer:CAShapeLayer){
-        let center = CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height/2 - 50) // 中心座標
+        let center = CGPoint(x: self.view.center.x, y: self.view.center.y) // 中心座標
         let radius = shapelayer.bounds.size.width / 3.0  // 半径
         let startAngle = CGFloat(Double.pi*1.5)  // 開始点(真上)
         let endAngle = startAngle + 2.0 * CGFloat(Double.pi)  // 終了点(開始点から一周)
@@ -316,7 +318,7 @@ class Player1ViewController: UIViewController {
             self.saveResults(timerMill: self.timerMill, timerSecond: self.timerSec,timerSecDouble: self.timerSecDouble!)
             self.present(player2ViewController, animated: true, completion: nil)
         }))
-        alert.addAction(UIAlertAction(title: "戻る", style: .cancel, handler: nil))
+
         self.present(alert, animated: true, completion: nil)
         
     }

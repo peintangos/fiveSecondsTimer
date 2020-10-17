@@ -11,11 +11,11 @@ import RealmSwift
 class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSource,UITabBarDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        もし、全てを返したかったら、以下を返せば良い
-//        return self.tableCells.count
-        if section == 0{
-            return 3
-        }
         return self.tableCells.count
+//        if section == 0{
+//            return 3
+//        }
+//        return self.tableCells.count
     }
     
     

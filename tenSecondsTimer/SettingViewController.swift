@@ -15,8 +15,11 @@ class SettingViewController: UITableViewController{
 
         // Do any additional setup after loading the view.
         super.viewDidLoad()
+//        view.backgroundColor = .gray
+//        self.tableView.backgroundColor = .gray
         self.setNavigationBar()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,6 +34,7 @@ class SettingViewController: UITableViewController{
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: -50, width: screenSize.width, height: screenSize.height))
         let navItem = UINavigationItem(title: "設定画面")
         let doneItem = UIBarButtonItem(title: "完了", style: UIBarButtonItem.Style.done, target: nil, action: #selector(done))
+//        navBar.backgroundColor = .gray
         navItem.rightBarButtonItem = doneItem
         navBar.setItems([navItem], animated: false)
         self.view.addSubview(navBar)
@@ -45,6 +49,7 @@ class SettingViewController: UITableViewController{
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",for: indexPath)
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = web[(indexPath as NSIndexPath).row]
+        cell.contentView.isUserInteractionEnabled = false
         return cell
     }
 //    タップしても画面遷移をしない。。
@@ -53,7 +58,7 @@ class SettingViewController: UITableViewController{
             let secondVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailSettingController")
             self.navigationController?.pushViewController(secondVC!, animated: true)
     }
-    
+
 
     /*
     // MARK: - Navigation

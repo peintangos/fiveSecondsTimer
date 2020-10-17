@@ -19,18 +19,25 @@ class ViewController: UIViewController,UITextFieldDelegate{
     @IBOutlet weak var playSelf: UIButton?
     @IBOutlet weak var playWithOthers: UIButton?
     var button:UIButton?
+    var justGetMiddle:UIButton = UIButton()
     
     override func viewDidAppear(_ animated: Bool) {
         settingTitle(view: titleLabel)
         makePlaySelf(playSelf: self.playSelf!)
         makePlayWithOthers(playWithOthers: self.playWithOthers!)
+        
         self.view.addSubview(self.titleLabel)
+    }
+    override func viewDidLayoutSubviews() {
+        justGetMiddle(justGetMiddle: self.justGetMiddle)
+        self.view.addSubview(self.justGetMiddle)
     }
     override func viewWillAppear(_ animated: Bool) {
         self.button = makeSettingButton()
         self.view.addSubview(self.button!)
         self.button!.addTarget(self,action:#selector(tapSetting),for: UIControl.Event.touchUpInside)
         self.button!.addTarget(self,action:#selector(tapSetting),for: UIControl.Event.touchUpInside)
+        self.justGetMiddle.addTarget(self, action: #selector(getMiddle), for: UIControl.Event.touchUpInside)
     }
 
     
@@ -52,6 +59,9 @@ class ViewController: UIViewController,UITextFieldDelegate{
 //        let navi = UINavigationController(rootViewController: objVC!)
 //        self.navigationController?.pushViewController(navi, animated: true)
         
+    }
+    @objc func getMiddle(){
+        print("タッチされてるよ")
     }
     
     func makeSettingButton() -> UIButton{
@@ -86,6 +96,18 @@ class ViewController: UIViewController,UITextFieldDelegate{
         playwithothers.layer.cornerRadius = 4.0
         playwithothers.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         playwithothers.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 50, width: 300, height: 50)
+    }
+    func justGetMiddle(justGetMiddle:UIButton){
+        justGetMiddle.backgroundColor = UIColor.white
+        justGetMiddle.tintColor = UIColor.orange
+        justGetMiddle.layer.borderWidth = 2.0
+        justGetMiddle.layer.borderColor = UIColor.orange.cgColor
+        justGetMiddle.setTitle("ぴったし真ん中を狙う", for: .normal)
+        justGetMiddle.setTitleColor(.orange, for: .normal)
+        justGetMiddle.titleLabel?.textColor = .orange
+        justGetMiddle.layer.cornerRadius = 4.0
+        justGetMiddle.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        justGetMiddle.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 150, width: 300, height: 50)
     }
     
     func settingButton (view viewA:UIButton){
