@@ -16,6 +16,7 @@ let imageWidth = 100
 let imageHeight = 100
 class Player1ViewController: UIViewController, UITextFieldDelegate {
     var name:String?
+//    var playerNumber:Int?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -36,9 +37,10 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         let realm = try! Realm()
 //        登録したいのにエラーが出る、、
         let record = EachRecord.create(realm: realm)
-        record.name = name!
-        record.timerSecond = timerSecond.text!
-        record.timerMill = timerMill.text!
+        record.name = name ?? "player1"
+        print("222\(self.timerSec)")
+        record.timerSecond = timerSecond.text
+        record.timerMill = timerMill.text
         record.timeDifference = self.calculate(second:timerSecDouble)
         record.orderAll = Int.random(in: 1..<100000)
         orderAllNew = record.orderAll
@@ -84,7 +86,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         messageNew.textAlignment = NSTextAlignment.center
         messageNew.textColor = .white
         messageNew.isHidden = true
-        imageview.image = UIImage(named: "beer")!
+        imageview.image = UIImage(named: (Setting.icon.init(rawValue: iconNumberStatic)?.getName())!)
     }
     
     override func viewDidLayoutSubviews() {
@@ -111,10 +113,10 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         stopButton.layer.cornerRadius = 50
         stopButton.isEnabled = false
         let image = UIImage(named: "del")
-        image?.withTintColor(.orange)
+        image?.withTintColor((Setting.color.init(rawValue: colorNumberStatic)?.getUIColor())!)
         let imageView = UIImageView(image: image)
         imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
-        imageView.tintColor = .orange
+        imageView.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
         
         stopButton.addSubview(imageView)
         stopButton.imageView?.contentMode = .scaleToFill
@@ -151,7 +153,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         imageView.image = image
         
         imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
-        imageView.tintColor = .orange
+        imageView.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
         startButton.addSubview(imageView)
 //        画像をボタンの中に広げる
         startButton.imageView?.contentMode = .scaleAspectFit
@@ -258,7 +260,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         let layer = CAShapeLayer()
         layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
         layer.fillColor = UIColor.clear.cgColor
-        layer.strokeColor = UIColor.orange.cgColor
+        layer.strokeColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor().cgColor
         layer.lineWidth = 2
         return layer
 }()
@@ -302,25 +304,39 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         _ = String(format:"%02d", msec)
 //        記録をDBに書き込む
     }
+    func isUserNameSaved() ->Bool{
+        let userDefaults = UserDefaults.standard
+        return userDefaults.bool(forKey: "isNameSaved")
+    }
     func makeAlertController(){
-        let alert = UIAlertController(title: "次のプレイヤーを入力する", message: nil, preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.delegate = self
-        }
-        alert.addAction(UIAlertAction(title: "次へ", style: .default, handler:{ [self](action) -> Void in
-            
-        
-            
-            let player2ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Player2ViewController") as! Player2ViewController
-            player2ViewController.name = alert.textFields?[0].text!
-//            self.navigationController?.pushViewController(player2ViewController, animated: true)
-//            以下の方法で自作クラスを画面間で受け渡そうとしたけどできなかった。Stringはできたので、おそらく自作クラスをセットできないんだろうな。
-//            player2ViewController.eachRecord = EachRecord(name: "プレイヤー1", timerSecond: self.timerSec, timerMsec: self.timerMill, timeDifference: self.calculate(startTime))
+        if isSaved!{
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let player2ViewController = storyBoard.instantiateViewController(withIdentifier: "Player2ViewController") as! Player2ViewController
+            player2ViewController.name = "player2"
+//            player2ViewController.playerNumber = self.playerNumber!
+            print(timerSec)
             self.saveResults(timerMill: self.timerMill, timerSecond: self.timerSec,timerSecDouble: self.timerSecDouble!)
             self.present(player2ViewController, animated: true, completion: nil)
-        }))
+            
+        }else {
+            let alert = UIAlertController(title: "二人目の名前を入力してね", message: nil, preferredStyle: .alert)
+            alert.addTextField { (textField) in
+                textField.delegate = self
+            }
+            alert.addAction(UIAlertAction(title: "次へ", style: .default, handler:{ [self](action) -> Void in
+                let player2ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Player2ViewController") as! Player2ViewController
+                player2ViewController.name = alert.textFields?[0].text!
+//                player2ViewController.playerNumber = playerNumber!
+                self.saveResults(timerMill: self.timerMill, timerSecond: self.timerSec,timerSecDouble: self.timerSecDouble!)
+                self.present(player2ViewController, animated: true, completion: nil)
+            })
+            
+            )
 
-        self.present(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+
         
     }
 }

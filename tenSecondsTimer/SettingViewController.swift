@@ -65,6 +65,8 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         super.viewDidLoad()
 //        self.view.backgroundColor = .white
         self.switchS.addTarget(self, action: #selector(changeSwitch), for: UIControl.Event.valueChanged)
+//        こいつを書かないと設定上オン/オフが切り替わっていたとしても、画面の表示が切り替わらない。
+        self.switchS.isOn = UserDefaults.standard.bool(forKey: "isNameSaved")
     }
 
     @objc func goBack(){
@@ -104,13 +106,17 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     }
     @objc func changeSwitch(sender:UISwitch){
         let onCheck:Bool = sender.isOn
+        let userDefault = UserDefaults.standard
+        print(onCheck)
         if onCheck {
             let check = UIAlertController(title: "名前の省略設定をONにしました", message: nil, preferredStyle: .alert)
             check.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(check, animated: true, completion: nil)
+            userDefault.set(true,forKey: "isNameSaved")
         }else {
             let check = UIAlertController(title: "名前の省略設定をOFFにしました", message: nil, preferredStyle: .alert)
             check.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            userDefault.set(false,forKey: "isNameSaved")
             self.present(check, animated: true, completion: nil)
         }
     }

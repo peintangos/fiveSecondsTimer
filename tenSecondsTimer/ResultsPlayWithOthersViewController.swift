@@ -8,13 +8,15 @@
 import UIKit
 import RealmSwift
 
+
 class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     var tableCells: Results<EachRecord>!
     var myTableView:UITableView!
     var stopButton:UIButton?
+//    var playerNumber:Int?
 //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return playerNumberAll ?? 4
     }
 //
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -60,7 +62,7 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
         let imageView = UIImageView(image: image)
         
         imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
-        imageView.tintColor = .orange
+        imageView.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
 //　　本当は、以下のようにしたかったができなくなったので、無理やり数字で合わせた
 //        imageView.center = stopButton.center
         startButton.addSubview(imageView)

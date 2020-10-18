@@ -43,7 +43,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
         let layer = CAShapeLayer()
         layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
         layer.fillColor = UIColor.clear.cgColor
-        layer.strokeColor = UIColor.orange.cgColor
+        layer.strokeColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor().cgColor
         layer.lineWidth = 2
         return layer
 }()
@@ -89,6 +89,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
 
         //        炎アイコンを中心に設定し、メラメラするように設定
                 fire.center = CGPoint(x: self.view.bounds.size.width/2.0, y: self.view.bounds.height/2.0)
+        fire.image = UIImage(named:(Setting.icon(rawValue: iconNumberStatic)?.getName())!)
                 fire.isHidden = true
                 vibrated(view: fire)
 
@@ -184,6 +185,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
 //        表示/非表示の制御
         self.top.isHidden = true
         self.fire.isHidden = true
+//        self
         self.timerSecond.isHidden = false
         self.timerMsec.isHidden = false
         
@@ -229,7 +231,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
                 }
 //                登録した場合のみ、バッチをつける
                 self.tabBarController?.tabBar.items?[1].badgeValue = "New"
-                self.tabBarController?.tabBar.items?[1].badgeColor = UIColor.orange
+                self.tabBarController?.tabBar.items?[1].badgeColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
             }))
 //            セカンドコントローラをアップデートする（これ必要かわからん）
             let secondController = SecondController()

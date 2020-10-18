@@ -1,20 +1,22 @@
 //
-//  Player2ViewController.swift
+//  Player4ViewController.swift
 //  tenSecondsTimer
 //
-//  Created by 松尾淳平 on 2020/10/04.
+//  Created by 松尾淳平 on 2020/10/18.
 //
 
 import UIKit
 import RealmSwift
 
-class Player2ViewController: UIViewController, UITextFieldDelegate {
+class Player4ViewController: UIViewController, UITextFieldDelegate {
     var name:String?
 //    var playerNumber:Int?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+
     }
     var timerSec = UILabel()
     var timserSecDouble:Double?
@@ -61,12 +63,6 @@ class Player2ViewController: UIViewController, UITextFieldDelegate {
         player1.noDisplay(timerSec:self.timerSec, timerMill:self.timerMill)
         player1.vibrated(view: self.imageView)
     }
-    func isUserNameSaved() ->Bool{
-        let userDefaults = UserDefaults.standard
-        return userDefaults.bool(forKey: "isNameSaved")
-    }
-    
-    
     @objc func tapStop(_ sender:UIButton){
         player1.countTime(startTime: self.startTime, timerSec: self.timerSec, timerMill: self.timerMill)
         player1.stopCircling(self.shapeLayer)
@@ -76,68 +72,39 @@ class Player2ViewController: UIViewController, UITextFieldDelegate {
         player1.display(timersec: self.timerSec, timermill: self.timerMill, messageNew: self.message)
         calc(startTime: self.startTime)
         saveResults(timerMill: self.timerMill, timerSecond: self.timerSec, timerSecDouble: self.timserSecDouble!)
-//        コードのみで画面遷移をする方法（ググった。）
-        
-        if ( playerNumberAll == 2){
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let result = storyBoard.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
-//            result.playerNumber = self.playerNumber
-            self.present(result, animated: true, completion: nil)
-        }else{
-            self.goNext(playerNumber: playerNumberAll!)
-        }
-
+        let result = self.storyboard?.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
+//        result.playerNumber = self.playerNumber
+        self.present(result, animated: true, completion: nil)
+         
     }
     
-    override func viewWillLayoutSubviews() {
-        player1.makeCircle(shapeLayer: self.shapeLayer)
-        self.view.layer.addSublayer(self.shapeLayer)
-    }
-    func calc(startTime:Date){
-        var currentTime = Date().timeIntervalSince(startTime)
-        self.timserSecDouble = (Double)(fmod(currentTime, 60))
-    }
-    func saveResults(timerMill:UILabel,timerSecond:UILabel,timerSecDouble:Double){
-        let realm = try! Realm()
-//        登録したいのにエラーが出る、、
-        let record = EachRecord.create(realm: realm)
-        record.name = name!
-        record.timerSecond = timerSecond.text!
-        record.timerMill = timerMill.text!
-        record.orderNum = 2
-        record.timeDifference = player1.calculate(second:timerSecDouble)
-        record.orderAll = orderAllNew!
-        print("player2のorderAll\(record.orderAll)")
-        try! realm.write{
-            realm.add(record)
+        override func viewWillLayoutSubviews() {
+            player1.makeCircle(shapeLayer: self.shapeLayer)
+            self.view.layer.addSublayer(self.shapeLayer)
         }
-    }
-    func goNext(playerNumber:Int){
-        if isSaved!{
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let nextView = storyBoard.instantiateViewController(withIdentifier: "Player3ViewController") as! Player3ViewController
-            nextView.name = "player3"
-//            nextView.playerNumber = self.playerNumbe
-            self.present(nextView, animated: true, completion: nil)
-            
-        }else {
-            let nav = UIAlertController(title: "三人目の名前を入力してね", message:nil, preferredStyle: .alert)
-            nav.addTextField(configurationHandler: {(textField) in
-                textField.delegate = self
-            })
-            nav.addAction(UIAlertAction(title: "次へ", style: UIAlertAction.Style.default, handler: {(action) in
-                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                let nextView = storyBoard.instantiateViewController(withIdentifier: "Player3ViewController") as! Player3ViewController
-                nextView.name = nav.textFields?[0].text!
-//                nextView.playerNumber = self.playerNumber
-                self.present(nextView, animated: true, completion: nil)
-            }))
-            self.present(nav, animated: true, completion: nil)
+        func calc(startTime:Date){
+            var currentTime = Date().timeIntervalSince(startTime)
+            self.timserSecDouble = (Double)(fmod(currentTime, 60))
         }
-        
-    }
+        func saveResults(timerMill:UILabel,timerSecond:UILabel,timerSecDouble:Double){
+            let realm = try! Realm()
+    //        登録したいのにエラーが出る、、
+            let record = EachRecord.create(realm: realm)
+            record.name = name!
+            record.timerSecond = timerSecond.text!
+            record.timerMill = timerMill.text!
+            record.orderNum = 2
+            record.timeDifference = player1.calculate(second:timerSecDouble)
+            record.orderAll = orderAllNew!
+            print("player2のorderAll\(record.orderAll)")
+            try! realm.write{
+                realm.add(record)
+            }
+        }
 
 
+
+    
 
     /*
     // MARK: - Navigation

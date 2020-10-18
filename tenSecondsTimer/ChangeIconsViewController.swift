@@ -50,7 +50,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             }
 //
         }else if sectionNumber! == 1 && self.rowNumber! == 1{
-            cell.textLabel?.text = Setting.color.init(rawValue: indexPath.row + 1)!.getName()
+            cell.textLabel?.text = Setting.color.init(rawValue: indexPath.row + 1)!.getUIColor().accessibilityName
             if defaults.integer(forKey: "colorNumber") == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
@@ -111,7 +111,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
         }
         do{
             let defaults = UserDefaults.standard
-            defaults.register(defaults: ["timeNumber":5,"iconNumber":1,"colorNumber":3])
+            defaults.register(defaults: ["timeNumber":5,"iconNumber":1,"colorNumber":3,"isNameSaved":false])
             self.timeNumber = defaults.integer(forKey: "timeNumber")
             self.iconNumber = defaults.integer(forKey: "iconNumber")
             self.colorNumber = defaults.integer(forKey: "colorNumber")
