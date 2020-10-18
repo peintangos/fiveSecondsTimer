@@ -28,6 +28,7 @@
 		0F9512BA2532C8C700AEB137 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9512B92532C8C700AEB137 /* SettingViewController.swift */; };
 		0FA98B3B25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA98B3A25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift */; };
 		0FCD0AEC253AA497001008BE /* JustGetMiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCD0AEB253AA497001008BE /* JustGetMiddleViewController.swift */; };
+		0FE31C19253BCB9A00C2472F /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE31C18253BCB9A00C2472F /* Setting.swift */; };
 		4861397CE552C0395140FB6C /* Pods_tenSecondsTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C69BE00F9A5C0173C518EAC /* Pods_tenSecondsTimer.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		0F9512B92532C8C700AEB137 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		0FA98B3A25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsPlayWithOthersViewController.swift; sourceTree = "<group>"; };
 		0FCD0AEB253AA497001008BE /* JustGetMiddleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleViewController.swift; sourceTree = "<group>"; };
+		0FE31C18253BCB9A00C2472F /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		7C69BE00F9A5C0173C518EAC /* Pods_tenSecondsTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tenSecondsTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81735E01AC87344951171786 /* Pods-tenSecondsTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tenSecondsTimer.release.xcconfig"; path = "Target Support Files/Pods-tenSecondsTimer/Pods-tenSecondsTimer.release.xcconfig"; sourceTree = "<group>"; };
 		F392AB6D677EE329FF1A666C /* Pods-tenSecondsTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tenSecondsTimer.debug.xcconfig"; path = "Target Support Files/Pods-tenSecondsTimer/Pods-tenSecondsTimer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				0F5653082531913900FDFFEA /* EachRecord.swift */,
 				0F56530D2531B10700FDFFEA /* ResultsInOthers.swift */,
 				0F9512B92532C8C700AEB137 /* SettingViewController.swift */,
+				0FE31C18253BCB9A00C2472F /* Setting.swift */,
 			);
 			path = tenSecondsTimer;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				0FA98B3B25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift in Sources */,
 				0F038090252072A900053C62 /* FirstController.swift in Sources */,
 				0F03805B252070EF00053C62 /* ViewController.swift in Sources */,
+				0FE31C19253BCB9A00C2472F /* Setting.swift in Sources */,
 				0F9512BA2532C8C700AEB137 /* SettingViewController.swift in Sources */,
 				0F0380A22520B45700053C62 /* Record.swift in Sources */,
 				0F302DEA25299D9D001044CC /* Player1ViewController.swift in Sources */,

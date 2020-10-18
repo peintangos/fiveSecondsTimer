@@ -47,11 +47,14 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 1 {
+            return
+        }
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyBoard.instantiateViewController(identifier: "ChangeIcons") as ChangeIconsViewController
-//        self.navigationController?.pushViewController(vc, animated: true)
+        vc.sectionNumber = indexPath.section
+        vc.rowNumber = indexPath.row
         self.present(vc, animated: true, completion: nil)
-
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return rule.count
@@ -61,11 +64,9 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.view.backgroundColor = .white
-        self.switchS.addTarget(self, action: #selector(tappedSwitch), for: UIControl.Event.touchUpInside)
+        self.switchS.addTarget(self, action: #selector(changeSwitch), for: UIControl.Event.valueChanged)
     }
-    @objc func tappedSwitch(sender:UISwitch){
-        print("33")
-    }
+
     @objc func goBack(){
         self.dismiss(animated: true, completion: nil)
     }
@@ -90,7 +91,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         let navItem : UINavigationItem = UINavigationItem(title: "設定画面")
 
         //ナビゲーションバー右のボタンを設定
-        navItem.rightBarButtonItem = UIBarButtonItem(title: "完了", style: UIBarButtonItem.Style.plain, target: self, action:#selector(self.goBack))
+        navItem.leftBarButtonItem = UIBarButtonItem(title: "戻る", style: UIBarButtonItem.Style.plain, target: self, action:#selector(self.goBack))
         
         //ナビゲーションバーにアイテムを追加
         navBar.pushItem(navItem, animated: true)
@@ -100,5 +101,17 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        self.view.sendSubviewToBack(navBar)
 //        navBar.backgroundColor = .orange
         
+    }
+    @objc func changeSwitch(sender:UISwitch){
+        let onCheck:Bool = sender.isOn
+        if onCheck {
+            let check = UIAlertController(title: "名前の省略設定をONにしました", message: nil, preferredStyle: .alert)
+            check.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(check, animated: true, completion: nil)
+        }else {
+            let check = UIAlertController(title: "名前の省略設定をOFFにしました", message: nil, preferredStyle: .alert)
+            check.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(check, animated: true, completion: nil)
+        }
     }
 }

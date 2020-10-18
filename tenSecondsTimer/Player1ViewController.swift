@@ -20,8 +20,6 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        print("モーダルビューのバウンズ-viewDidLoad\(self.view.bounds)")
-        print("モーダルビューのフレーム-viewDidLoad\(self.view.frame)")
     }
     
     var timerSec = UILabel()
@@ -49,10 +47,10 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     func calculate(second:Double) -> Double{
-        if second >= 5 {
-            return second - 5
+        if second >= Double(timeNumberStatic) {
+            return second - Double(timeNumberStatic)
         }
-        return Double(5) - second
+        return Double(timeNumberStatic) - second
     }
     
     func makeTimerSec(timersec:UILabel){

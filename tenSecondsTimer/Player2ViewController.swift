@@ -55,7 +55,6 @@ class Player2ViewController: UIViewController {
         self.stopButton!.addTarget(self, action: #selector(tapStop(_:)), for: UIControl.Event.touchUpInside)
     }
     @objc func tapStart(_ sender:UIButton){
-        print("33")
         startTime = Date()
         player1.startCircling(shapelayer:self.shapeLayer)
         player1.changeButtonSetting(stopbutton: self.stopButton!,startbutton: self.startButton!, messageNew: self.message, imageview: self.imageView)
@@ -74,8 +73,6 @@ class Player2ViewController: UIViewController {
 //        コードのみで画面遷移をする方法（ググった。）
         let player2ViewController = self.storyboard?.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
         self.present(player2ViewController, animated: true, completion: nil)
-        
-        print("結果発表に移3")
     }
     
     override func viewWillLayoutSubviews() {

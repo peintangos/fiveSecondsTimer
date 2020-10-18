@@ -164,10 +164,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BnB-op-OTz">
-                                <rect key="frame" x="171" y="343" width="77" height="30"/>
+                                <rect key="frame" x="164" y="343" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="二人で遊ぶ"/>
+                                <state key="normal" title="みんなで遊ぶ"/>
                                 <connections>
                                     <action selector="tapOthers:" destination="SGH-9F-sRl" eventType="touchUpInside" id="eps-nu-aX3"/>
                                 </connections>

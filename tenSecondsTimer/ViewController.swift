@@ -8,17 +8,21 @@
 import UIKit
 //対戦ごとに一位になるID
 var orderAllNew:Int?
+var timeNumberStatic:Int = UserDefaults.standard.integer(forKey: "timeNumber")
+var iconNumberStatic:Int = UserDefaults.standard.integer(forKey: "iconNumber")
+var colorNumberStatic:Int = UserDefaults.standard.integer(forKey: "colorNumber")
 class ViewController: UIViewController,UITextFieldDelegate{
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
+    
     var titleLabel = UILabel()
     @IBOutlet weak var playSelf: UIButton?
     @IBOutlet weak var playWithOthers: UIButton?
     var button:UIButton?
+
     var justGetMiddle:UIButton = UIButton()
     
     override func viewDidAppear(_ animated: Bool) {
@@ -31,6 +35,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
     override func viewDidLayoutSubviews() {
         justGetMiddle(justGetMiddle: self.justGetMiddle)
         self.view.addSubview(self.justGetMiddle)
+        makeAutoLayout(button: self.justGetMiddle, settingButton: self.button!)
     }
     override func viewWillAppear(_ animated: Bool) {
         self.button = makeSettingButton()
@@ -42,42 +47,37 @@ class ViewController: UIViewController,UITextFieldDelegate{
 
     
     @objc func tapSetting(){
-        print("ff")
-//        let nextVC = storyboard?.instantiateViewController(identifier: "SettingViewController")
-//        self.navigationController?.pushViewController(nextVC!, animated: true)
-        
-//        let nextView = storyboard?.instantiateViewController(withIdentifier: "SettingViewController") as! UINavigationController
-//        self.navigationController?.pushViewController(nextView, animated: true)
-//           let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)//遷移先のStoryboardを設定
         let nextView = storyboard!.instantiateViewController(withIdentifier: "SettingViewController") as! UINavigationController//遷移先のViewControllerを設定
            self.navigationController?.pushViewController(nextView, animated: true)//遷移する
         let second = SettingViewController()
         second.modalPresentationStyle = .fullScreen
         self.present(second, animated: true, completion: nil)
-//        self.navigationController?.pushViewController(second, animated: true)
-//        let objVC: SettingViewController? = (storyboard?.instantiateViewController(identifier: "SettingViewController") as! SettingViewController)
-//        let navi = UINavigationController(rootViewController: objVC!)
-//        self.navigationController?.pushViewController(navi, animated: true)
-        
     }
     @objc func getMiddle(){
-        print("タッチされてるよ")
         let nextView = storyboard!.instantiateViewController(identifier: "JustGetMiddle")
         self.present(nextView, animated: true, completion: nil)
     }
     
     func makeSettingButton() -> UIButton{
         let button = UIButton()
-        button.frame = CGRect(x: self.view.bounds.size.width - 100, y: self.view.bounds.size.height - 100 , width: 30, height: 30)
+        button.frame.size = CGSize(width: 20, height: 20)
         let imageView = UIImageView()
-        imageView.image = UIImage(named:"setting")
+        imageView.image = UIImage(named:"setting2")
         imageView.frame.size = CGSize(width: 30, height: 30)
         button.imageView?.contentMode = .scaleToFill
         button.contentHorizontalAlignment = .fill
         button.contentVerticalAlignment = .fill
-//        button.backgroundColor = .orange
         button.addSubview(imageView)
         return button
+    }
+    
+    func makeAutoLayout(button:UIButton,settingButton:UIButton){
+        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        button.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -200).isActive = true
+        settingButton.translatesAutoresizingMaskIntoConstraints = false
+        settingButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 30).isActive = true
+        settingButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -30).isActive = true
     }
     
     func makePlaySelf(playSelf playself:UIButton){
@@ -100,6 +100,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         playwithothers.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 50, width: 300, height: 50)
     }
     func justGetMiddle(justGetMiddle:UIButton){
+        justGetMiddle.center.x = self.view.center.x
         justGetMiddle.backgroundColor = UIColor.white
         justGetMiddle.tintColor = UIColor.orange
         justGetMiddle.layer.borderWidth = 2.0
@@ -110,6 +111,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         justGetMiddle.layer.cornerRadius = 4.0
         justGetMiddle.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         justGetMiddle.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 150, width: 300, height: 50)
+//        justGetMiddle.frame.size = CGSize(width: 300, height: 50)
     }
     
     func settingButton (view viewA:UIButton){
@@ -134,31 +136,26 @@ class ViewController: UIViewController,UITextFieldDelegate{
     }
     
     @IBAction func tapOthers(_ sender: Any) {
-        //        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        //        alert.title = "遊ぶ人数を入力してね"
-        //        alert.addTextField{
-        //            (textField) -> Void in
-        //            textField.keyboardType = .numberPad
-        //            textField.delegate = self
-        //        }
-        //        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action) -> Void in
-        //            print("3")
-        //        }))
-        //        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
-        //        self.present(alert, animated: true, completion: nil)
-        var nav = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: .alert)
-        
-        nav.addTextField { (textField) in
-            textField.delegate = self
-        }
-       nav.addAction(UIAlertAction(title: "始める！", style: .default, handler: { (action) in
-        let storyboard = UIStoryboard(name: "Main",bundle: nil)
-        let nextView = storyboard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
-        nextView.name = nav.textFields?[0].text!
-        self.present(nextView, animated: true, completion: nil)
+        var actionS = UIAlertController(title: "遊ぶ人数を選択してね", message: nil, preferredStyle: .actionSheet)
+        actionS.addAction(UIAlertAction(title: "2人", style: .default, handler: { (action) in
+            var nav = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: .alert)
+            
+            nav.addTextField { (textField) in
+                textField.delegate = self
+            }
+           nav.addAction(UIAlertAction(title: "始める！", style: .default, handler: { (action) in
+            let storyboard = UIStoryboard(name: "Main",bundle: nil)
+            let nextView = storyboard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+            nextView.name = nav.textFields?[0].text!
+            self.present(nextView, animated: true, completion: nil)
+            }))
+            nav.addAction(UIAlertAction(title: "戻る", style:UIAlertAction.Style.cancel, handler: nil))
+            self.present(nav, animated: true, completion: nil)
         }))
-        self.present(nav, animated: true, completion: nil)
-
+        actionS.addAction(UIAlertAction(title: "3人", style: .default, handler: nil))
+        actionS.addAction(UIAlertAction(title: "4人", style: .default, handler: nil))
+        actionS.addAction(UIAlertAction(title: "戻る", style: .cancel, handler: nil))
+        self.present(actionS, animated: true, completion: nil)
 
     }
     

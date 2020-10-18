@@ -76,7 +76,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
         //        円形のサークル内のメッセージを作成
         top.frame.size = CGSize(width: 200, height: 20)
         top.center = CGPoint(x: 230, y: 230)
-        top.text = "5秒で止めれるかな？"
+        top.text = "\(timeNumberStatic)秒で止めれるかな？"
         top.textColor = UIColor.gray
         top.isHidden = true
 
@@ -97,7 +97,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
                 self.isFirst = true
                 
         //        タイトルラベルを作成し、追加
-                self.titleLabel.text = "5SecondsTimer"
+                self.titleLabel.text = "\(timeNumberStatic)SecondsTimer"
                 self.titleLabel.textAlignment = NSTextAlignment.center
                 self.titleLabel.frame = CGRect(x:40,y:20,width: 300,height: 70)
                 self.titleLabel.center = CGPoint(x: myBoundSize.width/2, y:80)
@@ -136,7 +136,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
 //    連続して2回目以降計測しようとするとメラメラが止まってしまうことへの対策
     var isFirst: Bool = true
     var timeDifference: Int = 0
-    let tenSeconds:Double = 5
+    let tenSeconds:Double = Double(timeNumberStatic)
     let hundredSeconds:Double = 100
     @IBAction func startTimer(_ sender: Any) {
 //        ボタンの表示/非表示、Enable/Disableを制御
@@ -169,12 +169,12 @@ class FirstController: UIViewController, UITextFieldDelegate {
         anim.toValue = 1.0
         shapeLayer.add(anim, forKey: "circleAnim")
     }
-//    5秒からの差分を計算するメソッド
+//    timeNumberStatic秒からの差分を計算するメソッド
     func calculate(second:Double) -> Double{
         if second >= self.tenSeconds {
             return second - self.tenSeconds
         }
-        return Double(5) - second
+        return Double(timeNumberStatic) - second
     }
     
     @IBAction func stopTimer(_ sender: Any) {
