@@ -5,6 +5,9 @@
 //  Created by 松尾淳平 on 2020/09/27.
 //
 
+/**
+ 一人用のViewです
+ */
 import UIKit
 import RealmSwift
 
@@ -56,24 +59,11 @@ class FirstController: UIViewController, UITextFieldDelegate {
     
 
     override func viewWillAppear(_ animated: Bool) {
-//        //        円形のサークルの座標を決定し、アニメーションが始まる位置と終わる位置を決定。viewに追加
-//
-//        //        self.view.boundsにアクセスできるタイミングがここなので、ここで初期化している
-//        shapeLayer.frame = CGRect(x: 0, y: 0, width:Double(self.view.bounds.width), height: Double(self.view.bounds.height))
-//        let hankei = self.shapeLayer.bounds.size.width / 2.5
-////        中心座標が、少し下目なので、半径/4くらいだけ上にずらす。
-//        let center = CGPoint(x: self.view.center.x, y: self.view.center.y - hankei/4) // 中心座標
-//        let startAngle = CGFloat(Double.pi*1.5)  // 開始点(真上)
-//        let endAngle = startAngle + 2.0 * CGFloat(Double.pi)  // 終了点(開始点から一周)
-//        let path = UIBezierPath(arcCenter: center, radius: hankei, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-//        self.shapeLayer.path = path.cgPath
-////        self.shapeLayer.backgroundColor = UIColor.orange.cgColor
-////        self.view.backgroundColor = UIColor.green
-                self.view.layer.addSublayer(self.shapeLayer)
+        self.view.layer.addSublayer(self.shapeLayer)
                 
-                timerSecond.text = "00"
-                timerMsec.text = "00"
-        //        円形のサークル内のメッセージを作成
+        timerSecond.text = "00"
+        timerMsec.text = "00"
+//                円形のサークル内のメッセージを作成
         top.frame.size = CGSize(width: 200, height: 20)
         top.center = CGPoint(x: 230, y: 230)
         top.text = "\(timeNumberStatic)秒で止めれるかな？"
@@ -81,11 +71,28 @@ class FirstController: UIViewController, UITextFieldDelegate {
         top.isHidden = true
 
         //        スタートボタンを円形に
-                start.layer.cornerRadius = 40
+        start.layer.cornerRadius = 40
+        self.start.layer.borderColor = UIColor.black.cgColor
+        self.start.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        self.start.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+        start.frame.size = CGSize(width: 100, height: 100)
+        let imageView = UIImageView()
+        let image = UIImage(named:"cheer")
+        imageView.image = image
+//        UIButtonの真ん中に配置したい。下の固定値はたまたまうまくいっただけで汎用性がない
+//        imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
+        imageView.frame = start.frame
+        imageView.frame.size = CGSize(width: 50, height: 50)
+        imageView.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
+        self.start.addSubview(imageView)
+        
+//        start.backgroundColor = .black
 
         //        ストップボタンを円形に
                 stop.layer.cornerRadius = 40
                 stop.isEnabled = false
+        self.stop.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        self.stop.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
 
         //        炎アイコンを中心に設定し、メラメラするように設定
                 fire.center = CGPoint(x: self.view.bounds.size.width/2.0, y: self.view.bounds.height/2.0)
@@ -231,7 +238,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
                 }
 //                登録した場合のみ、バッチをつける
                 self.tabBarController?.tabBar.items?[1].badgeValue = "New"
-                self.tabBarController?.tabBar.items?[1].badgeColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
+                self.tabBarController?.tabBar.items?[1].badgeColor = UIColor.orange
             }))
 //            セカンドコントローラをアップデートする（これ必要かわからん）
             let secondController = SecondController()

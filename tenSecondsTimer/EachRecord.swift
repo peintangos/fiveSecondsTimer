@@ -5,6 +5,10 @@
 //  Created by 松尾淳平 on 2020/10/10.
 //
 
+/**
+ 　数人対戦用の結果テーブルです（ランキング以外）
+ */
+
 import Foundation
 import RealmSwift
 

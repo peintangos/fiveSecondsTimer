@@ -5,6 +5,10 @@
 //  Created by 松尾淳平 on 2020/09/27.
 //
 
+/**
+ 一人用のViewの結果画面です
+ */
+
 import UIKit
 import RealmSwift
 

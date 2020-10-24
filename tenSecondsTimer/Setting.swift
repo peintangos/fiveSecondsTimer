@@ -5,6 +5,10 @@
 //  Created by 松尾淳平 on 2020/10/18.
 //
 
+/**
+ 設定画面のEnum
+ */
+
 import Foundation
 import UIKit
 
@@ -43,6 +47,31 @@ enum Setting:CaseIterable{
             }
         }
     }
+    enum fontSize:Int,CaseIterable{
+    case small = 1
+    case medium = 2
+    case large = 3
+        func getSize()->Int{
+            switch self{
+            case .small:
+                return 15
+            case .medium:
+                return 20
+            case .large:
+                return 25
+            }
+        }
+        func getName() ->String{
+            switch self{
+            case .small:
+                return "small"
+            case .medium:
+                return "medium"
+            case .large:
+                return "large"
+            }
+        }
+    }
 
     enum color:Int,CaseIterable{
         case black = 1
@@ -75,7 +104,7 @@ enum Setting:CaseIterable{
             case .gray:
                 return UIColor.gray
             case .lightGray:
-                return .lightGray
+                return UIColor.lightGray
             case .green:
                 return .green
             case .magenta:

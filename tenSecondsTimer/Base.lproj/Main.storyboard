@@ -180,7 +180,7 @@
         <!--View Controller-->
         <scene sceneID="Tsb-oT-wYV">
             <objects>
-                <viewController id="SGH-9F-sRl" customClass="ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SGH-9F-sRl" customClass="ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bqQ-JH-aCj">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -245,7 +245,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i9E-jK-7Oh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="885.50724637681162" y="-1384.2391304347827"/>
+            <point key="canvasLocation" x="1792.753623188406" y="-1384.2391304347827"/>
         </scene>
         <!--Change Icons View Controller-->
         <scene sceneID="Kas-iJ-Wcj">
@@ -260,7 +260,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Qa-Jn-gwe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1907.2463768115942" y="-1900.271739130435"/>
+            <point key="canvasLocation" x="2814.4927536231885" y="-1900.271739130435"/>
         </scene>
         <!--My Tab Bar Controller-->
         <scene sceneID="5r3-mC-rCO">
@@ -281,7 +281,7 @@
             </objects>
             <point key="canvasLocation" x="-1829" y="-343"/>
         </scene>
-        <!--Just Get Middle View Controller-->
+        <!--Just Get Middle-->
         <scene sceneID="HTZ-oD-UKn">
             <objects>
                 <viewController storyboardIdentifier="JustGetMiddle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Fms-8x-PjJ" customClass="JustGetMiddleViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
@@ -291,10 +291,41 @@
                         <viewLayoutGuide key="safeArea" id="idk-uJ-e4M"/>
                         <color key="backgroundColor" red="0.84313725490000002" green="0.90196078430000004" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Just Get Middle" id="UJd-dY-epZ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qD-Qw-ihe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1845" y="-2020"/>
+            <point key="canvasLocation" x="-939.13043478260875" y="-2020.108695652174"/>
+        </scene>
+        <!--Just Get Middle Results View Controller-->
+        <scene sceneID="cbc-V4-mPH">
+            <objects>
+                <viewController storyboardIdentifier="JustGetMiddleResultsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DlV-Ax-xz2" customClass="JustGetMiddleResultsViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yO7-qc-aJb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="G0y-Rm-lQA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yMn-WM-T0v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-207" y="-2030"/>
+        </scene>
+        <!--Just Get Middle Results Detail View Controller-->
+        <scene sceneID="yBs-I8-jAJ">
+            <objects>
+                <viewController storyboardIdentifier="JustGetMiddleResultsDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Onp-Hl-uhz" customClass="JustGetMiddleResultsDetailViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LQM-eh-kzs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="4Xv-PZ-qHE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gyi-M9-8bw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="596" y="-2043"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jjo-st-RUz">
@@ -330,7 +361,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WSx-mc-A62" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-21.739130434782609" y="-1384.2391304347827"/>
+            <point key="canvasLocation" x="885.50724637681162" y="-1384.2391304347827"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="RDg-hU-bZ0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vGP-KC-Df7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="a9d-uJ-zqD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Fms-8x-PjJ" kind="relationship" relationship="rootViewController" id="aMu-H5-HdH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bw7-7M-3y8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1846.376811594203" y="-2020.108695652174"/>
         </scene>
     </scenes>
     <resources>

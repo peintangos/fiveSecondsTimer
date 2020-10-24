@@ -5,6 +5,9 @@
 //  Created by 松尾淳平 on 2020/09/27.
 //
 
+/**
+ 一人用結果テーブルです。
+ */
 import Foundation
 import RealmSwift
 

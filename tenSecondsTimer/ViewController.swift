@@ -5,12 +5,27 @@
 //  Created by 松尾淳平 on 2020/09/27.
 //
 
+/**
+ 初期画面
+ */
+
 import UIKit
 //対戦ごとに一位になるID
 var orderAllNew:Int?
+//秒数をUserDefaultsからとってきて格納する箱
 var timeNumberStatic:Int = UserDefaults.standard.integer(forKey: "timeNumber")
+//アイコンをUserDefaultsからとってきて格納する箱
 var iconNumberStatic:Int = UserDefaults.standard.integer(forKey: "iconNumber")
+//輪っかの色をUserDefaultsからとってきて格納する箱
 var colorNumberStatic:Int = UserDefaults.standard.integer(forKey: "colorNumber")
+//ボタンの枠色をUserDefaultsからとってきて格納する箱
+var buttonColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonColorNumber")
+//ボタンの輪っかの幅をUserDefaultsからとってきて格納する箱
+var buttonWidthNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonWithColorNumber")
+//ボタンの色をUserDefaultsからとってきて格納する箱
+var buttonTextColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonTextColorNumber")
+//ボタンの文字の大きさをUserDefaultsからとってきて格納する箱
+var buttonTextSizeNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonTextSizeNumber")
 var playerNumberAll:Int?
 var isSaved:Bool?
 class ViewController: UIViewController,UITextFieldDelegate{
@@ -31,12 +46,13 @@ class ViewController: UIViewController,UITextFieldDelegate{
     
     override func viewDidAppear(_ animated: Bool) {
         settingTitle(view: titleLabel)
-        makePlaySelf(playSelf: self.playSelf!)
-        makePlayWithOthers(playWithOthers: self.playWithOthers!)
+
         print("viewDidAppear\(isSaved)")
         self.view.addSubview(self.titleLabel)
     }
     override func viewDidLayoutSubviews() {
+        makePlaySelf(playSelf: self.playSelf!)
+        makePlayWithOthers(playWithOthers: self.playWithOthers!)
         justGetMiddle(justGetMiddle: self.justGetMiddle)
         self.view.addSubview(self.justGetMiddle)
         makeAutoLayout(button: self.justGetMiddle, settingButton: self.button!)
@@ -88,49 +104,46 @@ class ViewController: UIViewController,UITextFieldDelegate{
     
     func makePlaySelf(playSelf playself:UIButton){
         playself.backgroundColor = UIColor.white
-        playself.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
-        playself.layer.borderWidth = 2.0
-        playself.layer.borderColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor().cgColor
+        playself.tintColor = Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor()
+        playself.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        playself.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         playself.layer.cornerRadius = 4.0
-        playself.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        playself.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
         playself.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 - 50, width: 300, height: 50)
     }
     
     func makePlayWithOthers(playWithOthers playwithothers:UIButton){
         playwithothers.backgroundColor = UIColor.white
-        playwithothers.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
-        playwithothers.layer.borderWidth = 2.0
-        playwithothers.layer.borderColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor().cgColor
+        playwithothers.tintColor = Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor()
+        playwithothers.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        playwithothers.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         playwithothers.layer.cornerRadius = 4.0
-        playwithothers.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        playwithothers.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
         playwithothers.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 50, width: 300, height: 50)
     }
     func justGetMiddle(justGetMiddle:UIButton){
         justGetMiddle.center.x = self.view.center.x
         justGetMiddle.backgroundColor = UIColor.white
-        justGetMiddle.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
-        justGetMiddle.layer.borderWidth = 2.0
-        justGetMiddle.layer.borderColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor().cgColor
+        justGetMiddle.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        justGetMiddle.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+        justGetMiddle.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
         justGetMiddle.setTitle("ぴったし真ん中を狙う", for: .normal)
-        justGetMiddle.setTitleColor(Setting.color.init(rawValue: colorNumberStatic)?.getUIColor(), for: .normal)
-        justGetMiddle.titleLabel?.textColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
+        justGetMiddle.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
         justGetMiddle.layer.cornerRadius = 4.0
-        justGetMiddle.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         justGetMiddle.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 150, width: 300, height: 50)
-//        justGetMiddle.frame.size = CGSize(width: 300, height: 50)
     }
     
     func settingButton (view viewA:UIButton){
         viewA.backgroundColor = UIColor.white
         viewA.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
-        viewA.layer.borderWidth = 2.0
+        viewA.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         viewA.layer.borderColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor().cgColor
         viewA.layer.cornerRadius = 4.0
-        viewA.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        viewA.titleLabel?.font = UIFont.systemFont(ofSize: 50)
     }
     
     func settingTitle (view viewA:UILabel){
-        viewA.text = "\(timeNumberStatic)SecondsTimer"
+        viewA.text = "\(timeNumberStatic) Seconds Timer"
         viewA.textAlignment = NSTextAlignment.center
         viewA.frame = CGRect(x:40,y:20,width: 300,height: 70)
         viewA.center = CGPoint(x: myBoundSize.width/2, y:150)

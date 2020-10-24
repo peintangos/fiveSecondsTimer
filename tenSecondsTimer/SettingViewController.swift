@@ -8,7 +8,7 @@
 import UIKit
 
 let web = ["秒数の設定","名前の省略"]
-let web2 = ["アイコンの設定","背景色の設定"]
+let web2 = ["アイコン","輪っかの色","ボタンの文字の色","ボタンの文字の大きさ","ボタンの枠の色","ボタンの枠の幅","アイコンの色"]
 let rule = ["ルールの設定","レイアウトの設定"]
 
 class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationBarDelegate{
@@ -16,7 +16,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         if section == 0{
             return 2
         }else {
-            return 2;
+            return web2.count;
         }
     
     }

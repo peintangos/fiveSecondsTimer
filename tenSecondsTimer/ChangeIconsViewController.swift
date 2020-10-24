@@ -5,6 +5,10 @@
 //  Created by 松尾淳平 on 2020/10/17.
 //
 
+
+/**
+ 各種設定画面のモーダルを表示します
+ */
 import UIKit
 
 class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate{
@@ -15,17 +19,32 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
     var timeNumber:Int?
     var iconNumber:Int?
     var colorNumber:Int?
+    var buttoColorNumber:Int?
+    var buttoWidthColorNumber:Int?
+    var buttonTextColorNumber:Int?
+    var buttonTextSizeNumber:Int?
     
 
 //    Enumの個数を数えるのに、Enum本体にCaseIterableプロトコルを実装し、.allCases.countプロパティでアクセス
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        後でswitch文に書き換えること
         if self.sectionNumber! == 0 && self.rowNumber! == 0 {
             return Setting.time.allCases.count
         }else if sectionNumber! == 1 && self.rowNumber! == 0{
             return Setting.icon.allCases.count
         }else if sectionNumber! == 1 && self.rowNumber! == 1{
             return Setting.color.allCases.count
-        }else {
+        }else if sectionNumber! == 1 && self.rowNumber! == 2{
+            return Setting.color.allCases.count
+        }else if sectionNumber! == 1 && self.rowNumber! == 3{
+            return Setting.fontSize.allCases.count
+        }
+        else if sectionNumber! == 1 && self.rowNumber! == 4{
+            return Setting.color.allCases.count
+        }else if sectionNumber! == 1 && self.rowNumber! == 5{
+            return Setting.time.allCases.count
+        }
+        else{
             return 1
         }
     }
@@ -37,6 +56,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
 //        秒数設定を行う
 //        Enumの方では、1始まりだがrowの数は0始まりなので、+1をする調整が必要
 //        UserDefaultに設定してある値には、checkMarkをつけるという処理
+//                後でswitch文に書き換えること
         if self.sectionNumber! == 0 && self.rowNumber! == 0 {
             cell.textLabel?.text = String(Setting.time.init(rawValue: indexPath.row + 1)!.rawValue)
             if defaults.integer(forKey: "timeNumber") == indexPath.row + 1 {
@@ -54,7 +74,31 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             if defaults.integer(forKey: "colorNumber") == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
-        }else {
+        }else if sectionNumber! == 1 && self.rowNumber! == 2{
+            cell.textLabel?.text = Setting.color.init(rawValue: indexPath.row + 1)!.getUIColor().accessibilityName
+            if defaults.integer(forKey: "buttonTextColorNumber") == indexPath.row + 1 {
+                cell.accessoryType = .checkmark
+            }
+        }else if sectionNumber! == 1 && self.rowNumber! == 3{
+            cell.textLabel?.text = Setting.fontSize.init(rawValue: indexPath.row + 1)!.getName()
+            if defaults.integer(forKey: "buttonTextSizeNumber") == indexPath.row + 1 {
+                cell.accessoryType = .checkmark
+            }
+        }
+        else if sectionNumber! == 1 && self.rowNumber! == 4{
+            cell.textLabel?.text = Setting.color.init(rawValue: indexPath.row + 1)!.getUIColor().accessibilityName
+            if defaults.integer(forKey: "buttonColorNumber") == indexPath.row + 1 {
+                cell.accessoryType = .checkmark
+            }
+        }else if sectionNumber! == 1 && self.rowNumber! == 5{
+            cell.textLabel?.text = String(Setting.time.init(rawValue: indexPath.row + 1)!.rawValue)
+            if defaults.integer(forKey: "buttonWithColorNumber") == indexPath.row + 1 {
+                cell.accessoryType = .checkmark
+            }
+            
+        }
+        else {
+            
         }
         return cell
     }
@@ -75,7 +119,26 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "colorNumber") - 1, section: indexPath.section))
             cell?.accessoryType = .none
             self.colorNumber = indexPath.row + 1
-        }else {
+        }else if sectionNumber! == 1 && self.rowNumber! == 2{
+            let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "buttonTextColorNumber") - 1, section: indexPath.section))
+            cell?.accessoryType = .none
+            self.buttonTextColorNumber = indexPath.row + 1
+        }else if sectionNumber! == 1 && self.rowNumber! == 3{
+            let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "buttonTextSizeNumber") - 1, section: indexPath.section))
+            cell?.accessoryType = .none
+            self.buttonTextSizeNumber = indexPath.row + 1
+        }
+        else if sectionNumber! == 1 && self.rowNumber! == 4{
+            let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "buttonColorNumber") - 1, section: indexPath.section))
+            cell?.accessoryType = .none
+            self.buttoColorNumber = indexPath.row + 1
+        }else if sectionNumber! == 1 && self.rowNumber! == 5{
+            let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "buttonWithColorNumber") - 1, section: indexPath.section))
+            cell?.accessoryType = .none
+            self.buttoWidthColorNumber = indexPath.row + 1
+        }
+        else
+        {
         }
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .checkmark
@@ -111,10 +174,14 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
         }
         do{
             let defaults = UserDefaults.standard
-            defaults.register(defaults: ["timeNumber":5,"iconNumber":1,"colorNumber":3,"isNameSaved":false])
+            defaults.register(defaults: ["timeNumber":5,"iconNumber":1,"colorNumber":3,"buttonColorNumber":3,"buttonTextColorNumber":5,"buttonWithColorNumber":1,"buttonTextSizeNumber":2,"isNameSaved":false])
             self.timeNumber = defaults.integer(forKey: "timeNumber")
             self.iconNumber = defaults.integer(forKey: "iconNumber")
             self.colorNumber = defaults.integer(forKey: "colorNumber")
+            self.buttonTextColorNumber = defaults.integer(forKey: "buttonTextColorNumber")
+            self.buttoColorNumber = defaults.integer(forKey: "buttonColorNumber")
+            self.buttoWidthColorNumber = defaults.integer(forKey: "buttonWithColorNumber")
+            self.buttonTextSizeNumber = defaults.integer(forKey: "buttonTextSizeNumber")
         }
     }
 
@@ -132,6 +199,22 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
         if let colornum = colorNumber {
             defaults.set(colorNumber!,forKey: "colorNumber")
             colorNumberStatic = colornum
+        }
+        if let buttonColornum = buttoColorNumber{
+            defaults.set(buttoColorNumber!,forKey:"buttonColorNumber")
+            buttonColorNumberStatic = buttonColornum
+        }
+        if let a = buttoWidthColorNumber{
+            defaults.setValue(buttoWidthColorNumber!, forKey: "buttonWithColorNumber")
+            buttonWidthNumberStatic = a
+        }
+        if let b = buttonTextColorNumber{
+            defaults.setValue(buttoWidthColorNumber!, forKey: "buttonTextColorNumber")
+            buttonTextColorNumberStatic = b
+        }
+        if let size = buttonTextSizeNumber{
+            defaults.setValue(buttonTextSizeNumber!, forKey: "buttonTextSizeNumber")
+            buttonTextSizeNumberStatic = size
         }
         self.dismiss(animated: true, completion: nil)
     }

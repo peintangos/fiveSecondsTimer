@@ -112,6 +112,8 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         stopButton.backgroundColor = UIColor.white
         stopButton.layer.cornerRadius = 50
         stopButton.isEnabled = false
+        stopButton.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        stopButton.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         let image = UIImage(named: "del")
         image?.withTintColor((Setting.color.init(rawValue: colorNumberStatic)?.getUIColor())!)
         let imageView = UIImageView(image: image)
@@ -148,11 +150,15 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 150 , width: 100, height: 100)
         startButton.backgroundColor = UIColor.white
         startButton.layer.cornerRadius = 50
+        startButton.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        startButton.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         let imageView = UIImageView();
         let image = UIImage(named:"cheer")
         imageView.image = image
         
         imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
+        imageView.contentMode = UIView.ContentMode.center
+//        imageView.frame = startButton.frame
         imageView.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
         startButton.addSubview(imageView)
 //        画像をボタンの中に広げる
