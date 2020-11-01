@@ -7,8 +7,5 @@ target 'tenSecondsTimer' do
 
   # Pods for tenSecondsTimer
   pod 'RealmSwift'
-  pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'Alamofire'
-  platform :ios, '9.0'  
+  platform :ios, '9.0'
 end

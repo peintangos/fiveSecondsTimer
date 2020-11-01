@@ -27,9 +27,9 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
 //        ② オプショナル1重
 //        ③ オプショナル2重を2回の強制アンラップで解除
 //
-//        print(tableCells?[(indexPath as NSIndexPath).row])
-//        print(tableCells?[(indexPath as NSIndexPath).row].name!)
-//        print((tableCells?[(indexPath as NSIndexPath).row].name!)!)
+        print(tableCells?[(indexPath as NSIndexPath).row])
+        print(tableCells?[(indexPath as NSIndexPath).row].name!)
+        print((tableCells?[(indexPath as NSIndexPath).row].name!)!)
         cell.textLabel?.text = "\((indexPath as NSIndexPath).row + 1)位\(tableCells![(indexPath as NSIndexPath).row].name!)"
         cell.detailTextLabel?.text = "タイム：\(tableCells![(indexPath as NSIndexPath).row].timerSecond!)\(tableCells![(indexPath as NSIndexPath).row].timerMill!) 解離：\(tableCells![(indexPath as NSIndexPath).row].timeDifference.description)"
 
@@ -50,7 +50,6 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
         view.addSubview(myTableView)
         let realm = try! Realm()
         self.tableCells = realm.objects(EachRecord.self).sorted(byKeyPath: "timeDifference", ascending: true).filter("orderAll = \(orderAllNew!)")
-        print(self.tableCells)
 //
     }
     func makeStartTimer() -> UIButton{

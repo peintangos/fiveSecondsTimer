@@ -8,7 +8,7 @@
 import UIKit
 
 let web = ["秒数の設定","名前の省略"]
-let web2 = ["アイコン","輪っかの色","ボタンの文字の色","ボタンの文字の大きさ","ボタンの枠の色","ボタンの枠の幅"]
+let web2 = ["アイコン","輪っかの色","ボタンの文字の色","ボタンの文字の大きさ","ボタンの枠の色","ボタンの枠の幅","アイコンの色"]
 let rule = ["ルールの設定","レイアウトの設定"]
 
 class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationBarDelegate{
@@ -107,6 +107,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     @objc func changeSwitch(sender:UISwitch){
         let onCheck:Bool = sender.isOn
         let userDefault = UserDefaults.standard
+        print(onCheck)
         if onCheck {
             let check = UIAlertController(title: "名前の省略設定をONにしました", message: nil, preferredStyle: .alert)
             check.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

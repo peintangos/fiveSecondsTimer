@@ -8,7 +8,7 @@
 import RealmSwift
 import UIKit
 
-class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
+class JustGetMiddleViewController: UIViewController {
     var isOn:Bool?
 
     override func viewDidLoad() {
@@ -38,7 +38,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         let layer = CAShapeLayer()
         layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
         layer.fillColor = UIColor.clear.cgColor
-        layer.strokeColor = Setting.color(rawValue: colorNumberStatic)!.getUIColor().cgColor
+        layer.strokeColor = UIColor.orange.cgColor
         layer.lineWidth = 8
         return layer
 }()
@@ -55,20 +55,17 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         }else {
             pauseAnimation(layer: self.shapeLayer)
             let stroke = self.shapeLayer.presentation()?.strokeEnd
-            var alert = UIAlertController(title: "結果発表", message: "名前を入れてね！", preferredStyle: .alert)
-            alert.addTextField { (textFiled) in
-                textFiled.delegate = self
-            }
-            alert.addAction(UIAlertAction(title: "結果を見に行く!", style: .default, handler: { [self] (action) in
+            var alert = UIAlertController(title: "結果発表", message: "乖離率：\(self.calcTime(goal: goalUse!, end: stroke!))%", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "結果を見に行く", style: .default, handler: { [self] (action) in
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddleResultsViewController") as? JustGetMiddleResultsViewController
                 
 //                後でメソッド化すること
                 let realm = try! Realm()
                 let record = JustGetMiddleResult()
-                record.name = alert.textFields![0].text!
+                record.name = "s"
                 record.date = moldTime(date: record.dateNoMold)
-                record.difference = self.calcTime2(goal: goalUse!, end: stroke!)
+                record.difference = self.calcTime(goal: goalUse!, end: stroke!)
                 record.end = Double(stroke!)
                 record.goal = Double(self.goalUse!)
                 try! realm.write{
@@ -95,21 +92,19 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
             return String(roundTime(time:Double(end - goal) * 100))
         }
     }
-    func calcTime2(goal:CGFloat,end:CGFloat) -> Double{
-        if goal >= end {
-            return roundTime(time: Double(goal - end) * 100)
-        }else {
-            return
-                roundTime(time:Double(end - goal) * 100)
-        }
-    }
     func roundTime(time:Double) -> Double{
         return round(time * 100000) / 100000
     }
 
     func makeAutoLayout(startStop:UIButton,resetButton:UIButton){
+//        startStop.translatesAutoresizingMaskIntoConstraints = false
+//        startStop.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -80).isActive = true
+//        startStop.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50).isActive = true
+//        startStop.widthAnchor.constraint(equalToConstant: 100).isActive = true
+//        startStop.heightAnchor.constraint(equalToConstant: 100).isActive = true
         resetButton.translatesAutoresizingMaskIntoConstraints = false
         resetButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -80).isActive = true
+//        resetButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -50).isActive = true
         resetButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         resetButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         resetButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -138,9 +133,9 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
     func makeReset(resetButton:UIButton){
 //        resetButton.frame = CGRect(x:0,y:0,width:300, height: 300)
         resetButton.backgroundColor = .clear
-        resetButton.setTitleColor(Setting.color(rawValue: colorNumberStatic)!.getUIColor(), for: .normal)
-        resetButton.tintColor = Setting.color(rawValue: colorNumberStatic)!.getUIColor()
-        resetButton.layer.borderColor = Setting.color(rawValue: colorNumberStatic)!.getUIColor().cgColor
+        resetButton.setTitleColor(.orange, for: .normal)
+        resetButton.tintColor = .orange
+        resetButton.layer.borderColor = UIColor.orange.cgColor
         resetButton.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         resetButton.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         resetButton.layer.cornerRadius = 50
@@ -161,7 +156,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         layer.removeAllAnimations()
     }
     func startCircling(shapelayer:CAShapeLayer){
-        shapelayer.strokeColor = Setting.color(rawValue: colorNumberStatic)!.getUIColor().cgColor
+        shapelayer.strokeColor = UIColor.orange.cgColor
         let anim = CABasicAnimation(keyPath: "strokeEnd")
         let randomInt = Int.random(in: 1...8)
         switch randomInt {
@@ -194,14 +189,17 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         let pausedTime = layer.convertTime(CACurrentMediaTime(), from: nil)
         layer.speed = 0.0
         layer.timeOffset = pausedTime
+//        print(layer.presentation()?.strokeEnd)
     }
 
     func resumeAnimation(layer:CAShapeLayer){
+        print("timeOffset\(layer.timeOffset)")
         let pausedTime = layer.timeOffset
         layer.speed = 1.0
         layer.timeOffset = 0.0
         layer.beginTime = 0.0
         let timeSincePause = layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+        print(timeSincePause)
         layer.beginTime = timeSincePause
     }
     

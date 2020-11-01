@@ -10,8 +10,6 @@
  */
 
 import UIKit
-import RxSwift
-import RxCocoa
 //対戦ごとに一位になるID
 var orderAllNew:Int?
 //秒数をUserDefaultsからとってきて格納する箱
@@ -35,15 +33,8 @@ class ViewController: UIViewController,UITextFieldDelegate{
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         isSaved = UserDefaults.standard.bool(forKey: "isNameSaved")
-        self.worldButton = makeWorld()
-        self.worldButton?.rx.tap.subscribe{[weak self] _ in
-            var storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyBoard.instantiateViewController(identifier: "WorldScoreViewController")
-            vc.modalPresentationStyle = .fullScreen
-            self?.present(vc, animated: true, completion: nil)
-            }.disposed(by: dispose)
+        print("viewdidload\(isSaved)")
     }
-    let dispose = DisposeBag()
     
     
     var titleLabel = UILabel()
@@ -55,6 +46,8 @@ class ViewController: UIViewController,UITextFieldDelegate{
     
     override func viewDidAppear(_ animated: Bool) {
         settingTitle(view: titleLabel)
+
+        print("viewDidAppear\(isSaved)")
         self.view.addSubview(self.titleLabel)
     }
     override func viewDidLayoutSubviews() {
@@ -62,11 +55,11 @@ class ViewController: UIViewController,UITextFieldDelegate{
         makePlayWithOthers(playWithOthers: self.playWithOthers!)
         justGetMiddle(justGetMiddle: self.justGetMiddle)
         self.view.addSubview(self.justGetMiddle)
-        self.view.addSubview(self.worldButton!)
-        makeAutoLayout(button: self.justGetMiddle, settingButton: self.button!,worldButton: self.worldButton!)
+        makeAutoLayout(button: self.justGetMiddle, settingButton: self.button!)
     }
     override func viewWillAppear(_ animated: Bool) {
         isSaved = UserDefaults.standard.bool(forKey: "isNameSaved")
+        print("viewWillAppear\(isSaved)")
         self.button = makeSettingButton()
         self.view.addSubview(self.button!)
         self.button!.addTarget(self,action:#selector(tapSetting),for: UIControl.Event.touchUpInside)
@@ -77,7 +70,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
     
     @objc func tapSetting(){
         let nextView = storyboard!.instantiateViewController(withIdentifier: "SettingViewController") as! UINavigationController//遷移先のViewControllerを設定
-        self.navigationController?.pushViewController(nextView, animated: true)//遷移する
+           self.navigationController?.pushViewController(nextView, animated: true)//遷移する
         let second = SettingViewController()
         second.modalPresentationStyle = .fullScreen
         self.present(second, animated: true, completion: nil)
@@ -99,27 +92,14 @@ class ViewController: UIViewController,UITextFieldDelegate{
         button.addSubview(imageView)
         return button
     }
-    func makeWorld() ->UIButton{
-        var button = UIButton(frame: CGRect(x: 0, y:0, width: 30, height: 30))
-        button.setImage(UIImage(named: "world"), for: .normal)
-        return button
-    }
-    var worldButton:UIButton?
     
-    func makeAutoLayout(button:UIButton,settingButton:UIButton,worldButton:UIButton){
+    func makeAutoLayout(button:UIButton,settingButton:UIButton){
         button.translatesAutoresizingMaskIntoConstraints = false
 //        button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         button.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -200).isActive = true
-        
         settingButton.translatesAutoresizingMaskIntoConstraints = false
         settingButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 30).isActive = true
         settingButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -30).isActive = true
-        
-        worldButton.translatesAutoresizingMaskIntoConstraints = false
-        worldButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 30).isActive = true
-        worldButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        worldButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        worldButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: CGFloat(30)).isActive = true
     }
     
     func makePlaySelf(playSelf playself:UIButton){
@@ -175,6 +155,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
     }
     
     @IBAction func tapOthers(_ sender: Any) {
+        print("ボタンがタップされた時  \(isSaved)")
         let actionS = UIAlertController(title: "遊ぶ人数を選択してね", message: nil, preferredStyle: .actionSheet)
         actionS.addAction(UIAlertAction(title: "2人", style: .default, handler: { (action) in
             playerNumberAll = 2
@@ -270,5 +251,4 @@ class ViewController: UIViewController,UITextFieldDelegate{
 
     
 }
-
 

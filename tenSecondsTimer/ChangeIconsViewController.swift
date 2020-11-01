@@ -115,6 +115,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             cell?.accessoryType = .none
             self.iconNumber = indexPath.row + 1
         }else if sectionNumber! == 1 && self.rowNumber! == 1{
+            print(defaults.integer(forKey: "colorNumber") - 1)
             let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "colorNumber") - 1, section: indexPath.section))
             cell?.accessoryType = .none
             self.colorNumber = indexPath.row + 1

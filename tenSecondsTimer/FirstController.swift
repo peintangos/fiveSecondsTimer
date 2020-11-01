@@ -10,6 +10,7 @@
  */
 import UIKit
 import RealmSwift
+
 //　　画面サイズの定数
 let myBoundSize: CGSize = UIScreen.main.bounds.size
 class FirstController: UIViewController, UITextFieldDelegate {
@@ -54,113 +55,6 @@ class FirstController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeStart(startX: self.start2)
-        makeStop(stopX: self.stop2)
-        self.start2.addTarget(self, action: #selector(go), for: .touchUpInside)
-        self.stop2.addTarget(self, action: #selector(back), for: .touchUpInside)
-    }
-    @objc func go(){
-        //        ボタンの表示/非表示、Enable/Disableを制御
-                self.stop2.isEnabled = true
-                self.start2.isEnabled = false
-                self.timerSecond.isHidden = true
-                self.timerMsec.isHidden = true
-                fire.isHidden = false
-                top.isHidden = false
-        self.start2.alpha = 0.5
-        self.stop2.alpha = 1.0
-        //        計測開始
-                startTime = Date()
-                
-        //         アニメーション開始
-                let anim = CABasicAnimation(keyPath: "strokeEnd")
-                let randomInt = Int.random(in: 1..<5)
-                switch randomInt {
-                case 1:
-                    anim.duration = 1.0
-                case 2:
-                    anim.duration = 5.0
-                case 3:
-                    anim.duration = 10.0
-                case 4:
-                    anim.duration = 20
-                default:
-                    anim.duration = 1.0
-                    
-                }
-                anim.fromValue = 0.0
-                anim.toValue = 1.0
-                shapeLayer.add(anim, forKey: "circleAnim")
-    }
-    @objc func back(){
-        //        Disable/Enableを制御
-                self.stop2.isEnabled = false
-                self.start2.isEnabled = true
-        //        表示/非表示の制御
-                self.top.isHidden = true
-                self.fire.isHidden = true
-        //        self
-                self.timerSecond.isHidden = false
-                self.timerMsec.isHidden = false
-                
-        //        円形のサークルが、ストップボタンを押すと止まるように設定（.speed = 0 とすると、2回目こうやるときに動かなくなってしまったので、こちらを使用）
-                shapeLayer.removeAllAnimations()
-
-                let currentTime = Date().timeIntervalSince(startTime)
-                // currentTime/60 の余り
-                let second = (Int)(fmod(currentTime, 60))
-                let secondDouble = (Double)(fmod(currentTime, 60))
-                // floor 切り捨て、小数点以下を取り出して *100
-                let msec = (Int)((currentTime - floor(currentTime))*100)
-        //        let msecDouble = (Double)((currentTime - floor(currentTime))*100)
-
-                // %02d： ２桁表示、0で埋める
-                let sSecond = String(format:"%02d", second)
-                let sMsec = String(format:"%02d", msec)
-
-                timerSecond.text = sSecond
-                timerMsec.text = sMsec
-                
-        //        アラートの作成
-                let alert = UIAlertController(title:nil,message: nil,preferredStyle: .alert)
-                alert.title = "記録は\(self.timerSecond.text!)秒\(self.timerMsec.text!)ミリでした!"
-                alert.addAction(UIAlertAction(title: "記録を登録する!", style: .default, handler: {(action) -> Void in
-                    let alertInput = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-                    alertInput.title = "名前を入れてね！"
-                    alertInput.addTextField { (textField) in
-                        textField.delegate = self
-                    }
-                    alertInput.addAction(UIAlertAction(title: "登録する", style: .default, handler: { (action) in
-        //                DBに登録
-                        let realm = try! Realm()
-                        let record = Record()
-                        record.date = Date()
-                        record.name = alertInput.textFields?[0].text!
-                        record.timerSecond = self.timerSecond.text!
-                        record.timerMsec = self.timerMsec.text!
-                        record.result = self.timerSecond.text! + self.timerMsec.text!
-                        record.timeDifference = self.calculate(second: secondDouble)
-                        try! realm.write{
-                            realm.add(record)
-                        }
-        //                登録した場合のみ、バッチをつける
-                        self.tabBarController?.tabBar.items?[1].badgeValue = "New"
-                        self.tabBarController?.tabBar.items?[1].badgeColor = UIColor.orange
-                    }))
-        //            セカンドコントローラをアップデートする（これ必要かわからん）
-                    let secondController = SecondController()
-                    secondController.update()
-                    
-                    self.present(alertInput, animated: true, completion: nil)
-                }))
-                alert.addAction(UIAlertAction(title: "記録を見にいく!", style: .default, handler: {(action) -> Void in
-        //            なんかわからないけど、ググったら出てきた笑
-        //            タブを切り替える方法ぽい
-                    let UINavigationController = self.tabBarController?.viewControllers?[1];
-                    self.tabBarController?.selectedViewController = UINavigationController;
-                }))
-                alert.addAction(UIAlertAction(title: "もう一回挑戦する!", style: .default, handler:nil))
-                self.present(alert, animated: true, completion: nil)
     }
     
 
@@ -176,11 +70,38 @@ class FirstController: UIViewController, UITextFieldDelegate {
         top.textColor = UIColor.gray
         top.isHidden = true
 
+        //        スタートボタンを円形に
+        start.layer.cornerRadius = 40
+        self.start.layer.borderColor = UIColor.black.cgColor
+        self.start.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        self.start.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+        start.frame.size = CGSize(width: 100, height: 100)
+        let imageView = UIImageView()
+        let image = UIImage(named:"cheer")
+        imageView.image = image
+//        UIButtonの真ん中に配置したい。下の固定値はたまたまうまくいっただけで汎用性がない
+//        imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
+        imageView.frame = start.frame
+        imageView.frame.size = CGSize(width: 50, height: 50)
+        imageView.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
+        self.start.addSubview(imageView)
+        
+//        start.backgroundColor = .black
+
+        //        ストップボタンを円形に
+                stop.layer.cornerRadius = 40
+                stop.isEnabled = false
+        self.stop.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        self.stop.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+
         //        炎アイコンを中心に設定し、メラメラするように設定
                 fire.center = CGPoint(x: self.view.bounds.size.width/2.0, y: self.view.bounds.height/2.0)
-        fire.image = UIImage(named:(Setting.icon(rawValue: iconNumberStatic + 1)?.getName())!)
+        fire.image = UIImage(named:(Setting.icon(rawValue: iconNumberStatic)?.getName())!)
                 fire.isHidden = true
                 vibrated(view: fire)
+
+                print(Realm.Configuration.defaultConfiguration.fileURL!)
+                
                 self.isFirst = true
                 
         //        タイトルラベルを作成し、追加
@@ -205,40 +126,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
         makeTimerSec(timersec: self.timerSecond)
         makeTimerMill(timermill: self.timerMsec)
         makeCircle(shapeLayer: self.shapeLayer)
-        makeAutoLayout()
-    }
-    func makeStart(startX: UIButton){
-        var imagView = UIImageView(image: UIImage(named: "cheer")!)
-        imagView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
-        startX.addSubview(imagView)
-        startX.isEnabled = true
-        startX.alpha = 1.0
-        startX.layer.borderWidth = 1.0
-        startX.layer.cornerRadius = 50
-        self.view.addSubview(startX)
-    }
-    func makeStop(stopX:UIButton){
-        var imagView = UIImageView(image: UIImage(named: "del")!)
-        imagView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
-        stopX.layer.cornerRadius = 50
-        stopX.isEnabled = false
-        stopX.alpha = 0.5
-        stopX.layer.borderWidth = 1.0
-        stopX.addSubview(imagView)
-        self.view.addSubview(stopX)
-    }
-    func makeAutoLayout(){
-        let tabHeight = tabBarController?.tabBar.frame.size.height
-        self.stop2.translatesAutoresizingMaskIntoConstraints = false
-        self.start2.translatesAutoresizingMaskIntoConstraints = false
-        self.start2.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50).isActive = true
-        self.start2.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20 - tabHeight! ).isActive = true
-        self.start2.widthAnchor.constraint(equalToConstant: CGFloat(100)).isActive = true
-        self.start2.heightAnchor.constraint(equalToConstant: CGFloat(100)).isActive = true
-        self.stop2.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -50).isActive = true
-        self.stop2.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20 - tabHeight!).isActive = true
-        self.stop2.widthAnchor.constraint(equalToConstant: CGFloat(100)).isActive = true
-        self.stop2.heightAnchor.constraint(equalToConstant: CGFloat(100)).isActive = true
+        
     }
     
     
@@ -246,8 +134,9 @@ class FirstController: UIViewController, UITextFieldDelegate {
     var startTime = Date()
     @IBOutlet weak var top: UILabel!
     @IBOutlet weak var fire: UIImageView!
-    var stop2 = UIButton()
-    var start2 = UIButton()
+    @IBOutlet weak var stack: UIStackView!
+    @IBOutlet weak var stop: UIButton!
+    @IBOutlet weak var start: UIButton!
     var timerSecond = UILabel()
     var timerMsec = UILabel()
 //    タイトルのみソースコードで設定
@@ -257,6 +146,37 @@ class FirstController: UIViewController, UITextFieldDelegate {
     var timeDifference: Int = 0
     let tenSeconds:Double = Double(timeNumberStatic)
     let hundredSeconds:Double = 100
+    @IBAction func startTimer(_ sender: Any) {
+//        ボタンの表示/非表示、Enable/Disableを制御
+        self.stop.isEnabled = true
+        self.start.isEnabled = false
+        self.timerSecond.isHidden = true
+        self.timerMsec.isHidden = true
+        fire.isHidden = false
+        top.isHidden = false
+//        計測開始
+        startTime = Date()
+        
+//         アニメーション開始
+        let anim = CABasicAnimation(keyPath: "strokeEnd")
+        let randomInt = Int.random(in: 1..<5)
+        switch randomInt {
+        case 1:
+            anim.duration = 1.0
+        case 2:
+            anim.duration = 5.0
+        case 3:
+            anim.duration = 10.0
+        case 4:
+            anim.duration = 20
+        default:
+            anim.duration = 1.0
+            
+        }
+        anim.fromValue = 0.0
+        anim.toValue = 1.0
+        shapeLayer.add(anim, forKey: "circleAnim")
+    }
 //    timeNumberStatic秒からの差分を計算するメソッド
     func calculate(second:Double) -> Double{
         if second >= self.tenSeconds {
@@ -264,6 +184,79 @@ class FirstController: UIViewController, UITextFieldDelegate {
         }
         return Double(timeNumberStatic) - second
     }
+    
+    @IBAction func stopTimer(_ sender: Any) {
+//        Disable/Enableを制御
+        self.stop.isEnabled = false
+        self.start.isEnabled = true
+//        表示/非表示の制御
+        self.top.isHidden = true
+        self.fire.isHidden = true
+//        self
+        self.timerSecond.isHidden = false
+        self.timerMsec.isHidden = false
+        
+//        円形のサークルが、ストップボタンを押すと止まるように設定（.speed = 0 とすると、2回目こうやるときに動かなくなってしまったので、こちらを使用）
+        shapeLayer.removeAllAnimations()
+
+        let currentTime = Date().timeIntervalSince(startTime)
+        // currentTime/60 の余り
+        let second = (Int)(fmod(currentTime, 60))
+        let secondDouble = (Double)(fmod(currentTime, 60))
+        // floor 切り捨て、小数点以下を取り出して *100
+        let msec = (Int)((currentTime - floor(currentTime))*100)
+//        let msecDouble = (Double)((currentTime - floor(currentTime))*100)
+
+        // %02d： ２桁表示、0で埋める
+        let sSecond = String(format:"%02d", second)
+        let sMsec = String(format:"%02d", msec)
+
+        timerSecond.text = sSecond
+        timerMsec.text = sMsec
+        
+//        アラートの作成
+        let alert = UIAlertController(title:nil,message: nil,preferredStyle: .alert)
+        alert.title = "記録は\(self.timerSecond.text!)秒\(self.timerMsec.text!)ミリでした!"
+        alert.addAction(UIAlertAction(title: "記録を登録する!", style: .default, handler: {(action) -> Void in
+            let alertInput = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+            alertInput.title = "名前を入れてね！"
+            alertInput.addTextField { (textField) in
+                textField.delegate = self
+            }
+            alertInput.addAction(UIAlertAction(title: "登録する", style: .default, handler: { (action) in
+//                DBに登録
+                let realm = try! Realm()
+                let record = Record()
+                record.date = Date()
+                record.name = alertInput.textFields?[0].text!
+                record.timerSecond = self.timerSecond.text!
+                record.timerMsec = self.timerMsec.text!
+                record.result = self.timerSecond.text! + self.timerMsec.text!
+                record.timeDifference = self.calculate(second: secondDouble)
+                try! realm.write{
+                    realm.add(record)
+                }
+//                登録した場合のみ、バッチをつける
+                self.tabBarController?.tabBar.items?[1].badgeValue = "New"
+                self.tabBarController?.tabBar.items?[1].badgeColor = UIColor.orange
+            }))
+//            セカンドコントローラをアップデートする（これ必要かわからん）
+            let secondController = SecondController()
+            secondController.update()
+            
+            self.present(alertInput, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "記録を見にいく!", style: .default, handler: {(action) -> Void in
+//            なんかわからないけど、ググったら出てきた笑
+//            タブを切り替える方法ぽい
+            let UINavigationController = self.tabBarController?.viewControllers?[1];
+            self.tabBarController?.selectedViewController = UINavigationController;
+        }))
+        alert.addAction(UIAlertAction(title: "もう一回挑戦する!", style: .default, handler:nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    
     func degreesToRadians(degrees: Float) -> Float {
         return degrees * Float(Double.pi) / 180.0
       }

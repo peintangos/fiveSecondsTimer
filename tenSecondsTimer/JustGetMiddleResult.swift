@@ -17,5 +17,5 @@ class JustGetMiddleResult:Object{
     @objc dynamic var date:String?
     @objc dynamic var goal:Double = 0.0
     @objc dynamic var end:Double = 0.0
-    @objc dynamic var difference:Double = 0.0
+    @objc dynamic var difference:String = "0.0"
 }

@@ -21,19 +21,11 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        self.startButton = makeStartTimer()
-        self.stopButton = makeStopTimer()
-        self.view.addSubview(self.stopButton!)
-        self.view.addSubview(self.startButton!)
-        self.view.addSubview(makeTitle(name:"\(name ?? "ハリー")の挑戦です"))
-        self.startButton!.addTarget(self, action: #selector(tapStart(_:)), for: UIControl.Event.touchUpInside)
-        self.stopButton!.addTarget(self, action: #selector(tapStop(_:)), for: UIControl.Event.touchUpInside)
-        
     }
     
     var timerSec = UILabel()
     var timerMill = UILabel()
-    var timerSecDouble:Double = 0.0
+    var timerSecDouble:Double?
     var message = UILabel()
     var imageView = UIImageView()
     var isFirst:Bool = true
@@ -46,8 +38,9 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
 //        登録したいのにエラーが出る、、
         let record = EachRecord.create(realm: realm)
         record.name = name ?? "player1"
-        record.timerSecond = self.timerSec.text
-        record.timerMill = self.timerMill.text
+        print("222\(self.timerSec)")
+        record.timerSecond = timerSecond.text
+        record.timerMill = timerMill.text
         record.timeDifference = self.calculate(second:timerSecDouble)
         record.orderAll = Int.random(in: 1..<100000)
         orderAllNew = record.orderAll
@@ -111,14 +104,8 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
     func addView(view:UIView){
         self.view.addSubview(view)
     }
-        
-    override func viewWillLayoutSubviews() {
-        makeCircle(shapeLayer: self.shapeLayer)
-        self.view.layer.addSublayer(self.shapeLayer)
-    }
-
     
-    //    Stopタイマーを作るメソッド
+//    Stopタイマーを作るメソッド
     func makeStopTimer() -> UIButton{
         var stopButton = UIButton()
         stopButton.frame = CGRect(x: self.view.bounds.width/2 + 50, y: self.view.bounds.height - 150 , width: 100, height: 100)
@@ -128,10 +115,11 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         stopButton.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         stopButton.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         let image = UIImage(named: "del")
-        image?.withTintColor((Setting.color.init(rawValue: colorNumberStatic + 1)?.getUIColor())!)
+        image?.withTintColor((Setting.color.init(rawValue: colorNumberStatic)?.getUIColor())!)
         let imageView = UIImageView(image: image)
         imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         imageView.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
+        
         stopButton.addSubview(imageView)
         stopButton.imageView?.contentMode = .scaleToFill
         stopButton.contentHorizontalAlignment = .fill
@@ -139,6 +127,23 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         stopButton.alpha = 0.5
         return stopButton
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.startButton = makeStartTimer()
+        self.stopButton = makeStopTimer()
+        self.view.addSubview(self.stopButton!)
+        self.view.addSubview(self.startButton!)
+        self.view.addSubview(makeTitle(name:"\(name!)の挑戦です"))
+        self.startButton!.addTarget(self, action: #selector(tapStart(_:)), for: UIControl.Event.touchUpInside)
+        self.stopButton!.addTarget(self, action: #selector(tapStop(_:)), for: UIControl.Event.touchUpInside)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        makeCircle(shapeLayer: self.shapeLayer)
+        self.view.layer.addSublayer(self.shapeLayer)
+    }
+
+    
 //    Startタイマーを作るメソッド
     func makeStartTimer() -> UIButton{
         let startButton = UIButton()
@@ -150,11 +155,16 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         let imageView = UIImageView();
         let image = UIImage(named:"cheer")
         imageView.image = image
+        
         imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = UIView.ContentMode.center
+//        imageView.frame = startButton.frame
         imageView.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
         startButton.addSubview(imageView)
-        startButton.alpha = 1
+//        画像をボタンの中に広げる
+        startButton.imageView?.contentMode = .scaleAspectFit
+        startButton.contentHorizontalAlignment = .fill
+        startButton.contentVerticalAlignment = .fill
         return startButton
     }
 //    ワッカのアニメーションを動かす
@@ -206,12 +216,9 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         changeButtonSetting(stopbutton: self.stopButton!,startbutton:self.startButton!,messageNew: self.message,imageview: self.imageView)
         noDisplay(timerSec: timerSec, timerMill: timerMill)
         vibrated(view: self.imageView)
-        self.startButton?.alpha = 0.5
-        self.stopButton?.alpha = 1.0
     }
     @objc func tapStop(_ sender:UIButton){
-
-        count(starttime: self.startTime)
+        countTime(startTime: self.startTime, timerSec: self.timerSec, timerMill: self.timerMill)
         stopCircling(self.shapeLayer)
         calculate(self.startTime)
         makeAlertController()
@@ -222,9 +229,15 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         stopbutton.isEnabled = true
         messageNew.isHidden = false
         imageview.isHidden = false
+        stopbutton.alpha = 1.0
+        startbutton.alpha = 0.5
         
     }
-    func count(starttime:Date){
+    func stopBeer(imageView imageview:UIView){
+        imageview.isHidden = true
+    }
+    
+    func countTime(startTime starttime:Date,timerSec timersec:UILabel, timerMill timermill:UILabel){
         let currentTime = Date().timeIntervalSince(starttime)
         // currentTime/60 の余り
         let second = (Int)(fmod(currentTime, 60))
@@ -235,16 +248,10 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         // %02d： ２桁表示、0で埋める
         let sSecond = String(format:"%02d", second)
         let sMsec = String(format:"%02d", msec)
-            
-        self.timerSec.text = sSecond
-        self.timerMill.text = sMsec
 
+        timersec.text = sSecond
+        timermill.text = sMsec
     }
-    func stopBeer(imageView imageview:UIView){
-        imageview.isHidden = true
-    }
-    
-//    }
     func noDisplay(timerSec timersec:UILabel, timerMill timermil:UILabel){
         timersec.isHidden = true
         timermil.isHidden = true
@@ -312,8 +319,11 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let player2ViewController = storyBoard.instantiateViewController(withIdentifier: "Player2ViewController") as! Player2ViewController
             player2ViewController.name = "player2"
-            self.saveResults(timerMill: self.timerMill, timerSecond: self.timerSec,timerSecDouble: self.timerSecDouble)
+//            player2ViewController.playerNumber = self.playerNumber!
+            print(timerSec)
+            self.saveResults(timerMill: self.timerMill, timerSecond: self.timerSec,timerSecDouble: self.timerSecDouble!)
             self.present(player2ViewController, animated: true, completion: nil)
+            
         }else {
             let alert = UIAlertController(title: "二人目の名前を入力してね", message: nil, preferredStyle: .alert)
             alert.addTextField { (textField) in
@@ -322,7 +332,8 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
             alert.addAction(UIAlertAction(title: "次へ", style: .default, handler:{ [self](action) -> Void in
                 let player2ViewController = self.storyboard?.instantiateViewController(withIdentifier: "Player2ViewController") as! Player2ViewController
                 player2ViewController.name = alert.textFields?[0].text!
-                self.saveResults(timerMill: self.timerMill, timerSecond: self.timerSec,timerSecDouble: self.timerSecDouble)
+//                player2ViewController.playerNumber = playerNumber!
+                self.saveResults(timerMill: self.timerMill, timerSecond: self.timerSec,timerSecDouble: self.timerSecDouble!)
                 self.present(player2ViewController, animated: true, completion: nil)
             })
             
