@@ -54,11 +54,11 @@ enum Setting:CaseIterable{
         func getSize()->Int{
             switch self{
             case .small:
-                return 15
+                return 8
             case .medium:
-                return 20
+                return 15
             case .large:
-                return 25
+                return 20
             }
         }
         func getName() ->String{

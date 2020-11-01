@@ -17,6 +17,7 @@ class Player3ViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
 
     }
+    
     func isUserNameSaved() ->Bool{
         let userDefaults = UserDefaults.standard
         return userDefaults.bool(forKey: "isNameSaved")
@@ -26,7 +27,6 @@ class Player3ViewController: UIViewController, UITextFieldDelegate {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let nextView = storyBoard.instantiateViewController(withIdentifier: "Player4ViewController") as! Player4ViewController
             nextView.name = "player4"
-//            nextView.playerNumber = playerNumber
             self.present(nextView, animated: true, completion: nil)
             
         }else {
@@ -38,7 +38,6 @@ class Player3ViewController: UIViewController, UITextFieldDelegate {
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player4ViewController") as! Player4ViewController
                 nextView.name = nav.textFields?[0].text!
-//                nextView.playerNumber = playerNumber
                 self.present(nextView, animated: true, completion: nil)
             }))
             self.present(nav, animated: true, completion: nil)
@@ -88,25 +87,41 @@ class Player3ViewController: UIViewController, UITextFieldDelegate {
         player1.changeButtonSetting(stopbutton: self.stopButton!,startbutton: self.startButton!, messageNew: self.message, imageview: self.imageView)
         player1.noDisplay(timerSec:self.timerSec, timerMill:self.timerMill)
         player1.vibrated(view: self.imageView)
+        self.startButton?.alpha = 0.5
+        self.stopButton?.alpha = 1
     }
     @objc func tapStop(_ sender:UIButton){
-        player1.countTime(startTime: self.startTime, timerSec: self.timerSec, timerMill: self.timerMill)
+        count(starttime: self.startTime)
         player1.stopCircling(self.shapeLayer)
         player1.calculate(self.startTime)
-        player1.makeAlertController()
+//        player1.makeAlertController()
         player1.stopBeer(imageView:self.imageView)
         player1.display(timersec: self.timerSec, timermill: self.timerMill, messageNew: self.message)
         calc(startTime: self.startTime)
-        saveResults(timerMill: self.timerMill, timerSecond: self.timerSec, timerSecDouble: self.timserSecDouble!)
+        self.saveResults3(timerMill: self.timerMill, timerSecond: self.timerSec, timerSecDouble: self.timserSecDouble!)
+
         if ( playerNumberAll == 3){
             let result = self.storyboard?.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
 //            result.playerNumber = self.playerNumber
             self.present(result, animated: true, completion: nil)
-            print("3に来てる")
         }else{
-            print("4に来てる")
             self.goNext(playerNumber: playerNumberAll!)
         }
+    }
+    func count(starttime:Date){
+        let currentTime = Date().timeIntervalSince(starttime)
+        // currentTime/60 の余り
+        let second = (Int)(fmod(currentTime, 60))
+        self.timserSecDouble = (Double)(fmod(currentTime, 60))
+        // floor 切り捨て、小数点以下を取り出して *100
+        let msec = (Int)((currentTime - floor(currentTime))*100)
+//        let msecDouble = (Double)((currentTime - floor(currentTime))*100)
+        // %02d： ２桁表示、0で埋める
+        let sSecond = String(format:"%02d", second)
+        let sMsec = String(format:"%02d", msec)
+            
+        self.timerSec.text = sSecond
+        self.timerMill.text = sMsec
     }
     
         override func viewWillLayoutSubviews() {
@@ -117,17 +132,18 @@ class Player3ViewController: UIViewController, UITextFieldDelegate {
             var currentTime = Date().timeIntervalSince(startTime)
             self.timserSecDouble = (Double)(fmod(currentTime, 60))
         }
-        func saveResults(timerMill:UILabel,timerSecond:UILabel,timerSecDouble:Double){
+        func saveResults3(timerMill:UILabel,timerSecond:UILabel,timerSecDouble:Double){
             let realm = try! Realm()
     //        登録したいのにエラーが出る、、
             let record = EachRecord.create(realm: realm)
             record.name = name!
-            record.timerSecond = timerSecond.text!
-            record.timerMill = timerMill.text!
+            record.timerSecond = self.timerSec.text!
+            record.timerMill = self.timerMill.text!
             record.orderNum = 2
             record.timeDifference = player1.calculate(second:timerSecDouble)
             record.orderAll = orderAllNew!
-            print("player2のorderAll\(record.orderAll)")
+            print(record)
+    
             try! realm.write{
                 realm.add(record)
             }

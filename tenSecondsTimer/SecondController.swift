@@ -82,7 +82,6 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
         if let newNum = self.myTableView {
             self.myTableView.reloadData()
         } else {
-            print("newNumに値は設定されていません。")
         }
         
     }
@@ -102,7 +101,6 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
 //            //This method will be called when user changes tab.
 //        let realm = try! Realm()
 //        self.tableCells = realm.objects(Record.self)
-//        print("33")
 //        }
 
     /*
