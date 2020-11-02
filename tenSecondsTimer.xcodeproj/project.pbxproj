@@ -25,6 +25,8 @@
 		0F4451772532FCD100A62BCD /* DetailSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4451762532FCD100A62BCD /* DetailSettingViewController.swift */; };
 		0F5653092531913900FDFFEA /* EachRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5653082531913900FDFFEA /* EachRecord.swift */; };
 		0F56530E2531B10700FDFFEA /* ResultsInOthers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56530D2531B10700FDFFEA /* ResultsInOthers.swift */; };
+		0F8C1F87254F91EC00A94D3B /* ResponseTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C1F86254F91EC00A94D3B /* ResponseTimeViewController.swift */; };
+		0F8C1F8C254F932C00A94D3B /* TenSecondsTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C1F8B254F932C00A94D3B /* TenSecondsTimeViewController.swift */; };
 		0F9512BA2532C8C700AEB137 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9512B92532C8C700AEB137 /* SettingViewController.swift */; };
 		0FA98B3B25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA98B3A25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift */; };
 		0FB205342543CA7400B5C945 /* JustGetMiddleResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB205332543CA7400B5C945 /* JustGetMiddleResultsViewController.swift */; };
@@ -81,6 +83,8 @@
 		0F4451762532FCD100A62BCD /* DetailSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingViewController.swift; sourceTree = "<group>"; };
 		0F5653082531913900FDFFEA /* EachRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachRecord.swift; sourceTree = "<group>"; };
 		0F56530D2531B10700FDFFEA /* ResultsInOthers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsInOthers.swift; sourceTree = "<group>"; };
+		0F8C1F86254F91EC00A94D3B /* ResponseTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTimeViewController.swift; sourceTree = "<group>"; };
+		0F8C1F8B254F932C00A94D3B /* TenSecondsTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenSecondsTimeViewController.swift; sourceTree = "<group>"; };
 		0F9512B92532C8C700AEB137 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		0FA98B3A25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsPlayWithOthersViewController.swift; sourceTree = "<group>"; };
 		0FB205332543CA7400B5C945 /* JustGetMiddleResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleResultsViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 				0FB2053D2543D76E00B5C945 /* JustGetMiddleResult.swift */,
 				0F9512B92532C8C700AEB137 /* SettingViewController.swift */,
 				0FE31C18253BCB9A00C2472F /* Setting.swift */,
+				0F8C1F86254F91EC00A94D3B /* ResponseTimeViewController.swift */,
+				0F8C1F8B254F932C00A94D3B /* TenSecondsTimeViewController.swift */,
 			);
 			path = tenSecondsTimer;
 			sourceTree = "<group>";
@@ -401,7 +407,9 @@
 				0F038057252070EF00053C62 /* AppDelegate.swift in Sources */,
 				0FB205392543D10400B5C945 /* JustGetMiddleResultsDetailViewController.swift in Sources */,
 				0F302DEF25299DBB001044CC /* Player2ViewController.swift in Sources */,
+				0F8C1F8C254F932C00A94D3B /* TenSecondsTimeViewController.swift in Sources */,
 				0F2D2B92253ADE2600335AD0 /* ChangeIconsViewController.swift in Sources */,
+				0F8C1F87254F91EC00A94D3B /* ResponseTimeViewController.swift in Sources */,
 				0F038059252070EF00053C62 /* SceneDelegate.swift in Sources */,
 				0FCD0AEC253AA497001008BE /* JustGetMiddleViewController.swift in Sources */,
 				0FE31C27253C0E8200C2472F /* Player3ViewController.swift in Sources */,

@@ -10,6 +10,15 @@ import UIKit
 
 class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
     var isOn:Bool?
+    func makeColorLayer(){
+        var layer = CAGradientLayer()
+        layer.frame = self.view.frame
+        layer.colors = [UIColor.init(red: 252 / 250, green: 203 / 250, blue: 144 / 250, alpha: 1).cgColor,UIColor.init(red: 213 / 255, green: 126 / 255, blue: 235 / 255, alpha: 1).cgColor]
+        layer.locations = [0.1,0.7]
+        layer.startPoint = CGPoint(x: 0.3, y: 0)
+        layer.endPoint = CGPoint(x: 0.2, y: 1)
+        self.view.layer.insertSublayer(layer, at: 0)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +34,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         makeIngicatorCircle(shapeLayer: self.shapeLayerIngicator)
         self.view.layer.addSublayer(self.shapeLayerIngicator)
         // Do any additional setup after loading the view.
+        makeColorLayer()
     }
     let shapeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
@@ -166,23 +176,23 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         let randomInt = Int.random(in: 1...8)
         switch randomInt {
         case 1:
-            anim.duration = 1
+            anim.duration = 0.4
         case 2:
-            anim.duration = 2
+            anim.duration = 0.1
         case 3:
-            anim.duration = 3
+            anim.duration = 0.2
         case 4:
-            anim.duration = 4
+            anim.duration = 0.3
         case 5:
-            anim.duration = 5
+            anim.duration = 0.5
         case 6:
-            anim.duration = 6
+            anim.duration = 0.7
         case 7:
-            anim.duration = 7
+            anim.duration = 0.6
         case 8:
-            anim.duration = 8
+            anim.duration = 0.8
         default:
-            anim.duration = 9
+            anim.duration = 0.9
             
         }
         anim.fromValue = 0.0

@@ -42,6 +42,16 @@ class ViewController: UIViewController,UITextFieldDelegate{
             vc.modalPresentationStyle = .fullScreen
             self?.present(vc, animated: true, completion: nil)
             }.disposed(by: dispose)
+        makeColorLayer()
+    }
+    func makeColorLayer(){
+        var layer = CAGradientLayer()
+        layer.frame = self.view.frame
+        layer.colors = [UIColor.init(red: 130 / 250, green: 250 / 250, blue: 176 / 250, alpha: 1).cgColor,UIColor.init(red: 143 / 255, green: 211 / 255, blue: 244 / 255, alpha: 1).cgColor]
+        layer.locations = [0.1,0.7]
+        layer.startPoint = CGPoint(x: 0.3, y: 0)
+        layer.endPoint = CGPoint(x: 0.2, y: 1)
+        self.view.layer.insertSublayer(layer, at: 0)
     }
     let dispose = DisposeBag()
     
@@ -124,6 +134,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
     
     func makePlaySelf(playSelf playself:UIButton){
         playself.backgroundColor = UIColor.white
+        playself.setTitle("一人で秒当てをする", for: .normal)
         playself.tintColor = Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor()
         playself.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         playself.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
@@ -134,6 +145,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
     
     func makePlayWithOthers(playWithOthers playwithothers:UIButton){
         playwithothers.backgroundColor = UIColor.white
+        playwithothers.setTitle("みんなで秒当てをする！", for: .normal)
         playwithothers.tintColor = Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor()
         playwithothers.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         playwithothers.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
@@ -147,7 +159,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         justGetMiddle.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         justGetMiddle.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         justGetMiddle.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
-        justGetMiddle.setTitle("ぴったし真ん中を狙う", for: .normal)
+        justGetMiddle.setTitle("反射神経を確かめる！", for: .normal)
         justGetMiddle.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
         justGetMiddle.layer.cornerRadius = 4.0
         justGetMiddle.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 150, width: 300, height: 50)

@@ -12,6 +12,8 @@ import UIKit
 import RealmSwift
 
 class JustGetMiddleResultsDetailViewController: UIViewController,UITableViewDataSource,UITableViewDelegate{
+    var row:Int?
+    var section:Int?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -21,10 +23,11 @@ class JustGetMiddleResultsDetailViewController: UIViewController,UITableViewData
         cell.textLabel?.text = "名前:\(justGetMiddleResult!.name)\n解離:\(justGetMiddleResult!.difference)%\n日付:\( justGetMiddleResult!.date!)\nゴール:\(justGetMiddleResult!.goal)\nストローク:\(justGetMiddleResult!.end)"
         cell.textLabel?.numberOfLines = 0
         
-//        var img = UIImage(named: "gold")
-//        self.myImageView.image = img
-//        myImageView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
-        cell.accessoryView = setImg(kairi: justGetMiddleResult!.difference)
+        if section! == 0{
+            cell.accessoryView = setImg2(kairi: justGetMiddleResult!.difference,row:row!)
+        }else {
+            cell.accessoryView = setImg(kairi: justGetMiddleResult!.difference)
+        }
         return cell
     }
     func setImg(kairi:Double) ->UIImageView{
@@ -34,15 +37,36 @@ class JustGetMiddleResultsDetailViewController: UIViewController,UITableViewData
         var usual = UIImage(named: "tor")
         var kaizoku = UIImage(named: "kaizoku")
         var kubi = UIImage(named: "kubi")
+        var dou = UIImage(named: "dou")
         switch kairi {
-        case 0.0 ... 5.0:
+        case 0.0 ... 0.05:
             uiImagevView.image = diamond
-        case 5.0 ... 10.0:
+        case 0.05 ... 0.1:
             uiImagevView.image = gold
-        case 10.0 ... 20.0:
+        case 0.1 ... 0.3:
+            uiImagevView.image = dou
+        case 0.3 ... 1.0:
             uiImagevView.image = kubi
-        case 20.0 ... 100.0:
+        case 1.0 ... 100.0:
             uiImagevView.image = kaizoku
+        default:
+            uiImagevView.image = usual
+        }
+        return uiImagevView
+    }
+    func setImg2(kairi:Double,row:Int) ->UIImageView{
+        var uiImagevView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        var gold = UIImage(named: "ichi")
+        var diamond = UIImage(named:"ni")
+        var usual = UIImage(named: "san")
+        print(row)
+        switch row {
+        case 0:
+            uiImagevView.image = gold
+        case 1:
+            uiImagevView.image = diamond
+        case 2:
+            uiImagevView.image = usual
         default:
             uiImagevView.image = usual
         }
@@ -54,6 +78,16 @@ class JustGetMiddleResultsDetailViewController: UIViewController,UITableViewData
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        makeColorLayer()
+    }
+    func makeColorLayer(){
+        var layer = CAGradientLayer()
+        layer.frame = self.view.frame
+        layer.colors = [UIColor.init(red: 252 / 250, green: 203 / 250, blue: 144 / 250, alpha: 1).cgColor,UIColor.init(red: 213 / 255, green: 126 / 255, blue: 235 / 255, alpha: 1).cgColor]
+        layer.locations = [0.1,0.7]
+        layer.startPoint = CGPoint(x: 0.3, y: 0)
+        layer.endPoint = CGPoint(x: 0.2, y: 1)
+        self.view.layer.insertSublayer(layer, at: 0)
     }
     let myImageView = UIImageView()
     var tableView:UITableView!

@@ -50,6 +50,8 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let nextView = storyBoard.instantiateViewController(withIdentifier:"JustGetMiddleResultsDetailViewController") as? JustGetMiddleResultsDetailViewController
+        nextView!.row = indexPath.row
+        nextView!.section = indexPath.section
         if indexPath.section == 0{
             nextView?.justGetMiddleResult = self.justGetMiddleResultRanking[indexPath.row]
         }else if indexPath.section == 1{
@@ -78,6 +80,16 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
         self.stopButton = makeStartTimer()
         self.stopButton!.addTarget(self, action: #selector(end), for: UIControl.Event.touchUpInside)
         self.view.addSubview(stopButton!)
+        makeColorLayer()
+    }
+    func makeColorLayer(){
+        var layer = CAGradientLayer()
+        layer.frame = self.view.frame
+        layer.colors = [UIColor.init(red: 252 / 250, green: 203 / 250, blue: 144 / 250, alpha: 1).cgColor,UIColor.init(red: 213 / 255, green: 126 / 255, blue: 235 / 255, alpha: 1).cgColor]
+        layer.locations = [0.1,0.7]
+        layer.startPoint = CGPoint(x: 0.3, y: 0)
+        layer.endPoint = CGPoint(x: 0.2, y: 1)
+        self.view.layer.insertSublayer(layer, at: 0)
     }
     @objc private func onRefresh(_ sender: AnyObject) {
         self.tableView?.reloadData()
