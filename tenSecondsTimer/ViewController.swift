@@ -11,6 +11,7 @@
 
 import UIKit
 import RxSwift
+import  RealmSwift
 import RxCocoa
 //対戦ごとに一位になるID
 var orderAllNew:Int?
@@ -30,19 +31,72 @@ var buttonTextColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "but
 var buttonTextSizeNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonTextSizeNumber")
 var playerNumberAll:Int?
 var isSaved:Bool?
+
+var temporaryCount:Int?
 class ViewController: UIViewController,UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        isSaved = UserDefaults.standard.bool(forKey: "isNameSaved")
-        self.worldButton = makeWorld()
-        self.worldButton?.rx.tap.subscribe{[weak self] _ in
-            var storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyBoard.instantiateViewController(identifier: "WorldScoreViewController")
-            vc.modalPresentationStyle = .fullScreen
-            self?.present(vc, animated: true, completion: nil)
+//        ユーザデフォルトから各種設定を読み込む（初回ダウンロードのみ初期設定がないため、registerしてある設定から読み込む
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
+        do{
+            let defaults = UserDefaults.standard
+            defaults.register(defaults: ["timeNumber":5,"iconNumber":1,"colorNumber":3,"buttonColorNumber":3,"buttonTextColorNumber":5,"buttonWithColorNumber":1,"buttonTextSizeNumber":1,"isNameSaved":false])
+            timeNumberStatic = defaults.integer(forKey: "timeNumber")
+            iconNumberStatic = defaults.integer(forKey: "iconNumber")
+            colorNumberStatic = defaults.integer(forKey: "colorNumber")
+            buttonTextColorNumberStatic = defaults.integer(forKey: "buttonTextColorNumber")
+            buttonColorNumberStatic = defaults.integer(forKey: "buttonColorNumber")
+            buttonWidthNumberStatic = defaults.integer(forKey: "buttonWithColorNumber")
+            buttonTextSizeNumberStatic = defaults.integer(forKey: "buttonTextSizeNumber")
+            isSaved = UserDefaults.standard.bool(forKey: "isNameSaved")
+        }
+//        左上の設定ボタンを作り、viewに配置する。また、タップ時のイベントをサブスクライブする。
+        do{
+            self.worldButton = makeWorld()
+            self.worldButton?.rx.tap.subscribe{[weak self] _ in
+                var storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyBoard.instantiateViewController(identifier: "WorldScoreViewController")
+                vc.modalPresentationStyle = .fullScreen
+                self?.present(vc, animated: true, completion: nil)
             }.disposed(by: dispose)
+        }
+//        一番下のボタンを作り、viewに配置する。また、タップ時のイベントをサブスクライブする。
+        do{
+            self.justGetMiddlePlayWithOthers = makeJustGetMiddlePlayWidthOthers()
+            self.justGetMiddlePlayWithOthers?.rx.tap.subscribe{[weak self] _ in
+                self?.makeAlertForJustGetMiddle()
+            }.disposed(by: dispose)
+        }
+//        グラデーションを作る
         makeColorLayer()
+    }
+    
+    func makeAlertForJustGetMiddle(){
+        var storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthersViewController
+        let ui = UIAlertController(title: "遊ぶ人数を選択してね", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        ui.addAction(UIAlertAction.init(title: "3人", style: .default, handler: { (UIAlertAction) in
+            temporaryCount = 3
+            self.present(vc, animated: true, completion: nil)
+        }))
+        ui.addAction(UIAlertAction.init(title: "4人", style: .default, handler: { (UIAlertAction) in
+            temporaryCount = 4
+            self.present(vc, animated: true, completion: nil)
+            
+        }))
+        ui.addAction(UIAlertAction.init(title: "5人", style: .default, handler: { (UIAlertAction) in
+            temporaryCount = 5
+            self.present(vc, animated: true, completion: nil)
+            
+        }))
+        ui.addAction(UIAlertAction.init(title: "6人", style: .default, handler: { (UIAlertAction) in
+            temporaryCount = 6
+            self.present(vc, animated: true, completion: nil)
+            
+        }))
+        ui.addAction(UIAlertAction.init(title: "戻る", style: .cancel, handler: nil))
+        self.present(ui, animated: true, completion: nil)
     }
     func makeColorLayer(){
         var layer = CAGradientLayer()
@@ -53,15 +107,15 @@ class ViewController: UIViewController,UITextFieldDelegate{
         layer.endPoint = CGPoint(x: 0.2, y: 1)
         self.view.layer.insertSublayer(layer, at: 0)
     }
-    let dispose = DisposeBag()
     
-    
-    var titleLabel = UILabel()
     @IBOutlet weak var playSelf: UIButton?
     @IBOutlet weak var playWithOthers: UIButton?
+    let dispose = DisposeBag()
+    var titleLabel = UILabel()
     var button:UIButton?
-
     var justGetMiddle:UIButton = UIButton()
+    var worldButton:UIButton?
+    var justGetMiddlePlayWithOthers:UIButton?
     
     override func viewDidAppear(_ animated: Bool) {
         settingTitle(view: titleLabel)
@@ -73,11 +127,14 @@ class ViewController: UIViewController,UITextFieldDelegate{
         justGetMiddle(justGetMiddle: self.justGetMiddle)
         self.view.addSubview(self.justGetMiddle)
         self.view.addSubview(self.worldButton!)
+        self.view.addSubview(self.justGetMiddlePlayWithOthers!)
         makeAutoLayout(button: self.justGetMiddle, settingButton: self.button!,worldButton: self.worldButton!)
     }
     override func viewWillAppear(_ animated: Bool) {
+        settingUpdate()
         isSaved = UserDefaults.standard.bool(forKey: "isNameSaved")
         self.button = makeSettingButton()
+//        self.justGetMiddlePlayWithOthers = makeJustGetMiddlePlayWidthOthers()
         self.view.addSubview(self.button!)
         self.button!.addTarget(self,action:#selector(tapSetting),for: UIControl.Event.touchUpInside)
         self.button!.addTarget(self,action:#selector(tapSetting),for: UIControl.Event.touchUpInside)
@@ -114,7 +171,6 @@ class ViewController: UIViewController,UITextFieldDelegate{
         button.setImage(UIImage(named: "world"), for: .normal)
         return button
     }
-    var worldButton:UIButton?
     
     func makeAutoLayout(button:UIButton,settingButton:UIButton,worldButton:UIButton){
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -139,6 +195,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         playself.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         playself.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         playself.layer.cornerRadius = 4.0
+        print("buttonTextSizeNumberStatic\(buttonTextSizeNumberStatic)")
         playself.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
         playself.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 - 50, width: 300, height: 50)
     }
@@ -163,6 +220,26 @@ class ViewController: UIViewController,UITextFieldDelegate{
         justGetMiddle.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
         justGetMiddle.layer.cornerRadius = 4.0
         justGetMiddle.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 150, width: 300, height: 50)
+    }
+    func makeJustGetMiddlePlayWidthOthers() -> UIButton{
+        var justGetMiddlePlayWithOthersA = UIButton()
+        justGetMiddlePlayWithOthersA.center.x = self.view.center.x
+        justGetMiddlePlayWithOthersA.backgroundColor = UIColor.white
+        justGetMiddlePlayWithOthersA.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        justGetMiddlePlayWithOthersA.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+        justGetMiddlePlayWithOthersA.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
+        justGetMiddlePlayWithOthersA.setTitle("みんなで反射神経を確かめる！", for: .normal)
+        justGetMiddlePlayWithOthersA.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
+        justGetMiddlePlayWithOthersA.layer.cornerRadius = 4.0
+        justGetMiddlePlayWithOthersA.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 250, width: 300, height: 50)
+        return justGetMiddlePlayWithOthersA
+    }
+//    無理やり過ぎてやりたくはないが、Rxの関係で、viewWillAppeaerの前でもう一度代入すると動かなくなるので、設定だけ更新する
+    func settingUpdate(){
+        self.justGetMiddlePlayWithOthers!.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        self.justGetMiddlePlayWithOthers!.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+        self.justGetMiddlePlayWithOthers?.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
+        self.justGetMiddlePlayWithOthers!.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
     }
     
     func settingButton (view viewA:UIButton){

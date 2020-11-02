@@ -15,28 +15,36 @@
 		0F038063252070F100053C62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F038061252070F100053C62 /* LaunchScreen.storyboard */; };
 		0F03806E252070F100053C62 /* tenSecondsTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F03806D252070F100053C62 /* tenSecondsTimerTests.swift */; };
 		0F038079252070F100053C62 /* tenSecondsTimerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F038078252070F100053C62 /* tenSecondsTimerUITests.swift */; };
-		0F038090252072A900053C62 /* FirstController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F03808F252072A900053C62 /* FirstController.swift */; };
-		0F038095252072E700053C62 /* SecondController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F038094252072E700053C62 /* SecondController.swift */; };
-		0F0380A22520B45700053C62 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0380A12520B45700053C62 /* Record.swift */; };
-		0F2D2B92253ADE2600335AD0 /* ChangeIconsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2D2B91253ADE2600335AD0 /* ChangeIconsViewController.swift */; };
-		0F302DEA25299D9D001044CC /* Player1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F302DE925299D9D001044CC /* Player1ViewController.swift */; };
-		0F302DEF25299DBB001044CC /* Player2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F302DEE25299DBB001044CC /* Player2ViewController.swift */; };
+		0F318A5A254FEE5E008538BD /* JustGetMiddlePlayWithOthers5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F318A53254FEE5E008538BD /* JustGetMiddlePlayWithOthers5ViewController.swift */; };
+		0F318A5B254FEE5E008538BD /* JustGetMiddlePlayWithOthers4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F318A54254FEE5E008538BD /* JustGetMiddlePlayWithOthers4ViewController.swift */; };
+		0F318A5C254FEE5E008538BD /* JustGetMiddlePlayWithOthers6ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F318A55254FEE5E008538BD /* JustGetMiddlePlayWithOthers6ViewController.swift */; };
+		0F318A5D254FEE5E008538BD /* JustGetMiddlePlayWithOthers1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F318A56254FEE5E008538BD /* JustGetMiddlePlayWithOthers1ViewController.swift */; };
+		0F318A5E254FEE5E008538BD /* JustGetMiddlePlayWithOthers2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F318A57254FEE5E008538BD /* JustGetMiddlePlayWithOthers2ViewController.swift */; };
+		0F318A5F254FEE5E008538BD /* JustGetMiddlePlayWithOthers3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F318A58254FEE5E008538BD /* JustGetMiddlePlayWithOthers3ViewController.swift */; };
+		0F318A60254FEE5E008538BD /* JustGetMiddlePlayWithOthersResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F318A59254FEE5E008538BD /* JustGetMiddlePlayWithOthersResultViewController.swift */; };
 		0F342F95252839520083DD75 /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F342F94252839520083DD75 /* MyTabBarController.swift */; };
-		0F4451772532FCD100A62BCD /* DetailSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4451762532FCD100A62BCD /* DetailSettingViewController.swift */; };
-		0F5653092531913900FDFFEA /* EachRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5653082531913900FDFFEA /* EachRecord.swift */; };
-		0F56530E2531B10700FDFFEA /* ResultsInOthers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F56530D2531B10700FDFFEA /* ResultsInOthers.swift */; };
-		0F8C1F87254F91EC00A94D3B /* ResponseTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C1F86254F91EC00A94D3B /* ResponseTimeViewController.swift */; };
-		0F8C1F8C254F932C00A94D3B /* TenSecondsTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8C1F8B254F932C00A94D3B /* TenSecondsTimeViewController.swift */; };
-		0F9512BA2532C8C700AEB137 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9512B92532C8C700AEB137 /* SettingViewController.swift */; };
-		0FA98B3B25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA98B3A25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift */; };
-		0FB205342543CA7400B5C945 /* JustGetMiddleResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB205332543CA7400B5C945 /* JustGetMiddleResultsViewController.swift */; };
-		0FB205392543D10400B5C945 /* JustGetMiddleResultsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB205382543D10400B5C945 /* JustGetMiddleResultsDetailViewController.swift */; };
-		0FB2053E2543D76E00B5C945 /* JustGetMiddleResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB2053D2543D76E00B5C945 /* JustGetMiddleResult.swift */; };
-		0FC4AEB1254ED3C4003A156A /* WorldScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC4AEB0254ED3C4003A156A /* WorldScoreViewController.swift */; };
-		0FCD0AEC253AA497001008BE /* JustGetMiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCD0AEB253AA497001008BE /* JustGetMiddleViewController.swift */; };
-		0FE31C19253BCB9A00C2472F /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE31C18253BCB9A00C2472F /* Setting.swift */; };
-		0FE31C27253C0E8200C2472F /* Player3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE31C26253C0E8200C2472F /* Player3ViewController.swift */; };
-		0FE31C2C253C0E9000C2472F /* Player4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE31C2B253C0E9000C2472F /* Player4ViewController.swift */; };
+		0F4DBD9B254FAFD900AA26BB /* ResponseTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD80254FAFD900AA26BB /* ResponseTimeViewController.swift */; };
+		0F4DBD9C254FAFD900AA26BB /* WorldScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD81254FAFD900AA26BB /* WorldScoreViewController.swift */; };
+		0F4DBD9D254FAFD900AA26BB /* TenSecondsTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD82254FAFD900AA26BB /* TenSecondsTimeViewController.swift */; };
+		0F4DBD9E254FAFD900AA26BB /* Player1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD84254FAFD900AA26BB /* Player1ViewController.swift */; };
+		0F4DBD9F254FAFD900AA26BB /* Player3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD85254FAFD900AA26BB /* Player3ViewController.swift */; };
+		0F4DBDA0254FAFD900AA26BB /* Player2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD86254FAFD900AA26BB /* Player2ViewController.swift */; };
+		0F4DBDA1254FAFD900AA26BB /* Player4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD87254FAFD900AA26BB /* Player4ViewController.swift */; };
+		0F4DBDA2254FAFD900AA26BB /* ResultsPlayWithOthersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD88254FAFD900AA26BB /* ResultsPlayWithOthersViewController.swift */; };
+		0F4DBDA3254FAFD900AA26BB /* FirstController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD8A254FAFD900AA26BB /* FirstController.swift */; };
+		0F4DBDA4254FAFD900AA26BB /* SecondController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD8B254FAFD900AA26BB /* SecondController.swift */; };
+		0F4DBDA5254FAFD900AA26BB /* JustGetMiddleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD8D254FAFD900AA26BB /* JustGetMiddleViewController.swift */; };
+		0F4DBDA6254FAFD900AA26BB /* JustGetMiddleResultsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD8E254FAFD900AA26BB /* JustGetMiddleResultsDetailViewController.swift */; };
+		0F4DBDA7254FAFD900AA26BB /* JustGetMiddleResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD8F254FAFD900AA26BB /* JustGetMiddleResultsViewController.swift */; };
+		0F4DBDA8254FAFD900AA26BB /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD91254FAFD900AA26BB /* SettingViewController.swift */; };
+		0F4DBDA9254FAFD900AA26BB /* ChangeIconsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD92254FAFD900AA26BB /* ChangeIconsViewController.swift */; };
+		0F4DBDAA254FAFD900AA26BB /* DetailSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD93254FAFD900AA26BB /* DetailSettingViewController.swift */; };
+		0F4DBDAB254FAFD900AA26BB /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD95254FAFD900AA26BB /* Setting.swift */; };
+		0F4DBDAC254FAFD900AA26BB /* JustGetMiddleResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD97254FAFD900AA26BB /* JustGetMiddleResult.swift */; };
+		0F4DBDAD254FAFD900AA26BB /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD98254FAFD900AA26BB /* Record.swift */; };
+		0F4DBDAE254FAFD900AA26BB /* EachRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD99254FAFD900AA26BB /* EachRecord.swift */; };
+		0F4DBDAF254FAFD900AA26BB /* ResultsInOthers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD9A254FAFD900AA26BB /* ResultsInOthers.swift */; };
+		0F66BB74254FF3D400B152DF /* JustGetMiddleResultsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB73254FF3D400B152DF /* JustGetMiddleResultsObject.swift */; };
 		A97DA2EF94960EC2F2213B7A /* Pods_tenSecondsTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB059BEF78F487F36F36777 /* Pods_tenSecondsTimer.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,28 +81,36 @@
 		0F038074252070F100053C62 /* tenSecondsTimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tenSecondsTimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F038078252070F100053C62 /* tenSecondsTimerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tenSecondsTimerUITests.swift; sourceTree = "<group>"; };
 		0F03807A252070F100053C62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0F03808F252072A900053C62 /* FirstController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstController.swift; sourceTree = "<group>"; };
-		0F038094252072E700053C62 /* SecondController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondController.swift; sourceTree = "<group>"; };
-		0F0380A12520B45700053C62 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
-		0F2D2B91253ADE2600335AD0 /* ChangeIconsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeIconsViewController.swift; sourceTree = "<group>"; };
-		0F302DE925299D9D001044CC /* Player1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player1ViewController.swift; sourceTree = "<group>"; };
-		0F302DEE25299DBB001044CC /* Player2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player2ViewController.swift; sourceTree = "<group>"; };
+		0F318A53254FEE5E008538BD /* JustGetMiddlePlayWithOthers5ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthers5ViewController.swift; sourceTree = "<group>"; };
+		0F318A54254FEE5E008538BD /* JustGetMiddlePlayWithOthers4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthers4ViewController.swift; sourceTree = "<group>"; };
+		0F318A55254FEE5E008538BD /* JustGetMiddlePlayWithOthers6ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthers6ViewController.swift; sourceTree = "<group>"; };
+		0F318A56254FEE5E008538BD /* JustGetMiddlePlayWithOthers1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthers1ViewController.swift; sourceTree = "<group>"; };
+		0F318A57254FEE5E008538BD /* JustGetMiddlePlayWithOthers2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthers2ViewController.swift; sourceTree = "<group>"; };
+		0F318A58254FEE5E008538BD /* JustGetMiddlePlayWithOthers3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthers3ViewController.swift; sourceTree = "<group>"; };
+		0F318A59254FEE5E008538BD /* JustGetMiddlePlayWithOthersResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthersResultViewController.swift; sourceTree = "<group>"; };
 		0F342F94252839520083DD75 /* MyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
-		0F4451762532FCD100A62BCD /* DetailSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSettingViewController.swift; sourceTree = "<group>"; };
-		0F5653082531913900FDFFEA /* EachRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachRecord.swift; sourceTree = "<group>"; };
-		0F56530D2531B10700FDFFEA /* ResultsInOthers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsInOthers.swift; sourceTree = "<group>"; };
-		0F8C1F86254F91EC00A94D3B /* ResponseTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTimeViewController.swift; sourceTree = "<group>"; };
-		0F8C1F8B254F932C00A94D3B /* TenSecondsTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenSecondsTimeViewController.swift; sourceTree = "<group>"; };
-		0F9512B92532C8C700AEB137 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		0FA98B3A25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsPlayWithOthersViewController.swift; sourceTree = "<group>"; };
-		0FB205332543CA7400B5C945 /* JustGetMiddleResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleResultsViewController.swift; sourceTree = "<group>"; };
-		0FB205382543D10400B5C945 /* JustGetMiddleResultsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleResultsDetailViewController.swift; sourceTree = "<group>"; };
-		0FB2053D2543D76E00B5C945 /* JustGetMiddleResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleResult.swift; sourceTree = "<group>"; };
-		0FC4AEB0254ED3C4003A156A /* WorldScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldScoreViewController.swift; sourceTree = "<group>"; };
-		0FCD0AEB253AA497001008BE /* JustGetMiddleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleViewController.swift; sourceTree = "<group>"; };
-		0FE31C18253BCB9A00C2472F /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
-		0FE31C26253C0E8200C2472F /* Player3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player3ViewController.swift; sourceTree = "<group>"; };
-		0FE31C2B253C0E9000C2472F /* Player4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player4ViewController.swift; sourceTree = "<group>"; };
+		0F4DBD80254FAFD900AA26BB /* ResponseTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseTimeViewController.swift; sourceTree = "<group>"; };
+		0F4DBD81254FAFD900AA26BB /* WorldScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldScoreViewController.swift; sourceTree = "<group>"; };
+		0F4DBD82254FAFD900AA26BB /* TenSecondsTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenSecondsTimeViewController.swift; sourceTree = "<group>"; };
+		0F4DBD84254FAFD900AA26BB /* Player1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player1ViewController.swift; sourceTree = "<group>"; };
+		0F4DBD85254FAFD900AA26BB /* Player3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player3ViewController.swift; sourceTree = "<group>"; };
+		0F4DBD86254FAFD900AA26BB /* Player2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player2ViewController.swift; sourceTree = "<group>"; };
+		0F4DBD87254FAFD900AA26BB /* Player4ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player4ViewController.swift; sourceTree = "<group>"; };
+		0F4DBD88254FAFD900AA26BB /* ResultsPlayWithOthersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsPlayWithOthersViewController.swift; sourceTree = "<group>"; };
+		0F4DBD8A254FAFD900AA26BB /* FirstController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstController.swift; sourceTree = "<group>"; };
+		0F4DBD8B254FAFD900AA26BB /* SecondController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondController.swift; sourceTree = "<group>"; };
+		0F4DBD8D254FAFD900AA26BB /* JustGetMiddleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustGetMiddleViewController.swift; sourceTree = "<group>"; };
+		0F4DBD8E254FAFD900AA26BB /* JustGetMiddleResultsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustGetMiddleResultsDetailViewController.swift; sourceTree = "<group>"; };
+		0F4DBD8F254FAFD900AA26BB /* JustGetMiddleResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustGetMiddleResultsViewController.swift; sourceTree = "<group>"; };
+		0F4DBD91254FAFD900AA26BB /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		0F4DBD92254FAFD900AA26BB /* ChangeIconsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeIconsViewController.swift; sourceTree = "<group>"; };
+		0F4DBD93254FAFD900AA26BB /* DetailSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSettingViewController.swift; sourceTree = "<group>"; };
+		0F4DBD95254FAFD900AA26BB /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		0F4DBD97254FAFD900AA26BB /* JustGetMiddleResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustGetMiddleResult.swift; sourceTree = "<group>"; };
+		0F4DBD98254FAFD900AA26BB /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		0F4DBD99254FAFD900AA26BB /* EachRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EachRecord.swift; sourceTree = "<group>"; };
+		0F4DBD9A254FAFD900AA26BB /* ResultsInOthers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsInOthers.swift; sourceTree = "<group>"; };
+		0F66BB73254FF3D400B152DF /* JustGetMiddleResultsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleResultsObject.swift; sourceTree = "<group>"; };
 		4757FF48A49EEA45044EC7DC /* Pods-tenSecondsTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tenSecondsTimer.release.xcconfig"; path = "Target Support Files/Pods-tenSecondsTimer/Pods-tenSecondsTimer.release.xcconfig"; sourceTree = "<group>"; };
 		CEF31107578B439F79189372 /* Pods-tenSecondsTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tenSecondsTimer.debug.xcconfig"; path = "Target Support Files/Pods-tenSecondsTimer/Pods-tenSecondsTimer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,35 +166,22 @@
 		0F038055252070EF00053C62 /* tenSecondsTimer */ = {
 			isa = PBXGroup;
 			children = (
+				0F318A52254FEE5E008538BD /* JustGetMiddlePlayWIthOthers */,
 				0F038056252070EF00053C62 /* AppDelegate.swift */,
 				0F038058252070EF00053C62 /* SceneDelegate.swift */,
 				0F03805A252070EF00053C62 /* ViewController.swift */,
+				0F4DBD89254FAFD900AA26BB /* CountTime */,
+				0F4DBD83254FAFD900AA26BB /* CountTimeWithOthers */,
+				0F4DBD96254FAFD900AA26BB /* DAO */,
+				0F4DBD8C254FAFD900AA26BB /* JustGetMiddle */,
+				0F4DBD90254FAFD900AA26BB /* Setting */,
+				0F4DBD94254FAFD900AA26BB /* Util */,
+				0F4DBD7F254FAFD900AA26BB /* World */,
 				0F03805C252070EF00053C62 /* Main.storyboard */,
-				0FB205382543D10400B5C945 /* JustGetMiddleResultsDetailViewController.swift */,
-				0FB205332543CA7400B5C945 /* JustGetMiddleResultsViewController.swift */,
-				0FE31C26253C0E8200C2472F /* Player3ViewController.swift */,
-				0FE31C2B253C0E9000C2472F /* Player4ViewController.swift */,
-				0F2D2B91253ADE2600335AD0 /* ChangeIconsViewController.swift */,
-				0FC4AEB0254ED3C4003A156A /* WorldScoreViewController.swift */,
-				0FCD0AEB253AA497001008BE /* JustGetMiddleViewController.swift */,
-				0F4451762532FCD100A62BCD /* DetailSettingViewController.swift */,
 				0F03805F252070F100053C62 /* Assets.xcassets */,
 				0F038061252070F100053C62 /* LaunchScreen.storyboard */,
 				0F038064252070F100053C62 /* Info.plist */,
-				0F03808F252072A900053C62 /* FirstController.swift */,
-				0F038094252072E700053C62 /* SecondController.swift */,
-				0F0380A12520B45700053C62 /* Record.swift */,
 				0F342F94252839520083DD75 /* MyTabBarController.swift */,
-				0F302DE925299D9D001044CC /* Player1ViewController.swift */,
-				0F302DEE25299DBB001044CC /* Player2ViewController.swift */,
-				0FA98B3A25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift */,
-				0F5653082531913900FDFFEA /* EachRecord.swift */,
-				0F56530D2531B10700FDFFEA /* ResultsInOthers.swift */,
-				0FB2053D2543D76E00B5C945 /* JustGetMiddleResult.swift */,
-				0F9512B92532C8C700AEB137 /* SettingViewController.swift */,
-				0FE31C18253BCB9A00C2472F /* Setting.swift */,
-				0F8C1F86254F91EC00A94D3B /* ResponseTimeViewController.swift */,
-				0F8C1F8B254F932C00A94D3B /* TenSecondsTimeViewController.swift */,
 			);
 			path = tenSecondsTimer;
 			sourceTree = "<group>";
@@ -199,6 +202,92 @@
 				0F03807A252070F100053C62 /* Info.plist */,
 			);
 			path = tenSecondsTimerUITests;
+			sourceTree = "<group>";
+		};
+		0F318A52254FEE5E008538BD /* JustGetMiddlePlayWIthOthers */ = {
+			isa = PBXGroup;
+			children = (
+				0F318A53254FEE5E008538BD /* JustGetMiddlePlayWithOthers5ViewController.swift */,
+				0F318A54254FEE5E008538BD /* JustGetMiddlePlayWithOthers4ViewController.swift */,
+				0F318A55254FEE5E008538BD /* JustGetMiddlePlayWithOthers6ViewController.swift */,
+				0F318A56254FEE5E008538BD /* JustGetMiddlePlayWithOthers1ViewController.swift */,
+				0F318A57254FEE5E008538BD /* JustGetMiddlePlayWithOthers2ViewController.swift */,
+				0F318A58254FEE5E008538BD /* JustGetMiddlePlayWithOthers3ViewController.swift */,
+				0F318A59254FEE5E008538BD /* JustGetMiddlePlayWithOthersResultViewController.swift */,
+			);
+			name = JustGetMiddlePlayWIthOthers;
+			path = tenSecondsTimer/JustGetMiddlePlayWIthOthers;
+			sourceTree = SOURCE_ROOT;
+		};
+		0F4DBD7F254FAFD900AA26BB /* World */ = {
+			isa = PBXGroup;
+			children = (
+				0F4DBD80254FAFD900AA26BB /* ResponseTimeViewController.swift */,
+				0F4DBD81254FAFD900AA26BB /* WorldScoreViewController.swift */,
+				0F4DBD82254FAFD900AA26BB /* TenSecondsTimeViewController.swift */,
+			);
+			path = World;
+			sourceTree = "<group>";
+		};
+		0F4DBD83254FAFD900AA26BB /* CountTimeWithOthers */ = {
+			isa = PBXGroup;
+			children = (
+				0F4DBD84254FAFD900AA26BB /* Player1ViewController.swift */,
+				0F4DBD85254FAFD900AA26BB /* Player3ViewController.swift */,
+				0F4DBD86254FAFD900AA26BB /* Player2ViewController.swift */,
+				0F4DBD87254FAFD900AA26BB /* Player4ViewController.swift */,
+				0F4DBD88254FAFD900AA26BB /* ResultsPlayWithOthersViewController.swift */,
+			);
+			path = CountTimeWithOthers;
+			sourceTree = "<group>";
+		};
+		0F4DBD89254FAFD900AA26BB /* CountTime */ = {
+			isa = PBXGroup;
+			children = (
+				0F4DBD8A254FAFD900AA26BB /* FirstController.swift */,
+				0F4DBD8B254FAFD900AA26BB /* SecondController.swift */,
+			);
+			path = CountTime;
+			sourceTree = "<group>";
+		};
+		0F4DBD8C254FAFD900AA26BB /* JustGetMiddle */ = {
+			isa = PBXGroup;
+			children = (
+				0F4DBD8D254FAFD900AA26BB /* JustGetMiddleViewController.swift */,
+				0F4DBD8E254FAFD900AA26BB /* JustGetMiddleResultsDetailViewController.swift */,
+				0F4DBD8F254FAFD900AA26BB /* JustGetMiddleResultsViewController.swift */,
+			);
+			path = JustGetMiddle;
+			sourceTree = "<group>";
+		};
+		0F4DBD90254FAFD900AA26BB /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				0F4DBD91254FAFD900AA26BB /* SettingViewController.swift */,
+				0F4DBD92254FAFD900AA26BB /* ChangeIconsViewController.swift */,
+				0F4DBD93254FAFD900AA26BB /* DetailSettingViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		0F4DBD94254FAFD900AA26BB /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				0F4DBD95254FAFD900AA26BB /* Setting.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		0F4DBD96254FAFD900AA26BB /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+				0F4DBD97254FAFD900AA26BB /* JustGetMiddleResult.swift */,
+				0F4DBD98254FAFD900AA26BB /* Record.swift */,
+				0F4DBD99254FAFD900AA26BB /* EachRecord.swift */,
+				0F4DBD9A254FAFD900AA26BB /* ResultsInOthers.swift */,
+				0F66BB73254FF3D400B152DF /* JustGetMiddleResultsObject.swift */,
+			);
+			path = DAO;
 			sourceTree = "<group>";
 		};
 		331C59BB463F7DAD198837E7 /* Frameworks */ = {
@@ -392,31 +481,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FA98B3B25317ABC0051DB39 /* ResultsPlayWithOthersViewController.swift in Sources */,
-				0F038090252072A900053C62 /* FirstController.swift in Sources */,
 				0F03805B252070EF00053C62 /* ViewController.swift in Sources */,
-				0FE31C19253BCB9A00C2472F /* Setting.swift in Sources */,
-				0F9512BA2532C8C700AEB137 /* SettingViewController.swift in Sources */,
-				0F0380A22520B45700053C62 /* Record.swift in Sources */,
-				0FE31C2C253C0E9000C2472F /* Player4ViewController.swift in Sources */,
-				0F302DEA25299D9D001044CC /* Player1ViewController.swift in Sources */,
-				0F4451772532FCD100A62BCD /* DetailSettingViewController.swift in Sources */,
-				0F5653092531913900FDFFEA /* EachRecord.swift in Sources */,
-				0FB2053E2543D76E00B5C945 /* JustGetMiddleResult.swift in Sources */,
-				0F56530E2531B10700FDFFEA /* ResultsInOthers.swift in Sources */,
 				0F038057252070EF00053C62 /* AppDelegate.swift in Sources */,
-				0FB205392543D10400B5C945 /* JustGetMiddleResultsDetailViewController.swift in Sources */,
-				0F302DEF25299DBB001044CC /* Player2ViewController.swift in Sources */,
-				0F8C1F8C254F932C00A94D3B /* TenSecondsTimeViewController.swift in Sources */,
-				0F2D2B92253ADE2600335AD0 /* ChangeIconsViewController.swift in Sources */,
-				0F8C1F87254F91EC00A94D3B /* ResponseTimeViewController.swift in Sources */,
+				0F4DBDA6254FAFD900AA26BB /* JustGetMiddleResultsDetailViewController.swift in Sources */,
+				0F4DBD9B254FAFD900AA26BB /* ResponseTimeViewController.swift in Sources */,
+				0F318A5E254FEE5E008538BD /* JustGetMiddlePlayWithOthers2ViewController.swift in Sources */,
+				0F4DBDAA254FAFD900AA26BB /* DetailSettingViewController.swift in Sources */,
+				0F4DBD9E254FAFD900AA26BB /* Player1ViewController.swift in Sources */,
+				0F4DBDA8254FAFD900AA26BB /* SettingViewController.swift in Sources */,
+				0F4DBDA7254FAFD900AA26BB /* JustGetMiddleResultsViewController.swift in Sources */,
+				0F4DBDA9254FAFD900AA26BB /* ChangeIconsViewController.swift in Sources */,
+				0F318A60254FEE5E008538BD /* JustGetMiddlePlayWithOthersResultViewController.swift in Sources */,
 				0F038059252070EF00053C62 /* SceneDelegate.swift in Sources */,
-				0FCD0AEC253AA497001008BE /* JustGetMiddleViewController.swift in Sources */,
-				0FE31C27253C0E8200C2472F /* Player3ViewController.swift in Sources */,
-				0FB205342543CA7400B5C945 /* JustGetMiddleResultsViewController.swift in Sources */,
-				0F038095252072E700053C62 /* SecondController.swift in Sources */,
+				0F4DBDAC254FAFD900AA26BB /* JustGetMiddleResult.swift in Sources */,
+				0F66BB74254FF3D400B152DF /* JustGetMiddleResultsObject.swift in Sources */,
+				0F4DBD9D254FAFD900AA26BB /* TenSecondsTimeViewController.swift in Sources */,
+				0F318A5C254FEE5E008538BD /* JustGetMiddlePlayWithOthers6ViewController.swift in Sources */,
+				0F4DBDAD254FAFD900AA26BB /* Record.swift in Sources */,
+				0F4DBDAB254FAFD900AA26BB /* Setting.swift in Sources */,
+				0F318A5D254FEE5E008538BD /* JustGetMiddlePlayWithOthers1ViewController.swift in Sources */,
+				0F318A5B254FEE5E008538BD /* JustGetMiddlePlayWithOthers4ViewController.swift in Sources */,
+				0F318A5F254FEE5E008538BD /* JustGetMiddlePlayWithOthers3ViewController.swift in Sources */,
+				0F4DBDA1254FAFD900AA26BB /* Player4ViewController.swift in Sources */,
+				0F4DBDA4254FAFD900AA26BB /* SecondController.swift in Sources */,
+				0F4DBD9F254FAFD900AA26BB /* Player3ViewController.swift in Sources */,
+				0F318A5A254FEE5E008538BD /* JustGetMiddlePlayWithOthers5ViewController.swift in Sources */,
+				0F4DBDA3254FAFD900AA26BB /* FirstController.swift in Sources */,
+				0F4DBDA2254FAFD900AA26BB /* ResultsPlayWithOthersViewController.swift in Sources */,
+				0F4DBDAE254FAFD900AA26BB /* EachRecord.swift in Sources */,
+				0F4DBD9C254FAFD900AA26BB /* WorldScoreViewController.swift in Sources */,
+				0F4DBDA5254FAFD900AA26BB /* JustGetMiddleViewController.swift in Sources */,
+				0F4DBDA0254FAFD900AA26BB /* Player2ViewController.swift in Sources */,
 				0F342F95252839520083DD75 /* MyTabBarController.swift in Sources */,
-				0FC4AEB1254ED3C4003A156A /* WorldScoreViewController.swift in Sources */,
+				0F4DBDAF254FAFD900AA26BB /* ResultsInOthers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
