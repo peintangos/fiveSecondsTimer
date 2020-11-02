@@ -9,6 +9,33 @@ import UIKit
 import RealmSwift
 
 class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDelegate{
+    var imageView = UIImageView()
+    func makeImageView(imageview:UIImageView){
+        imageview.frame = CGRect(x: self.view.bounds.width/2 - 50, y: self.view.bounds.height/2 - 100 , width: 100, height: 100)
+        imageview.image = UIImage(named: (Setting.icon.init(rawValue: iconNumberStatic)?.getName())!)
+    }
+    var isFirst:Bool = true
+    func vibrated(view: UIView) {
+        if isFirst{
+            var animation: CABasicAnimation
+            animation = CABasicAnimation(keyPath: "transform.rotation")
+            animation.duration = 0.15
+            animation.fromValue = degreesToRadians(degrees: 5.0)
+            animation.toValue = degreesToRadians(degrees: -5.0)
+            animation.repeatCount = Float.infinity
+            animation.autoreverses = true
+            view.layer.add(animation, forKey: "VibrateAnimationKey")
+            self.isFirst = false
+        }
+        return
+    }
+    func degreesToRadians(degrees: Float) -> Float {
+        return degrees * Float(Double.pi) / 180.0
+      }
+    
+    override func viewWillLayoutSubviews() {
+        isFirst = true
+    }
 
     func makeColorLayer(){
         var layer = CAGradientLayer()
@@ -33,6 +60,8 @@ class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDe
         self.view.layer.addSublayer(self.shapeLayer)
         makeIngicatorCircle(shapeLayer: self.shapeLayerIngicator)
         self.view.layer.addSublayer(self.shapeLayerIngicator)
+        makeImageView(imageview: self.imageView)
+        self.view.addSubview(self.imageView)
         // Do any additional setup after loading the view.
         makeColorLayer()
     }
@@ -61,6 +90,7 @@ class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDe
     @objc func resetData(){
         if (isFirst2!){
             startCircling(shapelayer: self.shapeLayer)
+            vibrated(view: self.imageView)
             isFirst2 = false
         }else {
             pauseAnimation(layer: self.shapeLayer)

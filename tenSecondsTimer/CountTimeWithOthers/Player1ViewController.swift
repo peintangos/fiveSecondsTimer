@@ -95,6 +95,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
 //        imageView.backgroundColor = .cyan
         imageview.isHidden = true
     }
+
     func makeMessage(messageNew:UILabel,imageView imageview:UIImageView){
         messageNew.text = "もう飲めないよ！！"
         messageNew.frame = CGRect(x: Int(UIScreen.main.bounds.width)/2 - widthMessage/2, y: Int(self.view.bounds.height)/2 , width: widthMessage, height: heightMessage)
