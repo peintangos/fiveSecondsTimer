@@ -239,6 +239,21 @@
             </objects>
             <point key="canvasLocation" x="-28.985507246376812" y="-655.43478260869574"/>
         </scene>
+        <!--First Lauching View Controller-->
+        <scene sceneID="kFY-6A-NS7">
+            <objects>
+                <viewController storyboardIdentifier="FirstLauchingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OYd-GW-1P7" customClass="FirstLauchingViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bKv-w6-BHD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="ISo-2h-NWZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dpM-j2-Rtt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4519" y="-594"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="Tsb-oT-wYV">
             <objects>

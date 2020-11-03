@@ -45,6 +45,10 @@
 		0F4DBDAE254FAFD900AA26BB /* EachRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD99254FAFD900AA26BB /* EachRecord.swift */; };
 		0F4DBDAF254FAFD900AA26BB /* ResultsInOthers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4DBD9A254FAFD900AA26BB /* ResultsInOthers.swift */; };
 		0F66BB74254FF3D400B152DF /* JustGetMiddleResultsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB73254FF3D400B152DF /* JustGetMiddleResultsObject.swift */; };
+		0F66BB7925513F9900B152DF /* FirstLauchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB7825513F9800B152DF /* FirstLauchingViewController.swift */; };
+		0F66BB7F2551626200B152DF /* CountTimeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB7E2551626200B152DF /* CountTimeDto.swift */; };
+		0F66BB842551627D00B152DF /* JustGetMiddleDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB832551627D00B152DF /* JustGetMiddleDto.swift */; };
+		0F66BB89255166EB00B152DF /* CountTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB88255166EB00B152DF /* CountTimeViewModel.swift */; };
 		A97DA2EF94960EC2F2213B7A /* Pods_tenSecondsTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB059BEF78F487F36F36777 /* Pods_tenSecondsTimer.framework */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +115,10 @@
 		0F4DBD99254FAFD900AA26BB /* EachRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EachRecord.swift; sourceTree = "<group>"; };
 		0F4DBD9A254FAFD900AA26BB /* ResultsInOthers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsInOthers.swift; sourceTree = "<group>"; };
 		0F66BB73254FF3D400B152DF /* JustGetMiddleResultsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleResultsObject.swift; sourceTree = "<group>"; };
+		0F66BB7825513F9800B152DF /* FirstLauchingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLauchingViewController.swift; sourceTree = "<group>"; };
+		0F66BB7E2551626200B152DF /* CountTimeDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountTimeDto.swift; sourceTree = "<group>"; };
+		0F66BB832551627D00B152DF /* JustGetMiddleDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleDto.swift; sourceTree = "<group>"; };
+		0F66BB88255166EB00B152DF /* CountTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountTimeViewModel.swift; sourceTree = "<group>"; };
 		4757FF48A49EEA45044EC7DC /* Pods-tenSecondsTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tenSecondsTimer.release.xcconfig"; path = "Target Support Files/Pods-tenSecondsTimer/Pods-tenSecondsTimer.release.xcconfig"; sourceTree = "<group>"; };
 		CEF31107578B439F79189372 /* Pods-tenSecondsTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tenSecondsTimer.debug.xcconfig"; path = "Target Support Files/Pods-tenSecondsTimer/Pods-tenSecondsTimer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +174,7 @@
 		0F038055252070EF00053C62 /* tenSecondsTimer */ = {
 			isa = PBXGroup;
 			children = (
+				0F66BB7D2551624100B152DF /* DTO */,
 				0F318A52254FEE5E008538BD /* JustGetMiddlePlayWIthOthers */,
 				0F038056252070EF00053C62 /* AppDelegate.swift */,
 				0F038058252070EF00053C62 /* SceneDelegate.swift */,
@@ -182,6 +191,7 @@
 				0F038061252070F100053C62 /* LaunchScreen.storyboard */,
 				0F038064252070F100053C62 /* Info.plist */,
 				0F342F94252839520083DD75 /* MyTabBarController.swift */,
+				0F66BB7825513F9800B152DF /* FirstLauchingViewController.swift */,
 			);
 			path = tenSecondsTimer;
 			sourceTree = "<group>";
@@ -225,6 +235,7 @@
 				0F4DBD80254FAFD900AA26BB /* ResponseTimeViewController.swift */,
 				0F4DBD81254FAFD900AA26BB /* WorldScoreViewController.swift */,
 				0F4DBD82254FAFD900AA26BB /* TenSecondsTimeViewController.swift */,
+				0F66BB88255166EB00B152DF /* CountTimeViewModel.swift */,
 			);
 			path = World;
 			sourceTree = "<group>";
@@ -288,6 +299,15 @@
 				0F66BB73254FF3D400B152DF /* JustGetMiddleResultsObject.swift */,
 			);
 			path = DAO;
+			sourceTree = "<group>";
+		};
+		0F66BB7D2551624100B152DF /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				0F66BB7E2551626200B152DF /* CountTimeDto.swift */,
+				0F66BB832551627D00B152DF /* JustGetMiddleDto.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		331C59BB463F7DAD198837E7 /* Frameworks */ = {
@@ -483,6 +503,7 @@
 			files = (
 				0F03805B252070EF00053C62 /* ViewController.swift in Sources */,
 				0F038057252070EF00053C62 /* AppDelegate.swift in Sources */,
+				0F66BB7925513F9900B152DF /* FirstLauchingViewController.swift in Sources */,
 				0F4DBDA6254FAFD900AA26BB /* JustGetMiddleResultsDetailViewController.swift in Sources */,
 				0F4DBD9B254FAFD900AA26BB /* ResponseTimeViewController.swift in Sources */,
 				0F318A5E254FEE5E008538BD /* JustGetMiddlePlayWithOthers2ViewController.swift in Sources */,
@@ -505,13 +526,16 @@
 				0F4DBDA1254FAFD900AA26BB /* Player4ViewController.swift in Sources */,
 				0F4DBDA4254FAFD900AA26BB /* SecondController.swift in Sources */,
 				0F4DBD9F254FAFD900AA26BB /* Player3ViewController.swift in Sources */,
+				0F66BB842551627D00B152DF /* JustGetMiddleDto.swift in Sources */,
 				0F318A5A254FEE5E008538BD /* JustGetMiddlePlayWithOthers5ViewController.swift in Sources */,
 				0F4DBDA3254FAFD900AA26BB /* FirstController.swift in Sources */,
 				0F4DBDA2254FAFD900AA26BB /* ResultsPlayWithOthersViewController.swift in Sources */,
 				0F4DBDAE254FAFD900AA26BB /* EachRecord.swift in Sources */,
 				0F4DBD9C254FAFD900AA26BB /* WorldScoreViewController.swift in Sources */,
 				0F4DBDA5254FAFD900AA26BB /* JustGetMiddleViewController.swift in Sources */,
+				0F66BB89255166EB00B152DF /* CountTimeViewModel.swift in Sources */,
 				0F4DBDA0254FAFD900AA26BB /* Player2ViewController.swift in Sources */,
+				0F66BB7F2551626200B152DF /* CountTimeDto.swift in Sources */,
 				0F342F95252839520083DD75 /* MyTabBarController.swift in Sources */,
 				0F4DBDAF254FAFD900AA26BB /* ResultsInOthers.swift in Sources */,
 			);

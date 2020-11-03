@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ResponseTimeViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
@@ -19,20 +20,29 @@ class ResponseTimeViewController: UIViewController,UITableViewDelegate,UITableVi
         tableView?.dataSource = self
         tableView?.delegate = self
         self.view.addSubview(self.tableView!)
+        update()
     }
     var tableView:UITableView?
+    var justGetMiddleDtoList = Array<JustGetMiddleDto>()
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
             return 1
         }else if section == 1{
-            return 10
+            return self.justGetMiddleDtoList.count
         }else {
             return 5
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
+        if indexPath.section == 0 {
+            cell.textLabel?.text = "あなたの順位未定です"
+            return cell
+        }else {
+            cell.textLabel?.text = "\(indexPath.row + 1)位　\(String(self.justGetMiddleDtoList[(indexPath as NSIndexPath).row].difference))" ?? "ロード中"
+        }
+    
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -48,7 +58,25 @@ class ResponseTimeViewController: UIViewController,UITableViewDelegate,UITableVi
             return ""
         }
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        update()
+    }
+    func update(){
+        Alamofire.request("http://localhost:8080/justgetmiddle/list").responseJSON { (response) in
+            let decoder = JSONDecoder()
+            do{
+                let justGetMiddleDtos = try! decoder.decode([JustGetMiddleDto].self, from: response.data!)
+                print(justGetMiddleDtos)
+                self.justGetMiddleDtoList = justGetMiddleDtos
+//                こいつを走らせないと、初期値のから配列がずっと表示されてしまう
+                self.tableView?.reloadData()
+            }catch{
+                print("デコードに失敗しています。")
+            }
+           
+            
+        }
+    }
 
     /*
     // MARK: - Navigation

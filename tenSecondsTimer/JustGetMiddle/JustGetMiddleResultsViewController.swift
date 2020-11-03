@@ -126,14 +126,16 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
 //        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // 下から５件くらいになったらリフレッシュ
-        guard tableView.cellForRow(at: IndexPath(row: tableView.numberOfRows(inSection: 0)-5, section: 0)) != nil else {
-            return
-        }
-        // ここでリフレッシュのメソッドを呼ぶ
-        self.tableView?.reloadData()
-    }
+//    以下のメソッドって何用に使ってたんだっけ、、、これがあるとクラッシュするから消す
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//
+//        // 下から５件くらいになったらリフレッシュ
+//        guard tableView.cellForRow(at: IndexPath(row: tableView.numberOfRows(inSection: 0)-5, section: 0)) != nil else {
+//            return
+//        }
+//        // ここでリフレッシュのメソッドを呼ぶ
+//        self.tableView?.reloadData()
+//    }
 
     /*
     // MARK: - Navigation

@@ -10,6 +10,9 @@
  */
 import UIKit
 import RealmSwift
+import Alamofire
+import RxCocoa
+import RxSwift
 //　　画面サイズの定数
 let myBoundSize: CGSize = UIScreen.main.bounds.size
 class FirstController: UIViewController, UITextFieldDelegate {
@@ -131,7 +134,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
                     alertInput.addTextField { (textField) in
                         textField.delegate = self
                     }
-                    alertInput.addAction(UIAlertAction(title: "登録する", style: .default, handler: { (action) in
+                    alertInput.addAction(UIAlertAction(title: "登録する", style: .default, handler: { [self] (action) in
         //                DBに登録
                         let realm = try! Realm()
                         let record = Record()
@@ -140,10 +143,14 @@ class FirstController: UIViewController, UITextFieldDelegate {
                         record.timerSecond = self.timerSecond.text!
                         record.timerMsec = self.timerMsec.text!
                         record.result = self.timerSecond.text! + self.timerMsec.text!
-                        record.timeDifference = self.calculate(second: secondDouble)
+                        let timeDiffrenceTemporary = self.calculate(second: secondDouble)
+                        record.timeDifference = timeDiffrenceTemporary
                         try! realm.write{
                             realm.add(record)
                         }
+//                        AFを用いて、サーバーにデータを登録する
+                        self.saveData(date: Date(), timeDifference: timeDiffrenceTemporary)
+
         //                登録した場合のみ、バッチをつける
                         self.tabBarController?.tabBar.items?[1].badgeValue = "New"
                         self.tabBarController?.tabBar.items?[1].badgeColor = UIColor.orange
@@ -162,6 +169,25 @@ class FirstController: UIViewController, UITextFieldDelegate {
                 }))
                 alert.addAction(UIAlertAction(title: "もう一回挑戦する!", style: .default, handler:nil))
                 self.present(alert, animated: true, completion: nil)
+    }
+
+    func saveData(date:Date,timeDifference:Double){
+        let uuid = UserDefaults.standard.string(forKey: "UUID")
+        let name = UserDefaults.standard.string(forKey: "UserName")
+//        /日付のフォーマットを指定する。
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                
+//        日付をStringに変換する
+        let sDate = format.string(from: date)
+        let paramters:[String:Any] = [
+            "deviceNumber":uuid,
+            "createdAt":sDate,
+            "name":name,
+            "timeDifference":timeDifference]
+        Alamofire.request("http://localhost:8080/countTime/list",method: .post,parameters: paramters,encoding: JSONEncoding.default,headers: nil).responseString{(response) in
+            print(response)
+        }
     }
     
 

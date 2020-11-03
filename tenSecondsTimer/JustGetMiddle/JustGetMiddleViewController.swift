@@ -7,6 +7,7 @@
 
 import RealmSwift
 import UIKit
+import Alamofire
 
 class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
     var imageView = UIImageView()
@@ -108,17 +109,36 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
                 let record = JustGetMiddleResult()
                 record.name = alert.textFields![0].text!
                 record.date = moldTime(date: record.dateNoMold)
-                record.difference = self.calcTime2(goal: goalUse!, end: stroke!)
+                let diff = self.calcTime2(goal: goalUse!, end: stroke!)
+                record.difference = diff
                 record.end = Double(stroke!)
                 record.goal = Double(self.goalUse!)
                 try! realm.write{
                     realm.add(record)
                 }
-                
+                self.saveData(date: Date(), timeDifference: diff)
                 self.present(viewController!, animated: true, completion: nil);
                 
             }))
             self.present(alert, animated: true, completion: nil)
+        }
+    }
+    func saveData(date:Date,timeDifference:Double){
+        let uuid = UserDefaults.standard.string(forKey: "UUID")
+        let name = UserDefaults.standard.string(forKey: "UserName")
+//        /日付のフォーマットを指定する。
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                
+//        日付をStringに変換する
+        let sDate = format.string(from: date)
+        let paramters:[String:Any] = [
+            "deviceNumber":uuid,
+            "createdAt":sDate,
+            "name":name,
+            "difference":timeDifference]
+        Alamofire.request("http://localhost:8080/justgetmiddle/list",method: .post,parameters: paramters,encoding: JSONEncoding.default,headers: nil).responseString{(response) in
+            print(response)
         }
     }
     
