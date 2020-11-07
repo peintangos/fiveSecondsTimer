@@ -70,7 +70,7 @@ class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDe
         layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = UIColor.clear.cgColor
-        layer.lineWidth = 8
+        layer.lineWidth = 2
         return layer
 }()
     let shapeLayerIngicator: CAShapeLayer = {
@@ -78,7 +78,7 @@ class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDe
         layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = Setting.color(rawValue: colorNumberStatic)!.getUIColor().cgColor
-        layer.lineWidth = 8
+        layer.lineWidth = 2
         return layer
 }()
     var isFirst2:Bool?
@@ -95,22 +95,33 @@ class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDe
         }else {
             pauseAnimation(layer: self.shapeLayer)
             let stroke = self.shapeLayer.presentation()?.strokeEnd
-            var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
-            alert.addTextField { (textFiled) in
-                textFiled.delegate = self
-            }
-            alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
-                self.saveJustGetMiddleReultWithOthers(name: alert.textFields![0].text!, stroke: Double(CGFloat(stroke!)))
+            if isUserNameSaved(){
+                self.saveJustGetMiddleReultWithOthers(name: "player6", stroke: Double(CGFloat(stroke!)))
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-
                 let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
                 
                 self.present(viewController, animated: true, completion: nil);
-                
-            }))
-            self.present(alert, animated: true, completion: nil)
-            
+            }else {
+                var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
+                alert.addTextField { (textFiled) in
+                    textFiled.delegate = self
+                }
+                alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
+                    self.saveJustGetMiddleReultWithOthers(name: alert.textFields![0].text!, stroke: Double(CGFloat(stroke!)))
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+
+                    let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
+                    
+                    self.present(viewController, animated: true, completion: nil);
+                    
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
+    }
+    func isUserNameSaved() ->Bool{
+        let userDefaults = UserDefaults.standard
+        return userDefaults.bool(forKey: "isNameSaved")
     }
     func saveJustGetMiddleReultWithOthers(name:String,stroke:Double){
         let realm = try! Realm()
@@ -190,6 +201,7 @@ class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDe
         resetButton.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         resetButton.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         resetButton.layer.cornerRadius = 50
+        resetButton.backgroundColor = .white
         
         let imageView = UIImageView();
         let image = UIImage(named:"cheer")

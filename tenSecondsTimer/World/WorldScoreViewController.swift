@@ -8,9 +8,6 @@
 import UIKit
 
 class WorldScoreViewController: UIViewController {
-   
-
-    
     var segmentControl:UISegmentedControl?
     
 
@@ -19,19 +16,28 @@ class WorldScoreViewController: UIViewController {
         // Do any additional setup after loading the view.
         let navBar = UINavigationBar()
         //xとyで位置を、widthとheightで幅と高さを指定する
-        navBar.frame = CGRect(x: 0, y: self.view.safeAreaInsets.top + 20, width: self.view.frame.width, height: 44)
+        let height = self.view.safeAreaInsets.top + 20
+        navBar.frame = CGRect(x: 0, y: height, width: self.view.frame.width, height: 44)
         //ナビゲーションアイテムのタイトルを設定
         let navItem : UINavigationItem = UINavigationItem(title: "世界の記録")
         //ナビゲーションバー右のボタンを設定
         navItem.leftBarButtonItem = UIBarButtonItem(title: "戻る", style: UIBarButtonItem.Style.plain, target: self, action:#selector(self.goBack))
+        
         //ナビゲーションバーにアイテムを追加
         navBar.pushItem(navItem, animated: true)
-        //Viewにナビゲーションバーを追加
-        
+        //Viewにナビゲーションバーを追加(ナビゲーションバーの高さを）
+        let segmentHeight = height + 44
+        var myView = UIView(frame: CGRect(x: 0, y: segmentHeight, width: self.view.frame.width, height: 100))
+        self.view.addSubview(myView)
         let items = ["秒あて","反射神経"]
         self.segmentControl = UISegmentedControl(items: items)
+        self.segmentControl?.frame = CGRect(x: 0, y: 80, width: 200, height: 30)
+//        self.segmentControl?.center.x = self.view.center.x
+        self.segmentControl?.center = myView.center
+        self.segmentControl?.selectedSegmentTintColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+        self.segmentControl?.backgroundColor = UIColor.init(red: 53 / 255, green: 74 / 255, blue: 93 / 255, alpha: 1)
+        segmentControl?.tintColor = .white
         self.segmentControl?.selectedSegmentIndex = 0
-        self.segmentControl?.backgroundColor = UIColor.init(red: 76 / 255, green: 217 / 255, blue: 100 / 255, alpha: 1)
         self.segmentControl?.rx.selectedSegmentIndex.subscribe(onNext:{ [self] index in
 //            どうしようかな悩み中。
             switch index {
@@ -43,20 +49,20 @@ class WorldScoreViewController: UIViewController {
                 print("")
             }
         })
-        navBar.addSubview(self.segmentControl!)
+        self.view.addSubview(self.segmentControl!)
         self.view.addSubview(navBar)        
         self.view.addSubview(rt.view)
         self.view.addSubview(ts.view)
     }
-    
+
     let rt = ResponseTimeViewController()
     let ts = TenSecondsTimeViewController()
-    override func viewDidLayoutSubviews() {
-        self.segmentControl?.translatesAutoresizingMaskIntoConstraints = false
-        self.segmentControl?.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
-        self.segmentControl?.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20 + (self.navigationController?.navigationBar.frame.size.height ?? 14 / 2)).isActive = true
-        self.segmentControl?.widthAnchor.constraint(equalToConstant: 120).isActive = true
-    }
+//    override func viewDidLayoutSubviews() {
+//        self.segmentControl?.translatesAutoresizingMaskIntoConstraints = false
+//        self.segmentControl?.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
+//        self.segmentControl?.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20 + (self.navigationController?.navigationBar.frame.size.height ?? 14 / 2)).isActive = true
+//        self.segmentControl?.widthAnchor.constraint(equalToConstant: 120).isActive = true
+//    }
     @objc func goBack(){
         self.dismiss(animated: true, completion: nil)
     }

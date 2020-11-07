@@ -68,28 +68,32 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             if defaults.integer(forKey: "iconNumber") == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
-//
+//            輪っかの色を設定する
         }else if sectionNumber! == 1 && self.rowNumber! == 1{
             cell.textLabel?.text = Setting.color.init(rawValue: indexPath.row + 1)!.getUIColor().accessibilityName
             if defaults.integer(forKey: "colorNumber") == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
+//            ボタンの色を設定する
         }else if sectionNumber! == 1 && self.rowNumber! == 2{
             cell.textLabel?.text = Setting.color.init(rawValue: indexPath.row + 1)!.getUIColor().accessibilityName
             if defaults.integer(forKey: "buttonTextColorNumber") == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
+//            ボタンの文字の大きさを設定する
         }else if sectionNumber! == 1 && self.rowNumber! == 3{
             cell.textLabel?.text = Setting.fontSize.init(rawValue: indexPath.row + 1)!.getName()
             if defaults.integer(forKey: "buttonTextSizeNumber") == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
         }
+//        ボタンの枠の色を設定する
         else if sectionNumber! == 1 && self.rowNumber! == 4{
             cell.textLabel?.text = Setting.color.init(rawValue: indexPath.row + 1)!.getUIColor().accessibilityName
             if defaults.integer(forKey: "buttonColorNumber") == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
+//            ボタンの枠の幅を設定する
         }else if sectionNumber! == 1 && self.rowNumber! == 5{
             cell.textLabel?.text = String(Setting.time.init(rawValue: indexPath.row + 1)!.rawValue)
             if defaults.integer(forKey: "buttonWithColorNumber") == indexPath.row + 1 {
@@ -158,7 +162,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             myTableView = UITableView(frame: view.frame, style: .grouped)
             myTableView.delegate = self
             myTableView.dataSource = self
-//            これで行けた。
+//            これで行けた。複数選択されてしまうことを回避した
             myTableView.allowsMultipleSelection = false
             myTableView.contentInset.top = 44
             view.addSubview(myTableView)
@@ -170,17 +174,6 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             navItem.rightBarButtonItem = UIBarButtonItem(title: "完了", style: UIBarButtonItem.Style.done, target: nil, action:#selector(self.goBack))
             bar.pushItem(navItem, animated: true)
             self.view.addSubview(bar)
-        }
-        do{
-            let defaults = UserDefaults.standard
-            defaults.register(defaults: ["timeNumber":5,"iconNumber":1,"colorNumber":3,"buttonColorNumber":3,"buttonTextColorNumber":5,"buttonWithColorNumber":1,"buttonTextSizeNumber":2,"isNameSaved":false])
-            self.timeNumber = defaults.integer(forKey: "timeNumber")
-            self.iconNumber = defaults.integer(forKey: "iconNumber")
-            self.colorNumber = defaults.integer(forKey: "colorNumber")
-            self.buttonTextColorNumber = defaults.integer(forKey: "buttonTextColorNumber")
-            self.buttoColorNumber = defaults.integer(forKey: "buttonColorNumber")
-            self.buttoWidthColorNumber = defaults.integer(forKey: "buttonWithColorNumber")
-            self.buttonTextSizeNumber = defaults.integer(forKey: "buttonTextSizeNumber")
         }
     }
 
@@ -208,7 +201,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             buttonWidthNumberStatic = a
         }
         if let b = buttonTextColorNumber{
-            defaults.setValue(buttoWidthColorNumber!, forKey: "buttonTextColorNumber")
+            defaults.setValue(buttonTextColorNumber!, forKey: "buttonTextColorNumber")
             buttonTextColorNumberStatic = b
         }
         if let size = buttonTextSizeNumber{

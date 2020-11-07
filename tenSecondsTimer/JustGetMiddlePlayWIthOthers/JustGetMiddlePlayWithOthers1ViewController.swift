@@ -38,12 +38,16 @@ class JustGetMiddlePlayWithOthersViewController: UIViewController, UITextFieldDe
         // Do any additional setup after loading the view.
         makeColorLayer()
     }
+    func isUserNameSaved() ->Bool{
+        let userDefaults = UserDefaults.standard
+        return userDefaults.bool(forKey: "isNameSaved")
+    }
     let shapeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = UIColor.clear.cgColor
-        layer.lineWidth = 8
+        layer.lineWidth = 2
         return layer
 }()
     let shapeLayerIngicator: CAShapeLayer = {
@@ -51,7 +55,7 @@ class JustGetMiddlePlayWithOthersViewController: UIViewController, UITextFieldDe
         layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = Setting.color(rawValue: colorNumberStatic)!.getUIColor().cgColor
-        layer.lineWidth = 8
+        layer.lineWidth = 2
         return layer
 }()
     var isFirst2:Bool?
@@ -60,6 +64,7 @@ class JustGetMiddlePlayWithOthersViewController: UIViewController, UITextFieldDe
     }
     var startStop = UIButton()
     var resetButton = UIButton()
+    var isNameSaved:Bool?
     @objc func resetData(){
         if (isFirst2!){
             startCircling(shapelayer: self.shapeLayer)
@@ -69,20 +74,24 @@ class JustGetMiddlePlayWithOthersViewController: UIViewController, UITextFieldDe
             pauseAnimation(layer: self.shapeLayer)
             numberForAGame = Int.random(in: 1..<10000000)
             let stroke = self.shapeLayer.presentation()?.strokeEnd
-            var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
-            alert.addTextField { (textFiled) in
-                textFiled.delegate = self
-            }
-            
-            alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
+            if isUserNameSaved(){
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let viewController2 = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers2ViewController")
-                self.saveJustGetMiddleReultWithOthers(name: alert.textFields![0].text!, stroke: Double(CGFloat(stroke!)))
-                self.present(viewController2, animated: true, completion: nil);
-                
-            }))
-            self.present(alert, animated: true, completion: nil)
-            
+                self.saveJustGetMiddleReultWithOthers(name: "player1", stroke: Double(CGFloat(stroke!)))
+                self.present(viewController2, animated: true, completion: nil)
+            }else {
+                var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
+                alert.addTextField { (textFiled) in
+                    textFiled.delegate = self
+                }
+                alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController2 = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers2ViewController")
+                    self.saveJustGetMiddleReultWithOthers(name: alert.textFields![0].text!, stroke: Double(CGFloat(stroke!)))
+                    self.present(viewController2, animated: true, completion: nil);
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     func makeImageView(imageview:UIImageView){
@@ -190,6 +199,7 @@ class JustGetMiddlePlayWithOthersViewController: UIViewController, UITextFieldDe
         resetButton.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         resetButton.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         resetButton.layer.cornerRadius = 50
+        resetButton.backgroundColor = .white
         
         let imageView = UIImageView();
         let image = UIImage(named:"cheer")

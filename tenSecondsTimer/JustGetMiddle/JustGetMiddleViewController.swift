@@ -41,6 +41,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
     func makeColorLayer(){
         var layer = CAGradientLayer()
         layer.frame = self.view.frame
+        layer.borderWidth = 2
         layer.colors = [UIColor.init(red: 252 / 250, green: 203 / 250, blue: 144 / 250, alpha: 1).cgColor,UIColor.init(red: 213 / 255, green: 126 / 255, blue: 235 / 255, alpha: 1).cgColor]
         layer.locations = [0.1,0.7]
         layer.startPoint = CGPoint(x: 0.3, y: 0)
@@ -71,7 +72,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = UIColor.clear.cgColor
-        layer.lineWidth = 8
+        layer.lineWidth = 2
         return layer
 }()
     let shapeLayerIngicator: CAShapeLayer = {
@@ -79,7 +80,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = Setting.color(rawValue: colorNumberStatic)!.getUIColor().cgColor
-        layer.lineWidth = 8
+        layer.lineWidth = 2
         return layer
 }()
     var isFirst2:Bool?
@@ -125,7 +126,6 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
     }
     func saveData(date:Date,timeDifference:Double){
         let uuid = UserDefaults.standard.string(forKey: "UUID")
-        let name = UserDefaults.standard.string(forKey: "UserName")
 //        /日付のフォーマットを指定する。
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -204,7 +204,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         resetButton.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         resetButton.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         resetButton.layer.cornerRadius = 50
-        
+        resetButton.backgroundColor = .white
         let imageView = UIImageView();
         let image = UIImage(named:"cheer")
         imageView.image = image

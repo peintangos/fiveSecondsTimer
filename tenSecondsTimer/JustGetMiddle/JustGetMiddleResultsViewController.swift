@@ -18,9 +18,10 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
     var justGetMiddleResultRanking: Results<JustGetMiddleResult>!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0){
-            return 3
+//            ここで、単純に3と書くとレコードが3個ない場合にクラッシュする。セクションの数は常に一定数担保されている必要がある。
+            return justGetMiddleResult.count <= 3 ? justGetMiddleResult.count : 3
         }else if (section == 1){
-            return justGetMiddleResult.count ?? 0
+            return justGetMiddleResult.count 
         }
         return 3;
     }
@@ -69,6 +70,10 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
         tableView = UITableView(frame: view.frame, style: .grouped)
         tableView?.dataSource = self
         tableView?.delegate = self
+//        なぜか意味不明だが、以下の文をつけることによって、layerのグラデーションが反映される
+//        仮説だが、下のUIColorはred,green,blueを255でわり、正規化する必要があるが、それを行なっていないために色として生成されていない。
+//        tableViewの背景色が色の生成に失敗した場合は、親のviewのバックグラウンドカラー(今回の場合だとlayer)に依存するという設定になっているではないだろうか
+        tableView?.backgroundColor = UIColor.init(red: 3, green: 3, blue: 124, alpha: 0)
         self.view.addSubview(tableView!)
         let realm = try! Realm()
         self.justGetMiddleResultRanking = realm.objects(JustGetMiddleResult.self).sorted(byKeyPath: "difference", ascending: true)
@@ -96,23 +101,54 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
         self.tableView!.refreshControl?.endRefreshing()
         
     }
+//    func makeStartTimer() -> UIButton{
+//        do{
+//            AutoLayoutを設定する場合は、fraeの大きさを決定しなくて良いが、AutoLayoutとimageの相性が悪いので、ここでは固定値として決定する
+//            let uiButton = UIButton()
+//            角を丸くする
+//            uiButton.layer.cornerRadius = 40
+//            UIButton()に画像を配置するには、これだけで良い
+//            let image = UIImage(named: "back")
+//            uiButton.setImage(image, for: .normal)
+//            uiButton.backgroundColor = .white
+//        }
+//        位置はAutoLaoutで決定するので今は0 0 で良い
+//        let stopButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+//        stopButton.backgroundColor = UIColor.white
+//        let image = UIImage(named: "back")
+//        let imageView = UIImageView(image: image)
+//        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+//        imageView.layer.cornerRadius = 25
+//        imageView.backgroundColor = .white
+//        stopButton.addSubview(imageView)
+//        return stopButton
+//    }
     func makeStartTimer() -> UIButton{
         let startButton = UIButton()
-        let wid = self.view.bounds.width/2 - 150
-        let hei = self.view.bounds.height - 200
-        startButton.frame = CGRect(x: wid, y:hei , width: 120, height: 120)
-        startButton.titleLabel?.text = "終わる"
+        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 180 , width: 100, height: 100)
+        startButton.backgroundColor = UIColor.white
+        startButton.layer.cornerRadius = 50
         let image = UIImage(named: "back")
         let imageView = UIImageView(image: image)
-        imageView.frame = CGRect(x: (self.view.bounds.width/2 - 150) / 2, y: (self.view.bounds.height/2 - 200) / 2 - 30, width: 60, height: 60)
+        
+        imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         imageView.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
 //　　本当は、以下のようにしたかったができなくなったので、無理やり数字で合わせた
+//        imageView.center = stopButton.center
         startButton.addSubview(imageView)
         startButton.imageView?.contentMode = .scaleAspectFit
         startButton.contentHorizontalAlignment = .fill
         startButton.contentVerticalAlignment = .fill
         return startButton
     }
+//    func makeAutoLayout(){
+//        self.stopButton?.translatesAutoresizingMaskIntoConstraints = false
+//        self.stopButton?.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50).isActive = true
+//        self.stopButton?.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50).isActive = true
+//    }
+//    override func viewDidLayoutSubviews() {
+//        makeAutoLayout()
+//    }
     @objc func refresh(){
         self.tableView?.reloadData()
     }

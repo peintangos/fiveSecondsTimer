@@ -62,6 +62,7 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
         myTableView.dataSource = self
         myTableView.delegate = self
         myTableView.backgroundColor = UIColor.init(red: 3, green: 3, blue: 124, alpha: 0)
+//        myTableView.backgroundColor = .black
         view.addSubview(myTableView)
         let realm = try! Realm()
         self.tableCells = realm.objects(EachRecord.self).sorted(byKeyPath: "timeDifference", ascending: true).filter("orderAll = \(orderAllNew!)")

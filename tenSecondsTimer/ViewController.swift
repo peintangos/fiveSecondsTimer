@@ -29,6 +29,8 @@ var buttonWidthNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonW
 var buttonTextColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonTextColorNumber")
 //ボタンの文字の大きさをUserDefaultsからとってきて格納する箱
 var buttonTextSizeNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonTextSizeNumber")
+//初回で入力したユーザ名をUserDefaultに登録
+var name:String = UserDefaults.standard.string(forKey: "username")!
 var playerNumberAll:Int?
 var isSaved:Bool?
 
@@ -41,7 +43,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         do{
             let defaults = UserDefaults.standard
-            defaults.register(defaults: ["timeNumber":5,"iconNumber":1,"colorNumber":3,"buttonColorNumber":3,"buttonTextColorNumber":5,"buttonWithColorNumber":1,"buttonTextSizeNumber":1,"isNameSaved":false])
+            defaults.register(defaults: ["timeNumber":5,"iconNumber":1,"colorNumber":3,"buttonColorNumber":3,"buttonTextColorNumber":5,"buttonWithColorNumber":1,"buttonTextSizeNumber":2,"isNameSaved":false])
             timeNumberStatic = defaults.integer(forKey: "timeNumber")
             iconNumberStatic = defaults.integer(forKey: "iconNumber")
             colorNumberStatic = defaults.integer(forKey: "colorNumber")
@@ -173,16 +175,17 @@ class ViewController: UIViewController,UITextFieldDelegate{
     }
     
     func makeAutoLayout(button:UIButton,settingButton:UIButton,worldButton:UIButton){
+        let height = self.view.safeAreaInsets.top
         button.translatesAutoresizingMaskIntoConstraints = false
 //        button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         button.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -200).isActive = true
         
         settingButton.translatesAutoresizingMaskIntoConstraints = false
-        settingButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 30).isActive = true
+        settingButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10 + height).isActive = true
         settingButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -30).isActive = true
         
         worldButton.translatesAutoresizingMaskIntoConstraints = false
-        worldButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 30).isActive = true
+        worldButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10 + height).isActive = true
         worldButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         worldButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         worldButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: CGFloat(30)).isActive = true
@@ -254,7 +257,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
     func settingTitle (view viewA:UILabel){
         viewA.text = "\(timeNumberStatic) Seconds Timer"
         viewA.textAlignment = NSTextAlignment.center
-        viewA.frame = CGRect(x:40,y:20,width: 300,height: 70)
+        viewA.frame = CGRect(x:40,y:Int(self.view.frame.height) / 3 + Int(self.view.safeAreaInsets.top) ,width: 300,height: 70)
         viewA.center = CGPoint(x: myBoundSize.width/2, y:150)
         viewA.font = UIFont.systemFont(ofSize: 20)
         viewA.textColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1)

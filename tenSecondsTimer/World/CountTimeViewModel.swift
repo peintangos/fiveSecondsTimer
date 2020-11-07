@@ -9,9 +9,12 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class CountTimeViewModel{
-    private let items = BehaviorRelay<[CountTimeDto]>(value:[])
+struct CountTimeViewModel{
+    private var items:Observable<[CountTimeDto]>
     var itemObservalble:Observable<[CountTimeDto]>{
-        return items.asObservable()
+        return items
+    }
+    init(itemsList:[CountTimeDto]){
+        self.items = Observable<[CountTimeDto]>.just(itemsList)
     }
 }

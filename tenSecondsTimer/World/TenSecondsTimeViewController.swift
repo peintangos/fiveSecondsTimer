@@ -10,7 +10,8 @@ import Alamofire
 import RxSwift
 import RxCocoa
 
-class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+
+class TenSecondsTimeViewController: UIViewController,UITableViewDataSource{
     
     let dispopse = DisposeBag()
     override func viewDidLoad() {
@@ -18,18 +19,23 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
 
         // Do any additional setup after loading the view.
 
-        self.view.frame = CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height)
-        self.view.backgroundColor = .blue
+        self.view.frame = CGRect(x: 0, y: 164 + self.view.safeAreaInsets.top, width: self.view.frame.width, height: self.view.frame.height)
         self.tableView = UITableView(frame: view.frame, style: .grouped)
-        self.tableView?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-        tableView?.dataSource = self
-        tableView?.delegate = self
+        self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.tableView.contentInset.top = self.view.safeAreaInsets.top
+        tableView.dataSource = self
+//        tableView.delegate = self
         self.view.addSubview(self.tableView!)
+        
+        self.update()
+        self.updateYourScore()
   
-//        本当はこうやりたかったが、できない。
-//        var vm = CountTimeViewModel()
-//        vm.itemObservalble.bind(to: (self.tableView?.rx.items(cellIdentifier: "Cell"))!){row,element,cell in
-//            cell.textLabel?.text = element.name
+        
+////        let vm = CountTimeViewModel(itemsList: self.countTimeDtoList)
+//        var items:Observable<[CountTimeDto]> = Observable.just(self.countTimeDtoList)
+//        items.bind(to: (self.tableView.rx.items(cellIdentifier: "cell"))){row,element,cell in
+//            cell.textLabel?.text = element.name.description
+//            print(element.name)
 //        }.disposed(by: dispopse)
         update()
     }
@@ -39,15 +45,27 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
             do{
                 let countTimeDtos :[CountTimeDto] = try deocder.decode([CountTimeDto].self, from: reponse.data!)
                 self.countTimeDtoList = countTimeDtos
-                self.tableView?.reloadData()
-                print(countTimeDtos)
+                self.tableView.reloadData()
             }catch{
                 print("デコードに失敗しました。")
             }
         }
     }
+    func updateYourScore(){
+        let parameters:[String:String] = [
+            "key":name]
+        Alamofire.request("http://localhost:8080/countTime/keys",method: .get,parameters: parameters).validate(statusCode: 200..<400).responseString { [self]response in
+            switch response.result {
+            case .success:
+                yourScore = String(data: response.data!,encoding: .utf8)!
+            case .failure:
+                print("失敗")
+            }
+        }
+    }
 
-    var tableView:UITableView?
+
+    var tableView:UITableView!
     var countTimeDtoList = Array<CountTimeDto>()
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
@@ -59,12 +77,15 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
     
     override func viewWillAppear(_ animated: Bool) {
         update()
+        print("こいつはいつ呼ばれてる？")
+        updateYourScore()
+        self.tableView.reloadData()
     }
-    
+    var yourScore:String?
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
         if indexPath.section == 0{
-            cell.textLabel?.text = "あなたの順位は未定です"
+            cell.textLabel?.text = "あなたの世界ランクは\(yourScore ?? "xx")位です"
             return cell
         }
         cell.textLabel?.text = "\(indexPath.row + 1)位 \(String(self.countTimeDtoList[(indexPath as NSIndexPath).row].timeDifference))" ?? "ロード中"

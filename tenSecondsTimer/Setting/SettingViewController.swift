@@ -63,22 +63,25 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.frame = CGRect(x: 0, y: self.view.safeAreaInsets.top, width: self.view.frame.width, height: self.view.frame.height)
 //        self.view.backgroundColor = .white
         self.switchS.addTarget(self, action: #selector(changeSwitch), for: UIControl.Event.valueChanged)
 //        こいつを書かないと設定上オン/オフが切り替わっていたとしても、画面の表示が切り替わらない。
         self.switchS.isOn = UserDefaults.standard.bool(forKey: "isNameSaved")
+        
+        myTableView = UITableView(frame: CGRect(x: 0, y: self.view.safeAreaInsets.top, width: 0, height: 0), style: .grouped)
     }
 
     @objc func goBack(){
         self.dismiss(animated: true, completion: nil)
     }
-    var myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), style: .grouped)
+    var myTableView:UITableView!
 
     override func viewDidLayoutSubviews() {
         myTableView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height)
         myTableView.dataSource = self
         myTableView.delegate = self
-        myTableView.contentInset.top = 44 - self.view.safeAreaInsets.top
+        myTableView.contentInset.top = self.view.safeAreaInsets.top
         self.view.bringSubviewToFront(self.switchS)
         self.view.addSubview(myTableView)
         self.view.sendSubviewToBack(myTableView)

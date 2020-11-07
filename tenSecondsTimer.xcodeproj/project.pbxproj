@@ -49,6 +49,7 @@
 		0F66BB7F2551626200B152DF /* CountTimeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB7E2551626200B152DF /* CountTimeDto.swift */; };
 		0F66BB842551627D00B152DF /* JustGetMiddleDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB832551627D00B152DF /* JustGetMiddleDto.swift */; };
 		0F66BB89255166EB00B152DF /* CountTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB88255166EB00B152DF /* CountTimeViewModel.swift */; };
+		0FB620922556699700B7D6F3 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB620912556699700B7D6F3 /* LoginViewModel.swift */; };
 		A97DA2EF94960EC2F2213B7A /* Pods_tenSecondsTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB059BEF78F487F36F36777 /* Pods_tenSecondsTimer.framework */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +120,7 @@
 		0F66BB7E2551626200B152DF /* CountTimeDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountTimeDto.swift; sourceTree = "<group>"; };
 		0F66BB832551627D00B152DF /* JustGetMiddleDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleDto.swift; sourceTree = "<group>"; };
 		0F66BB88255166EB00B152DF /* CountTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountTimeViewModel.swift; sourceTree = "<group>"; };
+		0FB620912556699700B7D6F3 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4757FF48A49EEA45044EC7DC /* Pods-tenSecondsTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tenSecondsTimer.release.xcconfig"; path = "Target Support Files/Pods-tenSecondsTimer/Pods-tenSecondsTimer.release.xcconfig"; sourceTree = "<group>"; };
 		CEF31107578B439F79189372 /* Pods-tenSecondsTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tenSecondsTimer.debug.xcconfig"; path = "Target Support Files/Pods-tenSecondsTimer/Pods-tenSecondsTimer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -174,6 +176,7 @@
 		0F038055252070EF00053C62 /* tenSecondsTimer */ = {
 			isa = PBXGroup;
 			children = (
+				0FB620902556696F00B7D6F3 /* Login */,
 				0F66BB7D2551624100B152DF /* DTO */,
 				0F318A52254FEE5E008538BD /* JustGetMiddlePlayWIthOthers */,
 				0F038056252070EF00053C62 /* AppDelegate.swift */,
@@ -191,7 +194,6 @@
 				0F038061252070F100053C62 /* LaunchScreen.storyboard */,
 				0F038064252070F100053C62 /* Info.plist */,
 				0F342F94252839520083DD75 /* MyTabBarController.swift */,
-				0F66BB7825513F9800B152DF /* FirstLauchingViewController.swift */,
 			);
 			path = tenSecondsTimer;
 			sourceTree = "<group>";
@@ -308,6 +310,15 @@
 				0F66BB832551627D00B152DF /* JustGetMiddleDto.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		0FB620902556696F00B7D6F3 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0F66BB7825513F9800B152DF /* FirstLauchingViewController.swift */,
+				0FB620912556699700B7D6F3 /* LoginViewModel.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		331C59BB463F7DAD198837E7 /* Frameworks */ = {
@@ -537,6 +548,7 @@
 				0F4DBDA0254FAFD900AA26BB /* Player2ViewController.swift in Sources */,
 				0F66BB7F2551626200B152DF /* CountTimeDto.swift in Sources */,
 				0F342F95252839520083DD75 /* MyTabBarController.swift in Sources */,
+				0FB620922556699700B7D6F3 /* LoginViewModel.swift in Sources */,
 				0F4DBDAF254FAFD900AA26BB /* ResultsInOthers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

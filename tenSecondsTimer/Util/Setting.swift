@@ -37,7 +37,7 @@ enum Setting:CaseIterable{
             case .beer:
                 return "beer"
             case .cooktail:
-                return "cooltail"
+                return "cooktail"
             case .cunbeer:
                 return "cunbeer"
             case .bansyaku:

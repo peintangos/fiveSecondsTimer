@@ -154,6 +154,9 @@ class FirstController: UIViewController, UITextFieldDelegate {
         //                登録した場合のみ、バッチをつける
                         self.tabBarController?.tabBar.items?[1].badgeValue = "New"
                         self.tabBarController?.tabBar.items?[1].badgeColor = UIColor.orange
+                        
+                        self.start2.alpha = 1
+                        self.stop2.alpha = 0.5
                     }))
         //            セカンドコントローラをアップデートする（これ必要かわからん）
                     let secondController = SecondController()
@@ -173,7 +176,6 @@ class FirstController: UIViewController, UITextFieldDelegate {
 
     func saveData(date:Date,timeDifference:Double){
         let uuid = UserDefaults.standard.string(forKey: "UUID")
-        let name = UserDefaults.standard.string(forKey: "UserName")
 //        /日付のフォーマットを指定する。
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -245,6 +247,8 @@ class FirstController: UIViewController, UITextFieldDelegate {
         imagView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         startX.addSubview(imagView)
         startX.isEnabled = true
+        startX.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+        startX.backgroundColor = .white
         startX.alpha = 1.0
         startX.layer.borderWidth = 1.0
         startX.layer.cornerRadius = 50
@@ -256,6 +260,8 @@ class FirstController: UIViewController, UITextFieldDelegate {
         stopX.layer.cornerRadius = 50
         stopX.isEnabled = false
         stopX.alpha = 0.5
+        stopX.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+        stopX.backgroundColor = .white
         stopX.layer.borderWidth = 1.0
         stopX.addSubview(imagView)
         self.view.addSubview(stopX)
@@ -265,11 +271,11 @@ class FirstController: UIViewController, UITextFieldDelegate {
         self.stop2.translatesAutoresizingMaskIntoConstraints = false
         self.start2.translatesAutoresizingMaskIntoConstraints = false
         self.start2.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50).isActive = true
-        self.start2.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20 - tabHeight! ).isActive = true
+        self.start2.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -10 - tabHeight! ).isActive = true
         self.start2.widthAnchor.constraint(equalToConstant: CGFloat(100)).isActive = true
         self.start2.heightAnchor.constraint(equalToConstant: CGFloat(100)).isActive = true
         self.stop2.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -50).isActive = true
-        self.stop2.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20 - tabHeight!).isActive = true
+        self.stop2.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -10 - tabHeight!).isActive = true
         self.stop2.widthAnchor.constraint(equalToConstant: CGFloat(100)).isActive = true
         self.stop2.heightAnchor.constraint(equalToConstant: CGFloat(100)).isActive = true
     }
