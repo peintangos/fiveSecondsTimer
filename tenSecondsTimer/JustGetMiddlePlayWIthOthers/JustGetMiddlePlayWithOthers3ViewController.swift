@@ -37,14 +37,10 @@ class JustGetMiddlePlayWithOthers3ViewController: UIViewController,UITextFieldDe
         isFirst = true
     }
 
-    func makeColorLayer(){
-        var layer = CAGradientLayer()
-        layer.frame = self.view.frame
-        layer.colors = [UIColor.init(red: 252 / 250, green: 203 / 250, blue: 144 / 250, alpha: 1).cgColor,UIColor.init(red: 213 / 255, green: 126 / 255, blue: 235 / 255, alpha: 1).cgColor]
-        layer.locations = [0.1,0.7]
-        layer.startPoint = CGPoint(x: 0.3, y: 0)
-        layer.endPoint = CGPoint(x: 0.2, y: 1)
-        self.view.layer.insertSublayer(layer, at: 0)
+    func makeColorLayer(number:Int){
+        let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
+        layer!.frame = self.view.frame
+        self.view.layer.insertSublayer(layer!, at: 0)
     }
 
     override func viewDidLoad() {
@@ -62,7 +58,7 @@ class JustGetMiddlePlayWithOthers3ViewController: UIViewController,UITextFieldDe
         makeImageView(imageview: self.imageView)
         self.view.addSubview(self.imageView)
         // Do any additional setup after loading the view.
-        makeColorLayer()
+        makeColorLayer(number: backgroundColorNumberStatic)
     }
     let shapeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()

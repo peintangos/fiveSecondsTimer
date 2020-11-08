@@ -23,6 +23,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
     var buttoWidthColorNumber:Int?
     var buttonTextColorNumber:Int?
     var buttonTextSizeNumber:Int?
+    var backgroundColorNumber:Int?
     
 
 //    Enumの個数を数えるのに、Enum本体にCaseIterableプロトコルを実装し、.allCases.countプロパティでアクセス
@@ -43,6 +44,8 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             return Setting.color.allCases.count
         }else if sectionNumber! == 1 && self.rowNumber! == 5{
             return Setting.time.allCases.count
+        }else if sectionNumber! == 1 && self.rowNumber! == 6{
+            return Setting.backgroundColor.allCases.count
         }
         else{
             return 1
@@ -59,13 +62,13 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
 //                後でswitch文に書き換えること
         if self.sectionNumber! == 0 && self.rowNumber! == 0 {
             cell.textLabel?.text = String(Setting.time.init(rawValue: indexPath.row + 1)!.rawValue)
-            if defaults.integer(forKey: "timeNumber") == indexPath.row + 1 {
+            if timeNumberStatic == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
 //            アイコン設定を行う
         }else if sectionNumber! == 1 && self.rowNumber! == 0{
             cell.textLabel?.text = Setting.icon.init(rawValue: indexPath.row + 1)!.getName()
-            if defaults.integer(forKey: "iconNumber") == indexPath.row + 1 {
+            if iconNumberStatic == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
 //            輪っかの色を設定する
@@ -77,26 +80,31 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
 //            ボタンの色を設定する
         }else if sectionNumber! == 1 && self.rowNumber! == 2{
             cell.textLabel?.text = Setting.color.init(rawValue: indexPath.row + 1)!.getUIColor().accessibilityName
-            if defaults.integer(forKey: "buttonTextColorNumber") == indexPath.row + 1 {
+            if buttonTextColorNumberStatic == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
 //            ボタンの文字の大きさを設定する
         }else if sectionNumber! == 1 && self.rowNumber! == 3{
             cell.textLabel?.text = Setting.fontSize.init(rawValue: indexPath.row + 1)!.getName()
-            if defaults.integer(forKey: "buttonTextSizeNumber") == indexPath.row + 1 {
+            if buttonTextSizeNumberStatic == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
         }
 //        ボタンの枠の色を設定する
         else if sectionNumber! == 1 && self.rowNumber! == 4{
             cell.textLabel?.text = Setting.color.init(rawValue: indexPath.row + 1)!.getUIColor().accessibilityName
-            if defaults.integer(forKey: "buttonColorNumber") == indexPath.row + 1 {
+            if buttonColorNumberStatic == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
 //            ボタンの枠の幅を設定する
         }else if sectionNumber! == 1 && self.rowNumber! == 5{
             cell.textLabel?.text = String(Setting.time.init(rawValue: indexPath.row + 1)!.rawValue)
-            if defaults.integer(forKey: "buttonWithColorNumber") == indexPath.row + 1 {
+            if buttonWidthNumberStatic == indexPath.row + 1 {
+                cell.accessoryType = .checkmark
+            }
+        }else if sectionNumber! == 1 && self.rowNumber! == 6{
+            cell.textLabel?.text = Setting.backgroundColor.init(rawValue: indexPath.row)!.getName()
+            if backgroundColorNumberStatic == indexPath.row {
                 cell.accessoryType = .checkmark
             }
             
@@ -139,6 +147,10 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "buttonWithColorNumber") - 1, section: indexPath.section))
             cell?.accessoryType = .none
             self.buttoWidthColorNumber = indexPath.row + 1
+        }else if sectionNumber! == 1 && self.rowNumber! == 6{
+            let cell = tableView.cellForRow(at: IndexPath(row:defaults.integer(forKey: "backgroundColorNumber"),section: indexPath.section))
+            cell?.accessoryType = .none
+            self.backgroundColorNumber = indexPath.row
         }
         else
         {
@@ -207,6 +219,10 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
         if let size = buttonTextSizeNumber{
             defaults.setValue(buttonTextSizeNumber!, forKey: "buttonTextSizeNumber")
             buttonTextSizeNumberStatic = size
+        }
+        if let background = backgroundColorNumber{
+            defaults.setValue(backgroundColorNumber, forKey: "backgroundColorNumber")
+            backgroundColorNumberStatic = background
         }
         self.dismiss(animated: true, completion: nil)
     }

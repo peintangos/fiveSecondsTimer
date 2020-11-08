@@ -13,6 +13,50 @@ import Foundation
 import UIKit
 
 enum Setting:CaseIterable{
+    enum backgroundColor:Int,CaseIterable{
+        case rainbow = 0
+        case purpleblue = 1
+        case purple = 2
+        case orangpurple = 3
+        func getGradationLayer() ->CAGradientLayer{
+            let layer = CAGradientLayer()
+            switch self {
+            case .rainbow:
+            layer.colors = [UIColor.init(red: 130 / 250, green: 250 / 250, blue: 176 / 250, alpha: 1).cgColor,UIColor.init(red: 143 / 255, green: 211 / 255, blue: 244 / 255, alpha: 1).cgColor]
+            layer.locations = [0.1,0.7]
+            layer.startPoint = CGPoint(x: 0.3, y: 0)
+            layer.endPoint = CGPoint(x: 0.2, y: 1)
+            case .purpleblue:
+            layer.colors = [UIColor.init(red: 213 / 250, green: 126 / 250, blue: 235 / 250, alpha: 1).cgColor,UIColor.init(red: 142 / 255, green: 197 / 255, blue: 252 / 255, alpha: 1).cgColor]
+            layer.locations = [0.1,0.7]
+            layer.startPoint = CGPoint(x: 0.3, y: 0)
+            layer.endPoint = CGPoint(x: 0.2, y: 1)
+            case .purple:
+            layer.colors = [UIColor.init(red: 205 / 250, green: 156 / 250, blue: 242 / 250, alpha: 1).cgColor,UIColor.init(red: 246 / 255, green: 243 / 255, blue: 255 / 255, alpha: 1).cgColor]
+            layer.locations = [0.1,0.7]
+            layer.startPoint = CGPoint(x: 0.3, y: 0)
+            layer.endPoint = CGPoint(x: 0.2, y: 1)
+            case .orangpurple:
+            layer.colors = [UIColor.init(red: 252 / 250, green: 203 / 250, blue: 144 / 250, alpha: 1).cgColor,UIColor.init(red: 213 / 255, green: 126 / 255, blue: 235 / 255, alpha: 1).cgColor]
+            layer.locations = [0.1,0.7]
+            layer.startPoint = CGPoint(x: 0.3, y: 0)
+            layer.endPoint = CGPoint(x: 0.2, y: 1)
+            }
+            return layer
+        }
+        func getName() ->String{
+            switch self {
+            case .rainbow:
+                return "rainbow"
+            case .purpleblue:
+                return "purpleblue"
+            case .purple:
+                return "purple"
+            case .orangpurple:
+                return "orangepurple"
+            }
+        }
+    }
     enum time :Int,CaseIterable{
         case one = 1
         case two = 2

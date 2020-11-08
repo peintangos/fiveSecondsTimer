@@ -8,7 +8,7 @@
 import UIKit
 
 class WorldScoreViewController: UIViewController {
-    var segmentControl:UISegmentedControl?
+    var segmentControl:UISegmentedControl!
     
 
     override func viewDidLoad() {
@@ -29,16 +29,18 @@ class WorldScoreViewController: UIViewController {
         let segmentHeight = height + 44
         var myView = UIView(frame: CGRect(x: 0, y: segmentHeight, width: self.view.frame.width, height: 100))
         self.view.addSubview(myView)
+        self.makeColorLayer(number: backgroundColorNumberStatic, viewT:myView)
         let items = ["秒あて","反射神経"]
         self.segmentControl = UISegmentedControl(items: items)
-        self.segmentControl?.frame = CGRect(x: 0, y: 80, width: 200, height: 30)
-//        self.segmentControl?.center.x = self.view.center.x
-        self.segmentControl?.center = myView.center
-        self.segmentControl?.selectedSegmentTintColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
-        self.segmentControl?.backgroundColor = UIColor.init(red: 53 / 255, green: 74 / 255, blue: 93 / 255, alpha: 1)
-        segmentControl?.tintColor = .white
-        self.segmentControl?.selectedSegmentIndex = 0
-        self.segmentControl?.rx.selectedSegmentIndex.subscribe(onNext:{ [self] index in
+        self.segmentControl.frame = CGRect(x: 0, y: 80, width: 200, height: 30)
+//        SegmentedControlのテキストカラーの設定の仕方謎...
+        self.segmentControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.white], for:.normal)
+        self.segmentControl.center = myView.center
+        self.segmentControl.selectedSegmentTintColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+        self.segmentControl.backgroundColor = UIColor.init(red: 53 / 255, green: 74 / 255, blue: 93 / 255, alpha: 1)
+        segmentControl.tintColor = .white
+        self.segmentControl.selectedSegmentIndex = 0
+        self.segmentControl.rx.selectedSegmentIndex.subscribe(onNext:{ [self] index in
 //            どうしようかな悩み中。
             switch index {
             case 0:
@@ -53,6 +55,11 @@ class WorldScoreViewController: UIViewController {
         self.view.addSubview(navBar)        
         self.view.addSubview(rt.view)
         self.view.addSubview(ts.view)
+    }
+    func makeColorLayer(number:Int,viewT:UIView){
+        let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
+        layer!.frame = CGRect(x: 0, y: 0, width: viewT.frame.width, height: viewT.frame.height)
+        viewT.layer.insertSublayer(layer!, at: 1)
     }
 
     let rt = ResponseTimeViewController()

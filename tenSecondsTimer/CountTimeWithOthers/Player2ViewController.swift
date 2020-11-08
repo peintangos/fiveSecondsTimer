@@ -15,16 +15,12 @@ class Player2ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        makeColorLayer()
+        makeColorLayer(number: backgroundColorNumberStatic)
     }
-    func makeColorLayer(){
-        var layer = CAGradientLayer()
-        layer.frame = self.view.frame
-        layer.colors = [UIColor.init(red: 205 / 250, green: 156 / 250, blue: 242 / 250, alpha: 1).cgColor,UIColor.init(red: 246 / 255, green: 243 / 255, blue: 255 / 255, alpha: 1).cgColor]
-        layer.locations = [0.1,0.7]
-        layer.startPoint = CGPoint(x: 0.3, y: 0)
-        layer.endPoint = CGPoint(x: 0.2, y: 1)
-        self.view.layer.insertSublayer(layer, at: 0)
+    func makeColorLayer(number:Int){
+        let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
+        layer!.frame = self.view.frame
+        self.view.layer.insertSublayer(layer!, at: 0)
     }
     var timerSec = UILabel()
     var timserSecDouble:Double?

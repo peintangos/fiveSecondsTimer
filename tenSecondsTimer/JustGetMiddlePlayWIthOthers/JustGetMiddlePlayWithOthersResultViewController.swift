@@ -59,17 +59,12 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
         self.stopButton?.rx.tap.subscribe({ _ in
             self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
         })
-        makeColorLayer()
+        makeColorLayer(number: backgroundColorNumberStatic)
     }
-    func makeColorLayer(){
-        var layer = CAGradientLayer()
-        layer.frame = self.view.frame
-        layer.colors = [UIColor.init(red: 252 / 250, green: 203 / 250, blue: 144 / 250, alpha: 1).cgColor,UIColor.init(red: 213 / 255, green: 126 / 255, blue: 235 / 255, alpha: 1).cgColor]
-        layer.locations = [0.1,0.7]
-        layer.startPoint = CGPoint(x: 0.3, y: 0)
-        layer.endPoint = CGPoint(x: 0.2, y: 1)
-        self.view.layer.insertSublayer(layer, at: 0)
-        self.myTalbeView?.backgroundColor = UIColor.init(red: 11, green: 11, blue: 111, alpha: 0)
+    func makeColorLayer(number:Int){
+        let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
+        layer!.frame = self.view.frame
+        self.view.layer.insertSublayer(layer!, at: 0)
     }
     @objc func goBack(){
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)

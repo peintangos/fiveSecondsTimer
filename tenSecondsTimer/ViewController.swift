@@ -29,6 +29,8 @@ var buttonWidthNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonW
 var buttonTextColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonTextColorNumber")
 //ボタンの文字の大きさをUserDefaultsからとってきて格納する箱
 var buttonTextSizeNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonTextSizeNumber")
+//
+var backgroundColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "backgroundColorNumber")
 //初回で入力したユーザ名をUserDefaultに登録
 var name:String = UserDefaults.standard.string(forKey: "username")!
 var playerNumberAll:Int?
@@ -43,7 +45,15 @@ class ViewController: UIViewController,UITextFieldDelegate{
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         do{
             let defaults = UserDefaults.standard
-            defaults.register(defaults: ["timeNumber":5,"iconNumber":1,"colorNumber":3,"buttonColorNumber":3,"buttonTextColorNumber":5,"buttonWithColorNumber":1,"buttonTextSizeNumber":2,"isNameSaved":false])
+            defaults.register(defaults: ["timeNumber":5,
+                                         "iconNumber":1,
+                                         "colorNumber":3,
+                                         "buttonColorNumber":3,
+                                         "buttonTextColorNumber":5,
+                                         "buttonWithColorNumber":1,
+                                         "buttonTextSizeNumber":2,
+                                         "backgroundColorNumber":0,
+                                         "isNameSaved":false])
             timeNumberStatic = defaults.integer(forKey: "timeNumber")
             iconNumberStatic = defaults.integer(forKey: "iconNumber")
             colorNumberStatic = defaults.integer(forKey: "colorNumber")
@@ -51,6 +61,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
             buttonColorNumberStatic = defaults.integer(forKey: "buttonColorNumber")
             buttonWidthNumberStatic = defaults.integer(forKey: "buttonWithColorNumber")
             buttonTextSizeNumberStatic = defaults.integer(forKey: "buttonTextSizeNumber")
+            backgroundColorNumberStatic = defaults.integer(forKey: "backgroundColorNumber")
             isSaved = UserDefaults.standard.bool(forKey: "isNameSaved")
         }
 //        左上の設定ボタンを作り、viewに配置する。また、タップ時のイベントをサブスクライブする。
@@ -70,8 +81,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                 self?.makeAlertForJustGetMiddle()
             }.disposed(by: dispose)
         }
-//        グラデーションを作る
-        makeColorLayer()
+
     }
     
     func makeAlertForJustGetMiddle(){
@@ -100,14 +110,10 @@ class ViewController: UIViewController,UITextFieldDelegate{
         ui.addAction(UIAlertAction.init(title: "戻る", style: .cancel, handler: nil))
         self.present(ui, animated: true, completion: nil)
     }
-    func makeColorLayer(){
-        var layer = CAGradientLayer()
-        layer.frame = self.view.frame
-        layer.colors = [UIColor.init(red: 130 / 250, green: 250 / 250, blue: 176 / 250, alpha: 1).cgColor,UIColor.init(red: 143 / 255, green: 211 / 255, blue: 244 / 255, alpha: 1).cgColor]
-        layer.locations = [0.1,0.7]
-        layer.startPoint = CGPoint(x: 0.3, y: 0)
-        layer.endPoint = CGPoint(x: 0.2, y: 1)
-        self.view.layer.insertSublayer(layer, at: 0)
+    func makeColorLayer(number:Int){
+        let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
+        layer!.frame = self.view.frame
+        self.view.layer.insertSublayer(layer!, at: 0)
     }
     
     @IBOutlet weak var playSelf: UIButton?
@@ -141,6 +147,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         self.button!.addTarget(self,action:#selector(tapSetting),for: UIControl.Event.touchUpInside)
         self.button!.addTarget(self,action:#selector(tapSetting),for: UIControl.Event.touchUpInside)
         self.justGetMiddle.addTarget(self, action: #selector(getMiddle), for: UIControl.Event.touchUpInside)
+        makeColorLayer(number: backgroundColorNumberStatic)
     }
 
     

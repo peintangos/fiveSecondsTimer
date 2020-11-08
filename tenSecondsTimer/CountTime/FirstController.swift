@@ -61,7 +61,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
         makeStop(stopX: self.stop2)
         self.start2.addTarget(self, action: #selector(go), for: .touchUpInside)
         self.stop2.addTarget(self, action: #selector(back), for: .touchUpInside)
-        makeColorLayer()
+        makeColorLayer(number: backgroundColorNumberStatic)
     }
     @objc func go(){
         //        ボタンの表示/非表示、Enable/Disableを制御
@@ -225,14 +225,10 @@ class FirstController: UIViewController, UITextFieldDelegate {
                 self.view.addSubview(self.titleLabel)
                 self.view.bringSubviewToFront(self.titleLabel)
     }
-    func makeColorLayer(){
-        var layer = CAGradientLayer()
-        layer.frame = self.view.frame
-        layer.colors = [UIColor.init(red: 213 / 250, green: 126 / 250, blue: 235 / 250, alpha: 1).cgColor,UIColor.init(red: 142 / 255, green: 197 / 255, blue: 252 / 255, alpha: 1).cgColor]
-        layer.locations = [0.1,0.7]
-        layer.startPoint = CGPoint(x: 0.3, y: 0)
-        layer.endPoint = CGPoint(x: 0.2, y: 1)
-        self.view.layer.insertSublayer(layer, at: 0)
+    func makeColorLayer(number:Int){
+        let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
+        layer!.frame = self.view.frame
+        self.view.layer.insertSublayer(layer!, at: 0)
     }
     
     override func viewDidLayoutSubviews() {

@@ -18,21 +18,6 @@ class FirstLauchingViewController: UIViewController {
     var loginButton:UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-//        do{
-//            let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-//            backButton.setTitle("押してね", for: .normal)
-//            backButton.setTitleColor(UIColor.red, for:.normal)
-//            backButton.rx.tap.subscribe{
-//                (action) in
-//                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//                let vc = storyBoard.instantiateViewController(identifier: "ViewController")
-//                vc.modalPresentationStyle = .fullScreen
-//                self.present(vc, animated: true, completion: nil)
-//            }.disposed(by: dispose)
-//            self.view.addSubview(backButton)
-//        }
         do{
             self.usernameTextField = UITextField()
             self.usernameTextField.borderStyle = .roundedRect
@@ -64,6 +49,8 @@ class FirstLauchingViewController: UIViewController {
         self.passwordTextField.rx.text.map { $0 ?? ""}.bind(to: loginViewModel.passwordPublishSubject).disposed(by: dispose)
         loginViewModel.isValid().bind(to: loginButton.rx.isEnabled).disposed(by: dispose)
         loginViewModel.isValid().map{$0 ? 1 : 0.1}.bind(to: loginButton.rx.alpha).disposed(by: dispose)
+        UILabel().rx.text
+        
     }
 //    初回のみ名前とパスワードを登録する。
     func saveUser(){
