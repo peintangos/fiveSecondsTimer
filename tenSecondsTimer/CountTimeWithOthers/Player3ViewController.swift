@@ -147,8 +147,6 @@ class Player3ViewController: UIViewController, UITextFieldDelegate {
             record.orderNum = 2
             record.timeDifference = player1.calculate(second:timerSecDouble)
             record.orderAll = orderAllNew!
-            print(record)
-    
             try! realm.write{
                 realm.add(record)
             }

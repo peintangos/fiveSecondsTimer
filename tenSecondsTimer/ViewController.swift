@@ -205,7 +205,6 @@ class ViewController: UIViewController,UITextFieldDelegate{
         playself.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         playself.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         playself.layer.cornerRadius = 4.0
-        print("buttonTextSizeNumberStatic\(buttonTextSizeNumberStatic)")
         playself.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
         playself.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 - 50, width: 300, height: 50)
     }

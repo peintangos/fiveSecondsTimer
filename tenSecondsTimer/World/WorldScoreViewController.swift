@@ -48,7 +48,7 @@ class WorldScoreViewController: UIViewController {
             case 1:
                 self.view.bringSubviewToFront(rt.view)
             default:
-                print("")
+                print("エラー")
             }
         })
         self.view.addSubview(self.segmentControl!)
@@ -64,12 +64,7 @@ class WorldScoreViewController: UIViewController {
 
     let rt = ResponseTimeViewController()
     let ts = TenSecondsTimeViewController()
-//    override func viewDidLayoutSubviews() {
-//        self.segmentControl?.translatesAutoresizingMaskIntoConstraints = false
-//        self.segmentControl?.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
-//        self.segmentControl?.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20 + (self.navigationController?.navigationBar.frame.size.height ?? 14 / 2)).isActive = true
-//        self.segmentControl?.widthAnchor.constraint(equalToConstant: 120).isActive = true
-//    }
+    
     @objc func goBack(){
         self.dismiss(animated: true, completion: nil)
     }

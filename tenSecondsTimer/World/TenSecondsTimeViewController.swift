@@ -77,7 +77,6 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource{
     
     override func viewWillAppear(_ animated: Bool) {
         update()
-        print("こいつはいつ呼ばれてる？")
         updateYourScore()
         self.tableView.reloadData()
     }

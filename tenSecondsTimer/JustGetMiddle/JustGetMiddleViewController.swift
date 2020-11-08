@@ -133,7 +133,6 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
             "name":name,
             "difference":timeDifference]
         Alamofire.request("http://localhost:8080/justgetmiddle/list",method: .post,parameters: paramters,encoding: JSONEncoding.default,headers: nil).responseString{(response) in
-            print(response)
         }
     }
     

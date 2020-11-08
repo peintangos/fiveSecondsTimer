@@ -31,13 +31,13 @@ class JustGetMiddleResultsDetailViewController: UIViewController,UITableViewData
         return cell
     }
     func setImg(kairi:Double) ->UIImageView{
-        var uiImagevView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-        var gold = UIImage(named: "gold")
-        var diamond = UIImage(named:"diamond")
-        var usual = UIImage(named: "tor")
-        var kaizoku = UIImage(named: "kaizoku")
-        var kubi = UIImage(named: "kubi")
-        var dou = UIImage(named: "dou")
+        let uiImagevView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        let gold = UIImage(named: "gold")
+        let diamond = UIImage(named:"diamond")
+        let usual = UIImage(named: "tor")
+        let kaizoku = UIImage(named: "kaizoku")
+        let kubi = UIImage(named: "kubi")
+        let dou = UIImage(named: "dou")
         switch kairi {
         case 0.0 ... 0.05:
             uiImagevView.image = diamond
@@ -55,11 +55,10 @@ class JustGetMiddleResultsDetailViewController: UIViewController,UITableViewData
         return uiImagevView
     }
     func setImg2(kairi:Double,row:Int) ->UIImageView{
-        var uiImagevView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-        var gold = UIImage(named: "ichi")
-        var diamond = UIImage(named:"ni")
-        var usual = UIImage(named: "san")
-        print(row)
+        let uiImagevView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        let gold = UIImage(named: "ichi")
+        let diamond = UIImage(named:"ni")
+        let usual = UIImage(named: "san")
         switch row {
         case 0:
             uiImagevView.image = gold

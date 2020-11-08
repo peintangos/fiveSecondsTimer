@@ -19,9 +19,7 @@ class JustGetMiddlePlayWithOthersViewController: UIViewController, UITextFieldDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        makeStartStop(button:self.startStop)
         self.view.addSubview(self.startStop)
-//        self.startStop.addTarget(self, action: #selector(tapStart), for: UIControl.Event.touchUpInside)
         makeReset(resetButton: self.resetButton)
         self.view.addSubview(resetButton)
         self.resetButton.addTarget(self, action: #selector(resetData), for: UIControl.Event.touchUpInside)
@@ -31,7 +29,6 @@ class JustGetMiddlePlayWithOthersViewController: UIViewController, UITextFieldDe
         self.view.layer.addSublayer(self.shapeLayerIngicator)
         makeImageView(imageview: self.imageView)
         self.view.addSubview(self.imageView)
-        // Do any additional setup after loading the view.
         makeColorLayer(number: backgroundColorNumberStatic)
     }
     func isUserNameSaved() ->Bool{
@@ -76,7 +73,7 @@ class JustGetMiddlePlayWithOthersViewController: UIViewController, UITextFieldDe
                 self.saveJustGetMiddleReultWithOthers(name: "player1", stroke: Double(CGFloat(stroke!)))
                 self.present(viewController2, animated: true, completion: nil)
             }else {
-                var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
+                let alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
                 alert.addTextField { (textFiled) in
                     textFiled.delegate = self
                 }

@@ -73,7 +73,7 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource {
             case .success:
                 self.yourResponseRanking = String(data:response.data!,encoding: .utf8)
             case .failure:
-                print("失敗しました。")
+                print("デコードに失敗しました。")
             }
         }
     }

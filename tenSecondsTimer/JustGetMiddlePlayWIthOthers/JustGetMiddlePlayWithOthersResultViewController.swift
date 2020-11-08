@@ -12,7 +12,6 @@ import RxSwift
 
 class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(self.resultRanking)
         return self.resultRanking.count
     }
     

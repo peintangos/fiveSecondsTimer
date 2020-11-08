@@ -22,6 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // UserDefaultsにbool型のKey"launchedBefore"を用意
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if(launchedBefore == true) {
+//            一時的にこいつをかく。実装が終わったらちゃんと消す
+            let tutorialVC = storyboard.instantiateViewController(withIdentifier: "FirstLauchingViewController")
+            self.window?.rootViewController = tutorialVC
         } else {
             //起動を判定するlaunchedBeforeという論理型のKeyをUserDefaultsに用意
             UserDefaults.standard.set(true, forKey: "launchedBefore")
@@ -34,7 +37,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             //チュートリアル用のViewControllerのインスタンスを用意してwindowに渡す
             let tutorialVC = storyboard.instantiateViewController(withIdentifier: "FirstLauchingViewController")
             self.window?.rootViewController = tutorialVC
-            
         }
     }
 

@@ -19,7 +19,6 @@ class FirstController: UIViewController, UITextFieldDelegate {
     func makeTimerSec(timersec:UILabel){
         timersec.text = "00"
         timersec.frame = CGRect(x: Int(UIScreen.main.bounds.size.width)/2 - widthTimerSec, y: Int(self.view.bounds.height)/2 - heightTimerSec/2, width: widthTimerSec, height: heightTimerSec)
-//        timerSec.backgroundColor = .orange
         timersec.textAlignment = NSTextAlignment.center
         timersec.font = UIFont.systemFont(ofSize: 40)
         timersec.textColor = .white
@@ -30,7 +29,6 @@ class FirstController: UIViewController, UITextFieldDelegate {
         timermill.text = "00"
         timermill.frame = CGRect(x: Int(UIScreen.main.bounds.size.width)/2, y: Int(self.view.bounds.height)/2 - heightTimerSec/2, width: widthTimerSec, height: heightTimerSec)
         timermill.textAlignment = NSTextAlignment.center
-        //        timerMill.backgroundColor = .darkGray
         timermill.font = UIFont.systemFont(ofSize: 40)
         timermill.textColor = .white
         self.view.addSubview(timermill)
@@ -64,37 +62,35 @@ class FirstController: UIViewController, UITextFieldDelegate {
         makeColorLayer(number: backgroundColorNumberStatic)
     }
     @objc func go(){
-        //        ボタンの表示/非表示、Enable/Disableを制御
-                self.stop2.isEnabled = true
-                self.start2.isEnabled = false
-                self.timerSecond.isHidden = true
-                self.timerMsec.isHidden = true
-                fire.isHidden = false
-                top.isHidden = false
+        self.stop2.isEnabled = true
+        self.start2.isEnabled = false
+        self.timerSecond.isHidden = true
+        self.timerMsec.isHidden = true
+        fire.isHidden = false
+        top.isHidden = false
         self.start2.alpha = 0.5
         self.stop2.alpha = 1.0
-        //        計測開始
-                startTime = Date()
-                
-        //         アニメーション開始
-                let anim = CABasicAnimation(keyPath: "strokeEnd")
-                let randomInt = Int.random(in: 1..<5)
-                switch randomInt {
-                case 1:
-                    anim.duration = 1.0
-                case 2:
-                    anim.duration = 5.0
-                case 3:
-                    anim.duration = 10.0
-                case 4:
-                    anim.duration = 20
-                default:
-                    anim.duration = 1.0
-                    
-                }
-                anim.fromValue = 0.0
-                anim.toValue = 1.0
-                shapeLayer.add(anim, forKey: "circleAnim")
+//                計測開始
+        startTime = Date()
+//                 アニメーション開始
+        let anim = CABasicAnimation(keyPath: "strokeEnd")
+        let randomInt = Int.random(in: 1..<5)
+        switch randomInt {
+        case 1:
+            anim.duration = 1.0
+        case 2:
+            anim.duration = 5.0
+        case 3:
+            anim.duration = 10.0
+        case 4:
+            anim.duration = 20
+        default:
+            anim.duration = 1.0
+            
+        }
+        anim.fromValue = 0.0
+        anim.toValue = 1.0
+        shapeLayer.add(anim, forKey: "circleAnim")
     }
     @objc func back(){
         //        Disable/Enableを制御
@@ -111,6 +107,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
                 shapeLayer.removeAllAnimations()
 
                 let currentTime = Date().timeIntervalSince(startTime)
+        
                 // currentTime/60 の余り
                 let second = (Int)(fmod(currentTime, 60))
                 let secondDouble = (Double)(fmod(currentTime, 60))
@@ -170,7 +167,10 @@ class FirstController: UIViewController, UITextFieldDelegate {
                     let UINavigationController = self.tabBarController?.viewControllers?[1];
                     self.tabBarController?.selectedViewController = UINavigationController;
                 }))
-                alert.addAction(UIAlertAction(title: "もう一回挑戦する!", style: .default, handler:nil))
+        alert.addAction(UIAlertAction(title: "もう一回挑戦する!", style: .default, handler: { (action) in
+            self.start2.alpha = 1
+            self.stop2.alpha = 0.5
+        }))
                 self.present(alert, animated: true, completion: nil)
     }
 
@@ -183,12 +183,11 @@ class FirstController: UIViewController, UITextFieldDelegate {
 //        日付をStringに変換する
         let sDate = format.string(from: date)
         let paramters:[String:Any] = [
-            "deviceNumber":uuid,
+            "deviceNumber":uuid!,
             "createdAt":sDate,
             "name":name,
             "timeDifference":timeDifference]
         Alamofire.request("http://localhost:8080/countTime/list",method: .post,parameters: paramters,encoding: JSONEncoding.default,headers: nil).responseString{(response) in
-            print(response)
         }
     }
     
@@ -206,24 +205,24 @@ class FirstController: UIViewController, UITextFieldDelegate {
         top.isHidden = true
 
         //        炎アイコンを中心に設定し、メラメラするように設定
-                fire.center = CGPoint(x: self.view.bounds.size.width/2.0, y: self.view.bounds.height/2.0)
+        fire.center = CGPoint(x: self.view.bounds.size.width/2.0, y: self.view.bounds.height/2.0)
         fire.image = UIImage(named:(Setting.icon(rawValue: iconNumberStatic)?.getName())!)
-                fire.isHidden = true
-                vibrated(view: fire)
-                self.isFirst = true
+        fire.isHidden = true
+        vibrated(view: fire)
+        self.isFirst = true
                 
         //        タイトルラベルを作成し、追加
-                self.titleLabel.text = "\(timeNumberStatic)SecondsTimer"
-                self.titleLabel.textAlignment = NSTextAlignment.center
-                self.titleLabel.frame = CGRect(x:40,y:20,width: 300,height: 70)
-                self.titleLabel.center = CGPoint(x: myBoundSize.width/2, y:80)
-                self.titleLabel.font = UIFont.systemFont(ofSize: 20)
-                self.titleLabel.textColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1)
-                self.titleLabel.layer.borderWidth = 2.0
-                self.titleLabel.layer.borderColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1).cgColor
-                self.titleLabel.layer.cornerRadius = 4.0
-                self.view.addSubview(self.titleLabel)
-                self.view.bringSubviewToFront(self.titleLabel)
+        self.titleLabel.text = "\(timeNumberStatic)SecondsTimer"
+        self.titleLabel.textAlignment = NSTextAlignment.center
+        self.titleLabel.frame = CGRect(x:40,y:20,width: 300,height: 70)
+        self.titleLabel.center = CGPoint(x: myBoundSize.width/2, y:80)
+        self.titleLabel.font = UIFont.systemFont(ofSize: 20)
+        self.titleLabel.textColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1)
+        self.titleLabel.layer.borderWidth = 2.0
+        self.titleLabel.layer.borderColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1).cgColor
+        self.titleLabel.layer.cornerRadius = 4.0
+        self.view.addSubview(self.titleLabel)
+        self.view.bringSubviewToFront(self.titleLabel)
     }
     func makeColorLayer(number:Int){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
@@ -232,7 +231,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidLayoutSubviews() {
-            super.viewDidLayoutSubviews()
+        super.viewDidLayoutSubviews()
         makeTimerSec(timersec: self.timerSecond)
         makeTimerMill(timermill: self.timerMsec)
         makeCircle(shapeLayer: self.shapeLayer)
