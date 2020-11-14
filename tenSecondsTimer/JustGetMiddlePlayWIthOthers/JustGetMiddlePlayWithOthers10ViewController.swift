@@ -1,14 +1,14 @@
 //
-//  JustGetMiddlePlayWithOthers6ViewController.swift
+//  JustGetMiddlePlayWithOthers10ViewController.swift
 //  tenSecondsTimer
 //
-//  Created by 松尾淳平 on 2020/11/02.
+//  Created by 松尾淳平 on 2020/11/14.
 //
 
 import UIKit
 import RealmSwift
 
-class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDelegate{
+class JustGetMiddlePlayWithOthers10ViewController: UIViewController,UITextFieldDelegate{
     var imageView = UIImageView()
     func makeImageView(imageview:UIImageView){
         imageview.frame = CGRect(x: self.view.bounds.width/2 - 50, y: self.view.bounds.height/2 - 100 , width: 100, height: 100)
@@ -92,16 +92,10 @@ class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDe
             pauseAnimation(layer: self.shapeLayer)
             let stroke = self.shapeLayer.presentation()?.strokeEnd
             if isUserNameSaved(){
-                self.saveJustGetMiddleReultWithOthers(name: "player6", stroke: Double(CGFloat(stroke!)))
+                self.saveJustGetMiddleReultWithOthers(name: "player10", stroke: Double(CGFloat(stroke!)))
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 var viewController:UIViewController?
-                switch temporaryCount {
-                case 6:
                 viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
-                default:
-                viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers7ViewController")
-                }
-                
                 self.present(viewController!, animated: true, completion: nil);
             }else {
                 var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
@@ -113,12 +107,7 @@ class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDe
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     
                     var viewController:UIViewController?
-                    switch temporaryCount {
-                    case 6:
                     viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
-                    default:
-                    viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers7ViewController")
-                    }
                     
                     self.present(viewController!, animated: true, completion: nil);
                     

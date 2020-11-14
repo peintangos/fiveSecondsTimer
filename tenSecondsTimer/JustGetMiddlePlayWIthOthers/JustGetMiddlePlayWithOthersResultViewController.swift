@@ -56,7 +56,27 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
         self.stopButton = makeStartTimer()
         self.view.addSubview(self.stopButton!)
         self.stopButton?.rx.tap.subscribe({ _ in
-            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            print(temporaryCount)
+            switch temporaryCount {
+            case 3:
+                self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            case 4:
+                self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            case 5:
+                self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            case 6:
+                self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            case 7:
+                self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            case 8:
+                self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            case 9:
+                self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            case 10:
+                self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            default:
+                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            }
         })
         makeColorLayer(number: backgroundColorNumberStatic)
     }

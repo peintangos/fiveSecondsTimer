@@ -17,6 +17,8 @@ class FirstLauchingViewController: UIViewController {
     var usernameTextField:UITextField!
     var passwordTextField:UITextField!
     var label:UILabel!
+    var lengthLagel:UILabel!
+    var emptyLabel:UILabel!
     var loginButton:UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,14 +74,23 @@ class FirstLauchingViewController: UIViewController {
             self.loginButton.setTitle("SIGN IN", for: .normal)
             self.loginButton.backgroundColor = UIColor.init(red: 53 / 255, green: 74 / 255, blue: 94 / 255, alpha: 1)
             self.loginButton.setTitleColor(UIColor.white, for: .normal)
-            self.loginButton.rx.tap.subscribe{ [self](action) in
-                self.saveUser()
-                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                let viewController = storyBoard.instantiateViewController(identifier: "ViewController")
-                viewController.modalPresentationStyle = .fullScreen
-                self.present(viewController, animated: true, completion: nil)
-            }.disposed(by: dispose)
+//            self.loginButton.rx.tap.subscribe{ [self](action) in
+//                self.dismiss(animated: true, completion: nil)
+//                self.saveUser()
+//                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//                let viewController = storyBoard.instantiateViewController(identifier: "ViewController")
+//                viewController.modalPresentationStyle = .fullScreen
+//                self.present(viewController, animated: true, completion: nil)
+//            }.disposed(by: dispose)
             self.view.addSubview(self.loginButton)
+        }
+        do{
+            lengthLagel = UILabel()
+            lengthLagel.text = ""
+            lengthLagel.textColor = UIColor.red
+            lengthLagel.font = UIFont.systemFont(ofSize: 15)
+            lengthLagel.textAlignment = NSTextAlignment.center
+            self.view.addSubview(lengthLagel)
         }
         do{
             self.label = UILabel()
@@ -89,10 +100,39 @@ class FirstLauchingViewController: UIViewController {
             self.label.textAlignment = NSTextAlignment.center
             self.view.addSubview(label)
         }
+        do{
+            self.emptyLabel = UILabel()
+            self.emptyLabel.text = "ユーザネームを入力してください"
+            self.emptyLabel.textColor = UIColor.red
+            self.emptyLabel.font = UIFont.systemFont(ofSize: 15)
+            self.emptyLabel.textAlignment = NSTextAlignment.center
+            self.view.addSubview(self.emptyLabel)
+        }
         self.usernameTextField.rx.text.map { $0 ?? ""}.bind(to: loginViewModel.userNamePublishSubject).disposed(by: dispose)
         self.passwordTextField.rx.text.map { $0 ?? ""}.bind(to: loginViewModel.passwordPublishSubject).disposed(by: dispose)
+        self.passwordTextField.rx.text.map { (text) -> String? in
+            guard let text = text else {
+                return nil
+            }
+            return "パスワードにあと\(6 - text.count)文字入力してください"
+        }.bind(to: self.lengthLagel.rx.text).disposed(by: dispose)
+        loginViewModel.isUserNameEmpty().bind(to: emptyLabel.rx.isHidden).disposed(by: dispose)
+        loginViewModel.moreThanSixLetters().bind(to: lengthLagel.rx.isHidden).disposed(by: dispose)
         loginViewModel.isValid().bind(to: loginButton.rx.isEnabled).disposed(by: dispose)
         loginViewModel.isValid().map{$0 ? 1 : 0.5}.bind(to: loginButton.rx.alpha).disposed(by: dispose)        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        self.loginButton.rx.tap.subscribe{ [self](action) in
+//            self.dismiss(animated: true, completion: nil)
+//            このsaveUser()に失敗したときに
+            self.saveUser()
+//            以下のコードがあったことで、saveUser()のswitch文の中のコードの後に、switc文の処理が行われるより先にこのコードを通ってしまった。
+//            その結果、エラーなのに画面遷移ができてしまうということがあったので、この文はsaveUsr()switch文の中に移動させた
+//            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//            let viewController = storyBoard.instantiateViewController(identifier: "ViewController")
+//            viewController.modalPresentationStyle = .fullScreen
+//            self.present(viewController, animated: true, completion: nil)
+        }.disposed(by: dispose)
     }
     func makeColorLayer(number:Int,view:UIView){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
@@ -106,14 +146,41 @@ class FirstLauchingViewController: UIViewController {
         "username":self.usernameTextField.text!,
         "password":self.passwordTextField.text!
         ]
-        Alamofire.request("http://localhost:8080/user/register",method:.post,parameters:parameters,encoding:JSONEncoding.default).responseJSON{
+        Alamofire.request("http://localhost:8080/user/register",method:.post,parameters:parameters,encoding:JSONEncoding.default).responseString{
             response in
-            switch response.result{
-            case .success:
-                print("通信に成功しました")
-            case .failure:
-                print("通信に失敗しました")
+            if let code = response.response?.statusCode {
+                switch code {
+                case 1..<199:
+                    print("ステータスコードが1~199です")
+                case 200..<299:
+                    print("ステータスコードが2~299です")
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyBoard.instantiateViewController(identifier: "ViewController")
+                    viewController.modalPresentationStyle = .fullScreen
+                    self.present(viewController, animated: true, completion: nil)
+                case 300..<399:
+                    print("ステータスコードが3~399です")
+                case 400..<499:
+                    print("ステータスコードが4~499です")
+                case 500..<1000:
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        let ua = UIAlertController(title: "サーバーエラー", message: response.value, preferredStyle: .alert)
+                        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        ua.addAction(action)
+                        self.present(ua,animated: true, completion: nil)
+                    }
+                    
+                    print("ステータスコードが5~1000です")
+                default:
+                    print("ステータスコードがおかしな値をかえしていますです")
+                }
             }
+//            switch response.result{
+//            case .success:
+//                print("通信に成功しました")
+//            case .failure:
+//                print("通信に失敗しました")
+//            }
         }
     }
     override func viewDidLayoutSubviews() {
@@ -136,7 +203,7 @@ class FirstLauchingViewController: UIViewController {
         self.loginButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
         self.loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         self.loginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.loginButton.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 200).isActive = true
+        self.loginButton.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 250).isActive = true
         
         self.mainView.translatesAutoresizingMaskIntoConstraints = false
         self.mainView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
@@ -149,6 +216,18 @@ class FirstLauchingViewController: UIViewController {
         self.label.widthAnchor.constraint(equalToConstant: 300).isActive = true
         self.label.heightAnchor.constraint(equalToConstant: 50).isActive = true
         self.label.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -250).isActive = true
+        
+        self.lengthLagel.translatesAutoresizingMaskIntoConstraints = false
+        self.lengthLagel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.lengthLagel.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        self.lengthLagel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        self.lengthLagel.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 180).isActive = true
+        
+        self.emptyLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.emptyLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.emptyLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        self.emptyLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        self.emptyLabel.topAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 150).isActive = true
     }
     
     

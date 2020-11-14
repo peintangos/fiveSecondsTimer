@@ -1,14 +1,15 @@
 //
-//  Player4ViewController.swift
+//  Player6ViewController.swift
 //  tenSecondsTimer
 //
-//  Created by 松尾淳平 on 2020/10/18.
+//  Created by 松尾淳平 on 2020/11/14.
 //
 
 import UIKit
 import RealmSwift
 
-class Player4ViewController: UIViewController, UITextFieldDelegate {
+class Player6ViewController: UIViewController,UITextFieldDelegate {
+
     var name:String?
 //    var playerNumber:Int?
 
@@ -22,6 +23,32 @@ class Player4ViewController: UIViewController, UITextFieldDelegate {
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
         layer!.frame = self.view.frame
         self.view.layer.insertSublayer(layer!, at: 0)
+    }
+    
+    func isUserNameSaved() ->Bool{
+        let userDefaults = UserDefaults.standard
+        return userDefaults.bool(forKey: "isNameSaved")
+    }
+    func goNext(playerNumber:Int){
+        if isSaved!{
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let nextView = storyBoard.instantiateViewController(withIdentifier: "Player7ViewController") as! Player7ViewController
+            nextView.name = "player7"
+            self.present(nextView, animated: true, completion: nil)
+            
+        }else {
+            let nav = UIAlertController(title: "七人目の名前を入力してね", message:nil, preferredStyle: .alert)
+            nav.addTextField(configurationHandler: {(textField) in
+                textField.delegate = self
+            })
+            nav.addAction(UIAlertAction(title: "次へ", style: UIAlertAction.Style.default, handler: {(action) in
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let nextView = storyBoard.instantiateViewController(withIdentifier: "Player7ViewController") as! Player7ViewController
+                nextView.name = nav.textFields?[0].text!
+                self.present(nextView, animated: true, completion: nil)
+            }))
+            self.present(nav, animated: true, completion: nil)
+        }
     }
     var timerSec = UILabel()
     var timserSecDouble:Double?
@@ -78,34 +105,14 @@ class Player4ViewController: UIViewController, UITextFieldDelegate {
         player1.stopBeer(imageView:self.imageView)
         player1.display(timersec: self.timerSec, timermill: self.timerMill, messageNew: self.message)
         calc(startTime: self.startTime)
-        saveResults4(timerMill: self.timerMill, timerSecond: self.timerSec, timerSecDouble: self.timserSecDouble!)
-        if ( playerNumberAll == 4){
+        self.saveResults3(timerMill: self.timerMill, timerSecond: self.timerSec, timerSecDouble: self.timserSecDouble!)
+
+        if ( playerNumberAll == 6){
             let result = self.storyboard?.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
 //            result.playerNumber = self.playerNumber
             self.present(result, animated: true, completion: nil)
         }else{
             self.goNext(playerNumber: playerNumberAll!)
-        }
-    }
-    func goNext(playerNumber:Int){
-        if isSaved!{
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let nextView = storyBoard.instantiateViewController(withIdentifier: "Player5ViewController") as! Player5ViewController
-            nextView.name = "player5"
-            self.present(nextView, animated: true, completion: nil)
-            
-        }else {
-            let nav = UIAlertController(title: "五人目の名前を入力してね", message:nil, preferredStyle: .alert)
-            nav.addTextField(configurationHandler: {(textField) in
-                textField.delegate = self
-            })
-            nav.addAction(UIAlertAction(title: "次へ", style: UIAlertAction.Style.default, handler: {(action) in
-                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                let nextView = storyBoard.instantiateViewController(withIdentifier: "Player5ViewController") as! Player5ViewController
-                nextView.name = nav.textFields?[0].text!
-                self.present(nextView, animated: true, completion: nil)
-            }))
-            self.present(nav, animated: true, completion: nil)
         }
     }
     func count(starttime:Date){
@@ -132,13 +139,13 @@ class Player4ViewController: UIViewController, UITextFieldDelegate {
             var currentTime = Date().timeIntervalSince(startTime)
             self.timserSecDouble = (Double)(fmod(currentTime, 60))
         }
-        func saveResults4(timerMill:UILabel,timerSecond:UILabel,timerSecDouble:Double){
+        func saveResults3(timerMill:UILabel,timerSecond:UILabel,timerSecDouble:Double){
             let realm = try! Realm()
     //        登録したいのにエラーが出る、、
             let record = EachRecord.create(realm: realm)
             record.name = name!
-            record.timerSecond = timerSecond.text!
-            record.timerMill = timerMill.text!
+            record.timerSecond = self.timerSec.text!
+            record.timerMill = self.timerMill.text!
             record.orderNum = 2
             record.timeDifference = player1.calculate(second:timerSecDouble)
             record.orderAll = orderAllNew!
@@ -146,10 +153,6 @@ class Player4ViewController: UIViewController, UITextFieldDelegate {
                 realm.add(record)
             }
         }
-
-
-
-    
 
     /*
     // MARK: - Navigation

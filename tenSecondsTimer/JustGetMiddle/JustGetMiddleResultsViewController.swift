@@ -154,9 +154,13 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
         self.justGetMiddleResult = realm.objects(JustGetMiddleResult.self).sorted(byKeyPath: "dateNoMold", ascending: false)
     }
     @objc func end(){
-//        これだと途中までしかモーダルが閉じなかった。
-//        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//        これだと途中までしかモーダルが閉じなかった
+        
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//        self.presentingViewController?.dismiss(animated: true, completion: nil)
+//        self.presentedViewController?.dismiss(animated: true, completion: nil)
+//        self.presentedViewController?.dismiss(animated: true, completion: nil)
+//        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
 //    以下のメソッドって何用に使ってたんだっけ、、、これがあるとクラッシュするから消す
 //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

@@ -32,7 +32,7 @@ class WorldScoreViewController: UIViewController {
         self.makeColorLayer(number: backgroundColorNumberStatic, viewT:myView)
         let items = ["秒あて","反射神経"]
         self.segmentControl = UISegmentedControl(items: items)
-        self.segmentControl.frame = CGRect(x: 0, y: 80, width: 200, height: 30)
+        self.segmentControl.frame = CGRect(x: 0, y: 80, width: 300, height: 30)
 //        SegmentedControlのテキストカラーの設定の仕方謎...
         self.segmentControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.white], for:.normal)
         self.segmentControl.center = myView.center
@@ -55,6 +55,12 @@ class WorldScoreViewController: UIViewController {
         self.view.addSubview(navBar)        
         self.view.addSubview(rt.view)
         self.view.addSubview(ts.view)
+        
+//        セーフエリアの色がナビゲーションの色と異なるため、Viewを追加
+        let view = UIView(frame:CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20))
+//        以下がデフォルトのナビゲーションエリアの色らしい
+        view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
+        self.view.addSubview(view)
     }
     func makeColorLayer(number:Int,viewT:UIView){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()

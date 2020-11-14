@@ -16,7 +16,17 @@ class LoginViewModel{
     
     func isValid() -> Observable<Bool>{
         return Observable.combineLatest(userNamePublishSubject.asObservable().startWith(""), passwordPublishSubject.asObservable().startWith("")).map { userName, password in
-            return !userName.isEmpty && password.count >= 5
+            return !userName.isEmpty && password.count >= 6
+        }
+    }
+    func moreThanSixLetters() ->Observable<Bool>{
+        return passwordPublishSubject.asObservable().map { (text) -> Bool in
+            return text.count >= 6
+        }
+    }
+    func isUserNameEmpty() -> Observable<Bool>{
+        return userNamePublishSubject.asObservable().map { (text) -> Bool in
+            return !text.isEmpty
         }
     }
     
@@ -32,7 +42,7 @@ class LoginViewModel{
     func isValidNew() -> Observable<Bool>{
         return Observable.combineLatest(userNameBehaviorSubject.asObservable(), passwordBehaviorSubject.asObservable()).map {
             username, password in
-            return !username.isEmpty && password.count >= 5
+            return !username.isEmpty && password.count >= 6
         }
     }
 }

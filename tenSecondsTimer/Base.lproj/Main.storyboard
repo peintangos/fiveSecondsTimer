@@ -113,6 +113,66 @@
             </objects>
             <point key="canvasLocation" x="-3659" y="5211"/>
         </scene>
+        <!--Just Get Middle Play With Others7 View Controller-->
+        <scene sceneID="6MT-Q2-zfP">
+            <objects>
+                <viewController storyboardIdentifier="JustGetMiddlePlayWithOthers7ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="THj-1i-3Ys" customClass="JustGetMiddlePlayWithOthers7ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="seN-R1-2MS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="fHy-a9-Cdm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZwT-dA-VNu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3658" y="5922"/>
+        </scene>
+        <!--Just Get Middle Play With Others8 View Controller-->
+        <scene sceneID="duW-od-z2Y">
+            <objects>
+                <viewController storyboardIdentifier="JustGetMiddlePlayWithOthers8ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kTC-Nn-Sg1" customClass="JustGetMiddlePlayWithOthers8ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hur-LD-hfk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="keA-IQ-G5X"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aTv-Ob-EcF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3658" y="6642"/>
+        </scene>
+        <!--Just Get Middle Play With Others9 View Controller-->
+        <scene sceneID="rut-nY-5oL">
+            <objects>
+                <viewController storyboardIdentifier="JustGetMiddlePlayWithOthers9ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3A2-JY-P6N" customClass="JustGetMiddlePlayWithOthers9ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9iF-Ue-Bfn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="4YA-Yi-dso"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SII-EJ-dbf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3665" y="7312"/>
+        </scene>
+        <!--Just Get Middle Play With Others10 View Controller-->
+        <scene sceneID="Bhj-go-L7f">
+            <objects>
+                <viewController storyboardIdentifier="JustGetMiddlePlayWithOthers10ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LO9-Uh-Ih7" customClass="JustGetMiddlePlayWithOthers10ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="H9n-rK-3ft">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="o8r-F7-fgi"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qOh-Gf-g3F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3663" y="8009"/>
+        </scene>
         <!--Player1-->
         <scene sceneID="5mz-1q-tuY">
             <objects>
@@ -188,6 +248,96 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GdO-Hs-SG2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="142" y="1780"/>
+        </scene>
+        <!--Player5 View Controller-->
+        <scene sceneID="bgd-zn-DKT">
+            <objects>
+                <viewController storyboardIdentifier="Player5ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="395-Gj-MRd" customClass="Player5ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Lxn-aa-6gG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="rtb-Wf-N26"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kZd-NT-I2I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="114" y="2580"/>
+        </scene>
+        <!--Player6 View Controller-->
+        <scene sceneID="pwM-a9-sC9">
+            <objects>
+                <viewController storyboardIdentifier="Player6ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IQb-F2-Zwp" customClass="Player6ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cK5-Er-9JD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="U87-sS-XoX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3ov-Ec-1qf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="69" y="3473"/>
+        </scene>
+        <!--Player7 View Controller-->
+        <scene sceneID="Jve-l2-cFY">
+            <objects>
+                <viewController storyboardIdentifier="Player7ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hAH-e3-X3f" customClass="Player7ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tmt-FN-J2k">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="aKz-5X-r4K"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dof-ym-RHY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="69" y="4361"/>
+        </scene>
+        <!--Player8 View Controller-->
+        <scene sceneID="2O5-nb-5hH">
+            <objects>
+                <viewController storyboardIdentifier="Player8ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GQF-l3-SYJ" customClass="Player8ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gNk-Js-hqw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Eck-gy-Unp"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ftm-Mf-vft" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="91" y="5265"/>
+        </scene>
+        <!--Player9 View Controller-->
+        <scene sceneID="Pua-dM-HXI">
+            <objects>
+                <viewController storyboardIdentifier="Player9ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="j2l-Zh-AKS" customClass="Player9ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EuE-2H-P8G">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="jT0-j2-Tyn"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tB1-W0-Q4i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="157" y="6219"/>
+        </scene>
+        <!--Player10 View Controller-->
+        <scene sceneID="d8a-ma-fvJ">
+            <objects>
+                <viewController storyboardIdentifier="Player10ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QHI-ks-ZIo" customClass="Player10ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="T7t-0b-vZb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="TZN-wh-BFR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dVo-0M-l1M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="91" y="7222"/>
         </scene>
         <!--records-->
         <scene sceneID="g0x-Wf-1Vg">

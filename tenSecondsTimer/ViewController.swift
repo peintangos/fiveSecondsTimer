@@ -35,6 +35,8 @@ var backgroundColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "bac
 var name:String = UserDefaults.standard.string(forKey: "username")!
 var playerNumberAll:Int?
 var isSaved:Bool?
+//リストで取得する配列の数を表現
+//var responseListLength = 10
 
 var temporaryCount:Int?
 class ViewController: UIViewController,UITextFieldDelegate{
@@ -43,6 +45,11 @@ class ViewController: UIViewController,UITextFieldDelegate{
         // Do any additional setup after loading the view.
 //        ユーザデフォルトから各種設定を読み込む（初回ダウンロードのみ初期設定がないため、registerしてある設定から読み込む
         print(Realm.Configuration.defaultConfiguration.fileURL!)
+        do{
+//            let storyBd = UIStoryboard(name: "Main", bundle: nil)
+//            let tutorialVC = storyBd.instantiateViewController(withIdentifier: "ViewController")
+//            self.view.window?.rootViewController = tutorialVC
+        }
         do{
             let defaults = UserDefaults.standard
             defaults.register(defaults: ["timeNumber":5,
@@ -106,6 +113,25 @@ class ViewController: UIViewController,UITextFieldDelegate{
             temporaryCount = 6
             self.present(vc, animated: true, completion: nil)
             
+        }))
+        ui.addAction(UIAlertAction.init(title: "7人", style: .default, handler: { (UIAlertAction) in
+            temporaryCount = 7
+            self.present(vc, animated: true, completion: nil)
+            
+        }))
+        ui.addAction(UIAlertAction.init(title: "8人", style: .default, handler: { (UIAlertAction) in
+            temporaryCount = 8
+            self.present(vc, animated: true, completion: nil)
+            
+        }))
+        ui.addAction(UIAlertAction.init(title: "9人", style: .default, handler: { (UIAlertAction) in
+            temporaryCount = 9
+            self.present(vc, animated: true, completion: nil)
+            
+        }))
+        ui.addAction(UIAlertAction.init(title: "10人", style: .default, handler: { (UIAlertAction) in
+            temporaryCount = 10
+            self.present(vc, animated: true, completion: nil)
         }))
         ui.addAction(UIAlertAction.init(title: "戻る", style: .cancel, handler: nil))
         self.present(ui, animated: true, completion: nil)
@@ -200,7 +226,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
     
     func makePlaySelf(playSelf playself:UIButton){
         playself.backgroundColor = UIColor.white
-        playself.setTitle("一人で秒当てをする", for: .normal)
+        playself.setTitle("一人で秒当てをする！", for: .normal)
         playself.tintColor = Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor()
         playself.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         playself.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
@@ -231,7 +257,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         justGetMiddle.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 150, width: 300, height: 50)
     }
     func makeJustGetMiddlePlayWidthOthers() -> UIButton{
-        var justGetMiddlePlayWithOthersA = UIButton()
+        let justGetMiddlePlayWithOthersA = UIButton()
         justGetMiddlePlayWithOthersA.center.x = self.view.center.x
         justGetMiddlePlayWithOthersA.backgroundColor = UIColor.white
         justGetMiddlePlayWithOthersA.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
@@ -277,7 +303,6 @@ class ViewController: UIViewController,UITextFieldDelegate{
         actionS.addAction(UIAlertAction(title: "2人", style: .default, handler: { (action) in
             playerNumberAll = 2
             if isSaved!{
-                playerNumberAll = 2
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"
@@ -334,6 +359,174 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         actionS.addAction(UIAlertAction(title: "4人", style: .default, handler: {(action) in
             playerNumberAll = 4
+            if isSaved!{
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                nextView.name = "player1"
+//                nextView.playerNumber = 4
+                self.present(nextView, animated: true, completion: nil)
+            }else {
+                let nav = UIAlertController(title: "一人目の名前を入力してね", message:nil, preferredStyle: .alert)
+                nav.addAction(UIAlertAction(title: "次へ", style: UIAlertAction.Style.default, handler: {(action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                    nextView.name = nav.textFields?[0].text!
+//                    nextView.playerNumber = 4
+                    self.present(nextView, animated: true, completion: nil)
+                    
+                }))
+                nav.addTextField(configurationHandler: {(textField) in
+                    textField.delegate = self
+                })
+                nav.addAction(UIAlertAction(title: "戻る", style:UIAlertAction.Style.cancel, handler: nil))
+                self.present(nav, animated: true, completion: nil)
+                
+            }
+
+            
+        }))
+        actionS.addAction(UIAlertAction(title: "5人", style: .default, handler: {(action) in
+            playerNumberAll = 5
+            if isSaved!{
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                nextView.name = "player1"
+//                nextView.playerNumber = 4
+                self.present(nextView, animated: true, completion: nil)
+            }else {
+                let nav = UIAlertController(title: "一人目の名前を入力してね", message:nil, preferredStyle: .alert)
+                nav.addAction(UIAlertAction(title: "次へ", style: UIAlertAction.Style.default, handler: {(action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                    nextView.name = nav.textFields?[0].text!
+//                    nextView.playerNumber = 4
+                    self.present(nextView, animated: true, completion: nil)
+                    
+                }))
+                nav.addTextField(configurationHandler: {(textField) in
+                    textField.delegate = self
+                })
+                nav.addAction(UIAlertAction(title: "戻る", style:UIAlertAction.Style.cancel, handler: nil))
+                self.present(nav, animated: true, completion: nil)
+                
+            }
+
+            
+        }))
+        actionS.addAction(UIAlertAction(title: "6人", style: .default, handler: {(action) in
+            playerNumberAll = 6
+            if isSaved!{
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                nextView.name = "player1"
+//                nextView.playerNumber = 4
+                self.present(nextView, animated: true, completion: nil)
+            }else {
+                let nav = UIAlertController(title: "一人目の名前を入力してね", message:nil, preferredStyle: .alert)
+                nav.addAction(UIAlertAction(title: "次へ", style: UIAlertAction.Style.default, handler: {(action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                    nextView.name = nav.textFields?[0].text!
+//                    nextView.playerNumber = 4
+                    self.present(nextView, animated: true, completion: nil)
+                    
+                }))
+                nav.addTextField(configurationHandler: {(textField) in
+                    textField.delegate = self
+                })
+                nav.addAction(UIAlertAction(title: "戻る", style:UIAlertAction.Style.cancel, handler: nil))
+                self.present(nav, animated: true, completion: nil)
+                
+            }
+
+            
+        }))
+        actionS.addAction(UIAlertAction(title: "7人", style: .default, handler: {(action) in
+            playerNumberAll = 7
+            if isSaved!{
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                nextView.name = "player1"
+//                nextView.playerNumber = 4
+                self.present(nextView, animated: true, completion: nil)
+            }else {
+                let nav = UIAlertController(title: "一人目の名前を入力してね", message:nil, preferredStyle: .alert)
+                nav.addAction(UIAlertAction(title: "次へ", style: UIAlertAction.Style.default, handler: {(action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                    nextView.name = nav.textFields?[0].text!
+//                    nextView.playerNumber = 4
+                    self.present(nextView, animated: true, completion: nil)
+                    
+                }))
+                nav.addTextField(configurationHandler: {(textField) in
+                    textField.delegate = self
+                })
+                nav.addAction(UIAlertAction(title: "戻る", style:UIAlertAction.Style.cancel, handler: nil))
+                self.present(nav, animated: true, completion: nil)
+                
+            }
+
+            
+        }))
+        actionS.addAction(UIAlertAction(title: "8人", style: .default, handler: {(action) in
+            playerNumberAll = 8
+            if isSaved!{
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                nextView.name = "player1"
+//                nextView.playerNumber = 4
+                self.present(nextView, animated: true, completion: nil)
+            }else {
+                let nav = UIAlertController(title: "一人目の名前を入力してね", message:nil, preferredStyle: .alert)
+                nav.addAction(UIAlertAction(title: "次へ", style: UIAlertAction.Style.default, handler: {(action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                    nextView.name = nav.textFields?[0].text!
+//                    nextView.playerNumber = 4
+                    self.present(nextView, animated: true, completion: nil)
+                    
+                }))
+                nav.addTextField(configurationHandler: {(textField) in
+                    textField.delegate = self
+                })
+                nav.addAction(UIAlertAction(title: "戻る", style:UIAlertAction.Style.cancel, handler: nil))
+                self.present(nav, animated: true, completion: nil)
+                
+            }
+
+            
+        }))
+        actionS.addAction(UIAlertAction(title: "9人", style: .default, handler: {(action) in
+            playerNumberAll = 9
+            if isSaved!{
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                nextView.name = "player1"
+//                nextView.playerNumber = 4
+                self.present(nextView, animated: true, completion: nil)
+            }else {
+                let nav = UIAlertController(title: "一人目の名前を入力してね", message:nil, preferredStyle: .alert)
+                nav.addAction(UIAlertAction(title: "次へ", style: UIAlertAction.Style.default, handler: {(action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
+                    nextView.name = nav.textFields?[0].text!
+//                    nextView.playerNumber = 4
+                    self.present(nextView, animated: true, completion: nil)
+                    
+                }))
+                nav.addTextField(configurationHandler: {(textField) in
+                    textField.delegate = self
+                })
+                nav.addAction(UIAlertAction(title: "戻る", style:UIAlertAction.Style.cancel, handler: nil))
+                self.present(nav, animated: true, completion: nil)
+                
+            }
+
+            
+        }))
+        actionS.addAction(UIAlertAction(title: "10人", style: .default, handler: {(action) in
+            playerNumberAll = 10
             if isSaved!{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController

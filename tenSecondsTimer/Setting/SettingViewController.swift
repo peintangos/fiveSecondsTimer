@@ -70,6 +70,11 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         self.switchS.isOn = UserDefaults.standard.bool(forKey: "isNameSaved")
         
         myTableView = UITableView(frame: CGRect(x: 0, y: self.view.safeAreaInsets.top, width: 0, height: 0), style: .grouped)
+//        セーフエリアの色がナビゲーションの色と異なるため、Viewを追加
+        let view = UIView(frame:CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20))
+//        以下がデフォルトのナビゲーションエリアの色らしい
+        view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
+        self.view.addSubview(view)
     }
 
     @objc func goBack(){
@@ -81,7 +86,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         myTableView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height)
         myTableView.dataSource = self
         myTableView.delegate = self
-        myTableView.contentInset.top = self.view.safeAreaInsets.top
+        myTableView.contentInset.top = self.view.safeAreaInsets.top + 20
         self.view.bringSubviewToFront(self.switchS)
         self.view.addSubview(myTableView)
         self.view.sendSubviewToBack(myTableView)
@@ -90,8 +95,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
 
         //xとyで位置を、widthとheightで幅と高さを指定する
         navBar.frame = CGRect(x: 0, y: self.view.safeAreaInsets.top, width: self.view.frame.width, height: 44)
-        
-
+//        navBar.backgroundColor = UIColor.red
         //ナビゲーションアイテムのタイトルを設定
         let navItem : UINavigationItem = UINavigationItem(title: "設定画面")
 
