@@ -30,9 +30,10 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
     }
     var tableView:UITableView!
     var justGetMiddleDtoList = Array<JustGetMiddleDto>()
-    var justGetMiddleLabelDtoList = [Int:Array<JustGetMiddleDto>]()
-//    var justGetMiddleLabelDtoList : [Int:Array<JustGetMiddleDto>]?
     var yourResponseRanking:String?
+    var justGetMiddleLabelDtoList = [Int:Array<JustGetMiddleDto>]()
+    var isConnectionSuccess:Bool?
+    var yourResponseLabelRanking:Int?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
             return 1
@@ -48,13 +49,25 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
         if indexPath.section == 0 {
-            cell.textLabel?.text = "あなたの世界ランキングは\(yourResponseRanking ?? "xx")位"
+            cell.textLabel?.text = "あなたの世界ランキングは\(yourResponseRanking ?? "??")位です"
             return cell
         }else if indexPath.section == 1{
             let rightAccView = UILabel(frame: CGRect(x: cell.frame.width, y: 0, width: 35, height: 35))
             rightAccView.center.y = cell.center.y
             rightAccView.textAlignment = NSTextAlignment.center
             rightAccView.font = UIFont.systemFont(ofSize: 15)
+//            レコードがない場合に、順位の判定ができないため、レコードがない場合は全て??を返す
+            guard let connection = self.isConnectionSuccess else {
+                cell.textLabel?.text = "??"
+                return cell
+            }
+            if indexPath.row + 1 < self.yourResponseLabelRanking! {
+                cell.textLabel?.text = "??"
+                return cell
+            }
+            if yourResponseLabelRanking == indexPath.row + 1{
+                cell.textLabel?.tintColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+            }
             switch indexPath.row {
             case 0:
                 cell.textLabel?.text = "合コン王"
@@ -111,13 +124,13 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
                 cell.textLabel?.text = "普通のサークルの2年"
                 rightAccView.text = "\(String(self.justGetMiddleLabelDtoList[17]?.count ?? 00))人"
             case 18:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "普通のサークルの1年"
                 rightAccView.text = "\(String(self.justGetMiddleLabelDtoList[18]?.count ?? 00))人"
             case 19:
-                cell.textLabel?.text = "普通のサークルの1年"
+                cell.textLabel?.text = "クラスのお調子者"
                 rightAccView.text = "\(String(self.justGetMiddleLabelDtoList[19]?.count ?? 00))人"
             default:
-                cell.textLabel?.text = "クラスのお調子者"
+                cell.textLabel?.text = "soon coming"
                 rightAccView.text = "\(String(self.justGetMiddleLabelDtoList[19]?.count ?? 00))人"
             }
 //            cellのacceerosyViewを使う手があったが、fameの調節がうまくいかなったので、こちらにした
@@ -156,27 +169,27 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
         self.tableView.reloadData()
     }
     func updeYourScore(){
+//        現状、レコードがない場合に失敗してしまう
         let parameters:[String:String] = [
             "key":name]
-        Alamofire.request("http://localhost:8080/justgetmiddle/keys",method: .get,parameters: parameters).validate(statusCode: 200..<400).responseString{response in
+        Alamofire.request("http://localhost:8080/justgetmiddle/keys",method: .get,parameters: parameters).validate(statusCode: 200..<400).responseData{response in
             switch response.result {
             case .success:
                 self.yourResponseRanking = String(data:response.data!,encoding: .utf8)
             case .failure:
                 print("デコードに失敗しました。")
+//                print(response.value!)
             }
         }
     }
     func updeYourScoreLabel(){
         let parameters:[String:String] = [
             "key":name]
-        Alamofire.request("http://localhost:8080/justgetmiddle/listLabel/rank",method: .get,parameters: parameters).validate(statusCode: 200..<400).responseString{response in
-            print(response)
+        Alamofire.request("http://localhost:8080/justgetmiddle/rank",method: .get,parameters: parameters).validate(statusCode: 200..<400).responseString{response in
             switch response.result {
             case .success:
-                print("これが通れば、この数字以下で判定するだけ")
-                print(response)
-                print(response.data)
+                self.isConnectionSuccess = true
+                self.yourResponseLabelRanking = Int(response.value!)
             case .failure:
                 print("デコードに失敗した。")
             }

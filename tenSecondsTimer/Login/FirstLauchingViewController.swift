@@ -144,7 +144,8 @@ class FirstLauchingViewController: UIViewController {
         UserDefaults.standard.setValue(self.usernameTextField.text!, forKey: "username")
         let parameters:[String:String] = [
         "username":self.usernameTextField.text!,
-        "password":self.passwordTextField.text!
+        "password":self.passwordTextField.text!,
+        "uuid":UserDefaults.standard.string(forKey: "UUID")!
         ]
         Alamofire.request("http://localhost:8080/user/register",method:.post,parameters:parameters,encoding:JSONEncoding.default).responseString{
             response in

@@ -29,6 +29,8 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
         
         self.update()
         self.updateYourScore()
+        self.updateLabel()
+        self.updateYourLabelScore()
         
 //        self.tableView.backgroundColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
         
@@ -40,6 +42,9 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
 //        }.disposed(by: dispopse)
         update()
     }
+    var countTimeLabelDtoList = [Int:Array<CountTimeDto>]()
+    var isConnectionSuccess:Bool?
+    var yourCountTimeLabelRanking:Int?
     func update(){
         Alamofire.request("http://localhost:8080/countTime/list",method:.get).responseJSON { (reponse) in
             let deocder:JSONDecoder = JSONDecoder()
@@ -65,6 +70,33 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
             }
         }
     }
+    func updateLabel(){
+        Alamofire.request("http://localhost:8080/countTime/listLabel",method: .get).validate(statusCode: 200..<400).responsePropertyList { (response) in
+            let decoder = JSONDecoder()
+            do{
+                let data = try decoder.decode(CountTimeLabelDto.self, from: response.data!)
+                self.countTimeLabelDtoList = data.map
+                print(data)
+            }catch{
+                print("エラー：\(error)")
+                print("レスポンスデータ\(response.data!)")
+                print("デコードに失敗してるよ〜")
+            }
+        }
+    }
+    func updateYourLabelScore(){
+        let parameters:[String:String] = [
+            "key":name]
+        Alamofire.request("http://localhost:8080/countTime/rank",method:.get,parameters: parameters).validate(statusCode: 200..<400).responseString { (response) in
+            switch response.result{
+            case .success:
+                self.isConnectionSuccess = true
+                self.yourCountTimeLabelRanking = Int(response.value!)
+            case .failure:
+                print("デコードに失敗しています。")
+            }
+        }
+    }
 
 
     var tableView:UITableView!
@@ -74,7 +106,7 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
         case 0:
             return 1
         case 1:
-            return 8
+            return 20
         case 2:
             return self.countTimeDtoList.count
         default:
@@ -105,61 +137,99 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
     override func viewWillAppear(_ animated: Bool) {
         update()
         updateYourScore()
+        updateLabel()
+        updateYourLabelScore()
         self.tableView.reloadData()
     }
     var yourScore:String?
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
         if indexPath.section == 0 {
-            cell.textLabel?.text = "あなたの世界ランクは\(yourScore ?? "xx")位です"
+            cell.textLabel?.text = "あなたの世界ランキングは\(yourScore ?? "??")位です"
             return cell
         }else if indexPath.section == 1 {
+            let rightAccView = UILabel(frame: CGRect(x: cell.frame.width, y: 0, width: 35, height: 35))
+            rightAccView.center.y = cell.center.y
+            rightAccView.textAlignment = NSTextAlignment.center
+            rightAccView.font = UIFont.systemFont(ofSize: 15)
+            guard let isConnect = self.isConnectionSuccess  else {
+                cell.textLabel?.text = "??"
+                return cell
+            }
+            yourCountTimeLabelRanking = 15
+            if yourCountTimeLabelRanking! > indexPath.row + 1 {
+                cell.textLabel?.text = "??"
+                return cell
+            }
+            if yourCountTimeLabelRanking == indexPath.row + 1{
+                cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+            }
             switch indexPath.row {
             case 0:
-                cell.textLabel?.text = "soon coming"
-                cell.accessoryView = UILabel()
+                cell.textLabel?.text = "合コン王"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[0]?.count ?? 00))人"
             case 1:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "合コンコンサルタント4年目"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[1]?.count ?? 00))人"
             case 2:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "合コンコンサルタント3年目"
+                rightAccView.text =  "\(String(self.countTimeLabelDtoList[2]?.count ?? 00))人"
             case 3:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "合コンコンサルタント2年目"
+                rightAccView.text =  "\(String(self.countTimeLabelDtoList[3]?.count ?? 00))人"
             case 4:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "合コンコンサルタント1年目"
+                rightAccView.text =  "\(String(self.countTimeLabelDtoList[4]?.count ?? 00))人"
             case 5:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "飲み会コンサルタント3年目"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[5]?.count ?? 00))人"
             case 6:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "飲み会コンサルタント2年目"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[6]?.count ?? 00))人"
             case 7:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "飲み会コンサルタント1年目"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[7]?.count ?? 00))人"
             case 8:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "飲みサーの代表"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[8]?.count ?? 00))人"
             case 9:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "飲みサーの3年"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[9]?.count ?? 00))人"
             case 10:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "飲み会不可欠"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[10]?.count ?? 00))人"
             case 11:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "飲みサーの2年"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[11]?.count ?? 00))人"
             case 12:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "飲みサーの1年"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[12]?.count ?? 00))人"
             case 13:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "普通のサークルの代表"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[13]?.count ?? 00))人"
             case 14:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "合コンピンチヒッター"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[14]?.count ?? 00))人"
             case 15:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "普通のサークルの3年"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[15]?.count ?? 00))人"
             case 16:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "飲み会で最後まで生き残る方"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[16]?.count ?? 00))人"
             case 17:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "普通のサークルの2年"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[17]?.count ?? 00))人"
             case 18:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "普通のサークルの1年"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[18]?.count ?? 00))人"
             case 19:
-                cell.textLabel?.text = "soon coming"
+                cell.textLabel?.text = "クラスのお調子者"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[19]?.count ?? 00))人"
             default:
                 cell.textLabel?.text = "soon coming"
+                rightAccView.text = "\(String(self.countTimeLabelDtoList[19]?.count ?? 00))人"
             }
-            cell.accessoryType = .checkmark
+            cell.addSubview(rightAccView)
             return cell
         }else if indexPath.section == 2 {
             cell.textLabel?.text = "\(indexPath.row + 1)位 \(String(self.countTimeDtoList[(indexPath as NSIndexPath).row].timeDifference))" 
