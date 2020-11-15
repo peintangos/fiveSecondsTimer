@@ -26,11 +26,10 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
         tableView.dataSource = self
         tableView.delegate = self
         self.view.addSubview(self.tableView!)
-        
-        self.update()
-        self.updateYourScore()
-        self.updateLabel()
-        self.updateYourLabelScore()
+        self.tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        updateAll()
+
         
 //        self.tableView.backgroundColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
         
@@ -42,22 +41,38 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
 //        }.disposed(by: dispopse)
         update()
     }
+    @objc func refresh(){
+        updateAll()
+//        少し、クルクルが終わるのが早いので、遅らせる
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.refreshControl.endRefreshing()
+        }
+        
+    }
     var countTimeLabelDtoList = [Int:Array<CountTimeDto>]()
     var isConnectionSuccess:Bool?
     var yourCountTimeLabelRanking:Int?
     func update(){
-        Alamofire.request("http://localhost:8080/countTime/list",method:.get).responseJSON { (reponse) in
+        let parameters:[String:Int]=[
+            "page":self.page]
+        Alamofire.request("http://localhost:8080/countTime/list",method:.get,parameters: parameters).responseJSON { (reponse) in
             let deocder:JSONDecoder = JSONDecoder()
             do{
                 let countTimeDtos :[CountTimeDto] = try deocder.decode([CountTimeDto].self, from: reponse.data!)
                 self.countTimeDtoList = countTimeDtos
                 self.tableView.reloadData()
+                self.loading = false
             }catch{
-                print("デコードに失敗しました。")
+                print("TenSeconds.updateデコードに失敗しました。")
             }
         }
+        self.loading = true
     }
-
+    var page = 10
+    override func viewWillDisappear(_ animated: Bool) {
+//        viewが離れるたびに、ページ数をリセットする
+        self.page = 10
+    }
     func updateYourScore(){
         let parameters:[String:String] = [
             "key":name]
@@ -66,7 +81,7 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
             case .success:
                 yourScore = String(data: response.data!,encoding: .utf8)!
             case .failure:
-                print("失敗")
+                print("TenSeconds.updateYourScore失敗")
             }
         }
     }
@@ -76,11 +91,8 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
             do{
                 let data = try decoder.decode(CountTimeLabelDto.self, from: response.data!)
                 self.countTimeLabelDtoList = data.map
-                print(data)
             }catch{
-                print("エラー：\(error)")
-                print("レスポンスデータ\(response.data!)")
-                print("デコードに失敗してるよ〜")
+                print("TenSeconds.updaetLabelデコードに失敗してるよ〜")
             }
         }
     }
@@ -93,7 +105,7 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
                 self.isConnectionSuccess = true
                 self.yourCountTimeLabelRanking = Int(response.value!)
             case .failure:
-                print("デコードに失敗しています。")
+                print("TenSeconds.updateYourLabelScoreデコードに失敗しています。")
             }
         }
     }
@@ -118,6 +130,9 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
            // テキスト色を変更する
         header.textLabel?.textColor = UIColor.init(red: 53 / 255, green: 74 / 255, blue: 93 / 255, alpha: 1)
     }
+    var count = 0
+    var countG = 0
+    var loading = false
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         let bounds = scrollView.bounds
@@ -125,23 +140,47 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
         let inset = scrollView.contentInset
         let y = offset.y + bounds.size.height - inset.bottom
         let h = size.height
-        let reload_distance:CGFloat = 10.0
+        let reload_distance:CGFloat = 20.0
         if y > (h + reload_distance) {
-            print("load more rows")
-//            update()
+//            初期値はfalseなので、初めて最下層に到達した場合はこのif文が実行される
+//            その後、初めてupdate()が呼ばれたタイミングで、loadingをtrueにする
+//            その後、非同期処理で値が帰ってきた後にloadingをfalseにする
+            if !self.loading {
+                page = page + 10
+                update()
+            }
+        }
+    }
+//    テーブルの最下層でアクティビィティインジケータを表示する
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastSectionIndex = 2
+//        インジケータを出し始めるタイミングを決定する。最後のインデックス-3のところでインジケータの表示を始める
+        let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 3
+        if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
+           // print("this is the last cell")
+            let spinner = UIActivityIndicatorView(style: .large)
+            spinner.color = .systemGreen
+            spinner.startAnimating()
+            spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+            self.tableView.tableFooterView = spinner
+            self.tableView.tableFooterView?.isHidden = false
         }
     }
 
     
 
     override func viewWillAppear(_ animated: Bool) {
+        updateAll()
+        self.tableView.reloadData()
+    }
+    func updateAll(){
         update()
         updateYourScore()
         updateLabel()
         updateYourLabelScore()
-        self.tableView.reloadData()
     }
     var yourScore:String?
+    let refreshControl = UIRefreshControl()
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
         if indexPath.section == 0 {
@@ -220,10 +259,10 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
                 cell.textLabel?.text = "普通のサークルの2年"
                 rightAccView.text = "\(String(self.countTimeLabelDtoList[17]?.count ?? 00))人"
             case 18:
-                cell.textLabel?.text = "普通のサークルの1年"
+                cell.textLabel?.text = "クラスのお調子者"
                 rightAccView.text = "\(String(self.countTimeLabelDtoList[18]?.count ?? 00))人"
             case 19:
-                cell.textLabel?.text = "クラスのお調子者"
+                cell.textLabel?.text = "たけちたろう"
                 rightAccView.text = "\(String(self.countTimeLabelDtoList[19]?.count ?? 00))人"
             default:
                 cell.textLabel?.text = "soon coming"

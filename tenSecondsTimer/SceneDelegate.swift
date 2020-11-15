@@ -23,8 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if(launchedBefore == true) {
 //            一時的にこいつをかく。実装が終わったらちゃんと消す
-            let tutorialVC = storyboard.instantiateViewController(withIdentifier: "FirstLauchingViewController")
-            self.window?.rootViewController = tutorialVC
+//            let tutorialVC = storyboard.instantiateViewController(withIdentifier: "FirstLauchingViewController")
+//            self.window?.rootViewController = tutorialVC
         } else {
             //起動を判定するlaunchedBeforeという論理型のKeyをUserDefaultsに用意
             UserDefaults.standard.set(true, forKey: "launchedBefore")

@@ -22,13 +22,19 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
         tableView.dataSource = self
         tableView.delegate = self
         self.view.addSubview(self.tableView!)
-        update()
-        updeYourScore()
-        updateLabel()
-        updeYourScoreLabel()
+        tableView.refreshControl = self.refreshControl
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        updateAll()
 //        self.tableView.backgroundColor = UIColor.init(red: 53 / 255, green: 74 / 255, blue: 93 / 255, alpha: 1)
     }
+    @objc func refresh(){
+        updateAll()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.refreshControl.endRefreshing()
+        }
+    }
     var tableView:UITableView!
+    let refreshControl = UIRefreshControl()
     var justGetMiddleDtoList = Array<JustGetMiddleDto>()
     var yourResponseRanking:String?
     var justGetMiddleLabelDtoList = [Int:Array<JustGetMiddleDto>]()
@@ -40,7 +46,8 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
         }else if section == 1{
             return 20
         }else if section == 2{
-            return self.justGetMiddleDtoList.count
+//            配列を超える数を入れてしまうと、下のどこかでリストを超える要素にアクセスしてしまい、実行時エラーとなる
+            return self.justGetMiddleDtoList.count > page ? page :self.justGetMiddleDtoList.count
         }else {
             return self.justGetMiddleDtoList.count
         }
@@ -66,7 +73,7 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
                 return cell
             }
             if yourResponseLabelRanking == indexPath.row + 1{
-                cell.textLabel?.tintColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+                cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
             }
             switch indexPath.row {
             case 0:
@@ -124,10 +131,10 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
                 cell.textLabel?.text = "普通のサークルの2年"
                 rightAccView.text = "\(String(self.justGetMiddleLabelDtoList[17]?.count ?? 00))人"
             case 18:
-                cell.textLabel?.text = "普通のサークルの1年"
+                cell.textLabel?.text = "クラスのお調子者"
                 rightAccView.text = "\(String(self.justGetMiddleLabelDtoList[18]?.count ?? 00))人"
             case 19:
-                cell.textLabel?.text = "クラスのお調子者"
+                cell.textLabel?.text = "たけち"
                 rightAccView.text = "\(String(self.justGetMiddleLabelDtoList[19]?.count ?? 00))人"
             default:
                 cell.textLabel?.text = "soon coming"
@@ -149,6 +156,23 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
+    //    テーブルの最下層でアクティビィティインジケータを表示する
+        func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            let lastSectionIndex = 2
+    //        インジケータを出し始めるタイミングを決定する。最後のインデックス-3のところでインジケータの表示を始める
+            let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
+            if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
+               // print("this is the last cell")
+                let spinner = UIActivityIndicatorView(style: .large)
+//                なぜか、色が設定できなかった。
+//                spinner.color = UIColor.init(red: 53 / 255, green: 74 / 255, blue: 93 / 255, alpha: 1)
+                spinner.color = .systemGreen
+                spinner.startAnimating()
+                spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+                self.tableView.tableFooterView = spinner
+                self.tableView.tableFooterView?.isHidden = false
+            }
+        }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section{
         case 0:
@@ -162,11 +186,14 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
         }
     }
     override func viewWillAppear(_ animated: Bool) {
+        updateAll()
+        self.tableView.reloadData()
+    }
+    func updateAll(){
         update()
         updeYourScore()
         updateLabel()
         updeYourScoreLabel()
-        self.tableView.reloadData()
     }
     func updeYourScore(){
 //        現状、レコードがない場合に失敗してしまう
@@ -177,8 +204,7 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
             case .success:
                 self.yourResponseRanking = String(data:response.data!,encoding: .utf8)
             case .failure:
-                print("デコードに失敗しました。")
-//                print(response.value!)
+                print("ReponseTime.updeYourScoreデコードに失敗しました。")
             }
         }
     }
@@ -191,7 +217,7 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
                 self.isConnectionSuccess = true
                 self.yourResponseLabelRanking = Int(response.value!)
             case .failure:
-                print("デコードに失敗した。")
+                print("ReponseTime.updeYourScoreLabelデコードに失敗した。")
             }
         }
     }
@@ -203,44 +229,49 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
                 self.justGetMiddleLabelDtoList = list.map
                 self.tableView?.reloadData()
             }catch{
-                print(error)
-                print("デコ失敗")
+                print("ReponseTime.updateLabelデコ失敗")
             }
         }
     }
     func update(){
 //        let parameters:[String:Int] = [
 //            "key": responseListLength]
-        Alamofire.request("http://localhost:8080/justgetmiddle/list").responseJSON { (response) in
+        Alamofire.request("http://localhost:8080/justgetmiddle/list").responseJSON { [self] (response) in
             let decoder = JSONDecoder()
             do{
                 let justGetMiddleDtos = try decoder.decode([JustGetMiddleDto].self, from: response.data!)
                 self.justGetMiddleDtoList = justGetMiddleDtos
 //                こいつを走らせないと、初期値のから配列がずっと表示されてしまう
                 self.tableView?.reloadData()
+                self.loading = false
             }catch{
-                print("デコードに失敗しています。")
+                print("ReponseTime.updateデコードに失敗しています。")
             }
         }
+        loading = true
     }
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offset = scrollView.contentOffset
-//        let bounds = scrollView.bounds
-//        let size = scrollView.contentSize
-//        let inset = scrollView.contentInset
-//        let y = offset.y + bounds.size.height - inset.bottom
-//        let h = size.height
-//        let reload_distance:CGFloat = 10.0
-//        if y > (h + reload_distance) {
-//            print("load more rows")
-////            responseListLength += 10
-//            update()
-//        }
-//    }
-//    override func viewDidDisappear(_ animated: Bool) {
-//        responseListLength = 10
-//        true
-//    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset
+        let bounds = scrollView.bounds
+        let size = scrollView.contentSize
+        let inset = scrollView.contentInset
+        let y = offset.y + bounds.size.height - inset.bottom
+        let h = size.height
+        let reload_distance:CGFloat = 20
+//        到達した瞬間に実行されてしまうと一瞬でインジケータが消えてしまうので、少し余分にスクロールした時に初めて、update()を呼ぶ
+        if y - reload_distance > h {
+            if !loading{
+                page = page + 10
+                update()
+            }
+            
+        }
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        page = 10
+    }
+    var loading = false
+    var page = 10
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
            // テキスト色を変更する

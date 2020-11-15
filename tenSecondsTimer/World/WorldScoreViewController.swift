@@ -9,14 +9,18 @@ import UIKit
 
 class WorldScoreViewController: UIViewController {
     var segmentControl:UISegmentedControl!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
         let navBar = UINavigationBar()
+        navBar.frame = CGRect(x: 0, y: self.view.safeAreaInsets.top, width: self.view.frame.width, height: 44)
         //xとyで位置を、widthとheightで幅と高さを指定する
+//        下記のコードは、この状態でプリントアウトしても、0が表示された。
+//        print(self.view.safeAreaInsets.top)
         let height = self.view.safeAreaInsets.top + 20
+        
         navBar.frame = CGRect(x: 0, y: height, width: self.view.frame.width, height: 44)
         //ナビゲーションアイテムのタイトルを設定
         let navItem : UINavigationItem = UINavigationItem(title: "世界の記録")
@@ -27,7 +31,8 @@ class WorldScoreViewController: UIViewController {
         navBar.pushItem(navItem, animated: true)
         //Viewにナビゲーションバーを追加(ナビゲーションバーの高さを）
         let segmentHeight = height + 44
-        var myView = UIView(frame: CGRect(x: 0, y: segmentHeight, width: self.view.frame.width, height: 100))
+        let myView = UIView()
+        myView.frame = CGRect(x: 0, y: segmentHeight, width: self.view.frame.width, height: 100)
         self.view.addSubview(myView)
         self.makeColorLayer(number: backgroundColorNumberStatic, viewT:myView)
         let items = ["秒あて","反射神経"]
@@ -62,6 +67,10 @@ class WorldScoreViewController: UIViewController {
         view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
         self.view.addSubview(view)
     }
+//    override func viewWillAppear(_ animated: Bool) {
+//        navBar.frame = CGRect(x: 0, y: self.view.safeAreaInsets.top, width: self.view.frame.width, height: 44)
+//        myView.frame = CGRect(x: 0, y: self.view.safeAreaInsets.top + 44, width: self.view.frame.width, height: 100)
+//    }
     func makeColorLayer(number:Int,viewT:UIView){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
         layer!.frame = CGRect(x: 0, y: 0, width: viewT.frame.width, height: viewT.frame.height)
