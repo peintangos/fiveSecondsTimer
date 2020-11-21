@@ -18,11 +18,41 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+//        20はiOS11用につけただけなので、後で対策を考える。
+//        self.view.frame = CGRect(x: 0, y: 124, width: self.view.frame.width, height: self.view.frame.height)
+        var height = 0
+        switch (UIScreen.main.nativeBounds.height) {
+        case 1334:
+        // iPhone 6
+          // iPhone 6s
+          // iPhone 7
+          // iPhone 8
+            height = 80
+            break;
+        case 2208:
+            // iPhone 6 Plus
+            // iPhone 6s Plus
+            // iPhone 7 Plus
+            // iPhone 8 Plus
+            height = 80
+            break
+        case 2436:
+            //iPhone X
+            height = 124
+            break
+        default:
+            height = 124
+            break
+        }
+        print(UIScreen.main.nativeBounds.height)
+        print(height)
 
-        self.view.frame = CGRect(x: 0, y: 164 + self.view.safeAreaInsets.top, width: self.view.frame.width, height: self.view.frame.height)
+        self.view.frame = CGRect(x: 0, y: CGFloat(height), width: self.view.frame.width, height: self.view.frame.height)
         self.tableView = UITableView(frame: view.frame, style: .grouped)
-        self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 164)
+        self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 124)
         self.tableView.contentInset.top = self.view.safeAreaInsets.top
+        self.tableView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0)
+        self.makeColorLayer(number: backgroundColorNumberStatic, viewT: self.view)
         tableView.dataSource = self
         tableView.delegate = self
         self.view.addSubview(self.tableView!)
@@ -41,6 +71,35 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
 //        }.disposed(by: dispopse)
         update()
     }
+    
+    override func viewDidLayoutSubviews() {
+        var height = 0
+        switch (UIScreen.main.nativeBounds.height) {
+        case 1334:
+        // iPhone 6
+          // iPhone 6s
+          // iPhone 7
+          // iPhone 8
+            height = 80
+            break;
+        case 2208:
+            // iPhone 6 Plus
+            // iPhone 6s Plus
+            // iPhone 7 Plus
+            // iPhone 8 Plus
+            height = 80
+            break
+        case 2436:
+            //iPhone X
+            height = 124
+            break
+        default:
+            height = 124
+            break
+        }
+        var heightT = safeAreaTopT! + 44 + 80
+        self.view.frame = CGRect(x: 0, y: heightT, width: self.view.frame.width, height: self.view.frame.height)
+    }
     @objc func refresh(){
         updateAll()
 //        少し、クルクルが終わるのが早いので、遅らせる
@@ -48,6 +107,13 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
             self.refreshControl.endRefreshing()
         }
         
+    }
+    var safeAreaTopHeight:CGFloat{
+        if #available(iOS 11, *){
+            return 44
+        }else {
+            return 0
+        }
     }
     var countTimeLabelDtoList = [Int:Array<CountTimeDto>]()
     var isConnectionSuccess:Bool?
@@ -166,7 +232,11 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
             self.tableView.tableFooterView?.isHidden = false
         }
     }
-
+    func makeColorLayer(number:Int,viewT:UIView){
+        let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
+        layer!.frame = CGRect(x: 0, y: 0, width: viewT.frame.width, height: viewT.frame.height)
+        viewT.layer.insertSublayer(layer!, at: 1)
+    }
     
 
     override func viewWillAppear(_ animated: Bool) {

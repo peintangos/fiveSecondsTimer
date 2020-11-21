@@ -199,8 +199,11 @@ class FirstController: UIViewController, UITextFieldDelegate {
         timerMsec.text = "00"
 //                円形のサークル内のメッセージを作成
         top.frame.size = CGSize(width: 200, height: 20)
-        top.center = CGPoint(x: 230, y: 230)
+        top.center = self.view.center
+        top.center.x = self.view.center.x
+        top.center.y = self.view.center.y - 100
         top.text = "\(timeNumberStatic)秒で止めれるかな？"
+        top.textAlignment = NSTextAlignment.center
         top.textColor = UIColor.gray
         top.isHidden = true
 

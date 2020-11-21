@@ -21,8 +21,10 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        self.startButton = makeStartTimer()
-        self.stopButton = makeStopTimer()
+//        self.startButton = makeStartTimer()
+        self.startButton = UIButton()
+//        self.stopButton = makeStopTimer()
+        self.stopButton = UIButton()
         self.view.addSubview(self.stopButton!)
         self.view.addSubview(self.startButton!)
         self.view.addSubview(makeTitle(name:"\(name ?? "ハリー")の挑戦です"))
@@ -104,6 +106,8 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidLayoutSubviews() {
+        makeStartTimer(button:self.startButton!,viewSelf:self.view)
+        makeStopTimer(button:self.stopButton!,viewSelf: self.view)
         makeTimerSec(timersec: self.timerSec)
         makeTimerMill(timermill: self.timerMill)
         makeMessage(messageNew: self.message,imageView:self.imageView)
@@ -126,47 +130,47 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
 
     
     //    Stopタイマーを作るメソッド
-    func makeStopTimer() -> UIButton{
-        var stopButton = UIButton()
-        stopButton.frame = CGRect(x: self.view.bounds.width/2 + 50, y: self.view.bounds.height - 150 , width: 100, height: 100)
-        stopButton.backgroundColor = UIColor.white
-        stopButton.layer.cornerRadius = 50
-        stopButton.isEnabled = false
-        stopButton.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
-        stopButton.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+    func makeStopTimer(button:UIButton,viewSelf:UIView){
+//        セーフエリア対策色々やってみたけど、なんかモーダルだと0になるし（didLayoutSubViewで撮ったっとしても）
+//        固定値で間を開けるしかない気がする
+//        print(viewSelf.safeAreaInsets.bottom)
+        button.frame = CGRect(x: self.view.bounds.width/2 + 50, y: self.view.bounds.height - 170, width: 100, height: 100)
+        button.backgroundColor = UIColor.white
+        button.layer.cornerRadius = 50
+        button.isEnabled = false
+        button.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        button.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         let image = UIImage(named: "del")
         image?.withTintColor((Setting.color.init(rawValue: colorNumberStatic + 1)?.getUIColor())!)
         let imageView = UIImageView(image: image)
         imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         imageView.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
-        stopButton.addSubview(imageView)
-        stopButton.imageView?.contentMode = .scaleToFill
-        stopButton.contentHorizontalAlignment = .fill
-        stopButton.contentVerticalAlignment = .fill
-        stopButton.alpha = 0.5
-        return stopButton
+        button.addSubview(imageView)
+        button.imageView?.contentMode = .scaleToFill
+        button.contentHorizontalAlignment = .fill
+        button.contentVerticalAlignment = .fill
+        button.alpha = 0.5
     }
 //    Startタイマーを作るメソッド
-    func makeStartTimer() -> UIButton{
-        let startButton = UIButton()
-        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 150 , width: 100, height: 100)
-        startButton.backgroundColor = UIColor.white
-        startButton.layer.cornerRadius = 50
-        startButton.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
-        startButton.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+    func makeStartTimer(button:UIButton,viewSelf:UIView){
+        print(viewSelf.safeAreaInsets.top)
+        button.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 170, width: 100, height: 100)
+        button.backgroundColor = UIColor.white
+        button.layer.cornerRadius = 50
+        button.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        button.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         let imageView = UIImageView();
         let image = UIImage(named:"cheer")
         imageView.image = image
         imageView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         imageView.contentMode = .scaleToFill
         imageView.tintColor = Setting.color.init(rawValue: colorNumberStatic)?.getUIColor()
-        startButton.addSubview(imageView)
-        startButton.alpha = 1
-        return startButton
+        button.addSubview(imageView)
+        button.alpha = 1
     }
 //    ワッカのアニメーションを動かす
     func makeCircle(shapeLayer shapelayer:CAShapeLayer){
-        let center = CGPoint(x: self.view.center.x, y: self.view.center.y) // 中心座標
+        let center = CGPoint(x: self.view.center.x, y: self.view.center.y - 30) // 中心座標
         let radius = shapelayer.bounds.size.width / 3.0  // 半径
         let startAngle = CGFloat(Double.pi*1.5)  // 開始点(真上)
         let endAngle = startAngle + 2.0 * CGFloat(Double.pi)  // 終了点(開始点から一周)
@@ -197,9 +201,9 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         let label = UILabel()
         label.text = name
         label.font = UIFont.systemFont(ofSize: 20)
-        label.frame = CGRect(x: self.view.bounds.width/2, y: 100, width: 300, height: 70)
+        label.frame = CGRect(x: self.view.bounds.width/2, y: 10, width: 300, height: 70)
         label.textAlignment = NSTextAlignment.center
-        label.center = CGPoint(x: myBoundSize.width/2, y:80)
+        label.center = CGPoint(x: myBoundSize.width/2, y:60)
         label.textColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1)
         label.layer.borderWidth = 2.0
         label.layer.borderColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1).cgColor

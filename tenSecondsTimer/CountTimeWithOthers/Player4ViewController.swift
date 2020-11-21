@@ -16,6 +16,10 @@ class Player4ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.startButton = UIButton()
+        self.stopButton = UIButton()
+        self.view.addSubview(self.stopButton!)
+        self.view.addSubview(self.startButton!)
         makeColorLayer(number: backgroundColorNumberStatic)
     }
     func makeColorLayer(number:Int){
@@ -42,6 +46,8 @@ class Player4ViewController: UIViewController, UITextFieldDelegate {
 }()
     var player1 = Player1ViewController()
     override func viewDidLayoutSubviews() {
+        player1.makeStartTimer(button:self.startButton!, viewSelf: self.view)
+        player1.makeStopTimer(button:self.stopButton!,viewSelf: self.view)
         player1.makeTimerSec(timersec: self.timerSec)
         player1.makeTimerMill(timermill: self.timerMill)
         player1.makeMessage(messageNew: self.message, imageView:self.imageView)
@@ -53,8 +59,6 @@ class Player4ViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(imageView)
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.startButton = player1.makeStartTimer()
-        self.stopButton = player1.makeStopTimer()
         self.view.addSubview(self.stopButton!)
         self.view.addSubview(self.startButton!)
         self.view.addSubview(player1.makeTitle(name:"\(name!)の挑戦です"))

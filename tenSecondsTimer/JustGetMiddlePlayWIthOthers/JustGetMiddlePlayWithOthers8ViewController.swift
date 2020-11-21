@@ -114,10 +114,10 @@ class JustGetMiddlePlayWithOthers8ViewController: UIViewController,UITextFieldDe
                     
                     var viewController:UIViewController?
                     switch temporaryCount {
-                    case 6:
+                    case 8:
                     viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
                     default:
-                    viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers7ViewController")
+                    viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers9ViewController")
                     }
                     
                     self.present(viewController!, animated: true, completion: nil);

@@ -58,10 +58,11 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        myTableView = UITableView(frame: view.frame,style: .grouped)
+//        myTableView = UITableView(frame: view.frame,style: .grouped)
+        myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 200), style: .grouped)
         myTableView.dataSource = self
         myTableView.delegate = self
-        myTableView.backgroundColor = UIColor.init(red: 3, green: 3, blue: 124, alpha: 0)
+        myTableView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0)
 //        myTableView.backgroundColor = .black
         view.addSubview(myTableView)
         let realm = try! Realm()
@@ -76,7 +77,7 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
     }
     func makeStartTimer() -> UIButton{
         let startButton = UIButton()
-        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 200 , width: 100, height: 100)
+        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.frame.height - 150 , width: 100, height: 100)
         startButton.backgroundColor = UIColor.white
         startButton.layer.cornerRadius = 50
         startButton.titleLabel?.text = "終わる"
@@ -97,6 +98,8 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
 //        これだと途中までしかモーダルが閉じなかった。
 //        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         switch playerNumberAll {
+        case 2:
+            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         case 3:
             self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         case 4:

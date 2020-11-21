@@ -46,9 +46,13 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        myTalbeView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height), style: .grouped)
-        myTalbeView!.delegate = self
-        myTalbeView!.dataSource = self
+//        myTalbeView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height), style: .grouped)
+//        myTalbeView = UITableView(frame: view.frame,style: .grouped)
+        myTalbeView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 200), style: .grouped)
+        myTalbeView.delegate = self
+        myTalbeView.dataSource = self
+//        以下のように、tableViewのbackgroundcolorを透明にすることで、最下層にあるviewの背景色を見えるようにする
+        myTalbeView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0)
         self.view.addSubview(myTalbeView!)
     
         let realm = try! Realm()
@@ -79,6 +83,7 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
             }
         })
         makeColorLayer(number: backgroundColorNumberStatic)
+
     }
     func makeColorLayer(number:Int){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
@@ -93,7 +98,7 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
     }
     func makeStartTimer() -> UIButton{
         let startButton = UIButton()
-        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 200 , width: 100, height: 100)
+        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.frame.height - 170 , width: 100, height: 100)
         startButton.backgroundColor = UIColor.white
         startButton.layer.cornerRadius = 50
         let image = UIImage(named: "back")
@@ -109,7 +114,7 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
         startButton.contentVerticalAlignment = .fill
         return startButton
     }
-    var myTalbeView:UITableView?
+    var myTalbeView:UITableView!
 
     /*
     // MARK: - Navigation

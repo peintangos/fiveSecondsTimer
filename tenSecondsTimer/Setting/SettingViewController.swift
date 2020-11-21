@@ -13,12 +13,16 @@ let rule = ["ルールの設定","レイアウトの設定"]
 
 class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationBarDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
+        switch section {
+        case 0:
             return 2
-        }else {
-            return web2.count;
+        case 1:
+            return web2.count
+        default:
+//            適当
+            return 4
         }
-    
+
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return rule[section]
@@ -26,6 +30,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var switchS = UISwitch(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+
         if indexPath.section == 0{
             if indexPath.row == 1 {
                 cell.accessoryView = switchS
@@ -75,6 +80,11 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        以下がデフォルトのナビゲーションエリアの色らしい
         view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
         self.view.addSubview(view)
+    }
+    func makeColorLayer(number:Int,viewT:UIView){
+        let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
+        layer!.frame = CGRect(x: 0, y: 0, width: viewT.frame.width, height: viewT.frame.height)
+        viewT.layer.insertSublayer(layer!, at: 1)
     }
 
     @objc func goBack(){

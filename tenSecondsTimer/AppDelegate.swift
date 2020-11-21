@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+//        以下のコードをつけることで、ナビゲーションバーにUIVisualEffectBackdropViewが追加されてしまう。嘘です。できませんでした
+        UITabBar.appearance().backgroundColor = UIColor.white
         return true
     }
 

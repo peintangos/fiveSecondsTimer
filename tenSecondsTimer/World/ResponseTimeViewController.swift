@@ -14,10 +14,13 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.view.frame = CGRect(x: 0, y: 164 + self.view.safeAreaInsets.top, width: self.view.frame.width, height: self.view.frame.height)
+        //        20はiOS11用につけただけなので、後で対策を考える。
+//        self.view.frame = CGRect(x: 0, y: 124, width: self.view.frame.width, height: self.view.frame.height)
         self.tableView = UITableView(frame: view.frame, style: .grouped)
+        self.tableView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0)
+        self.makeColorLayer(number: backgroundColorNumberStatic, viewT: self.view)
 //        tableViewの高さは、セーフエリアとナビゲーションエリア、セグメントエリア分だけ小さくしなければ見れない領域が出てきてしまう。
-        self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 164)
+//        self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 164)
         self.tableView.contentInset.top = self.view.safeAreaInsets.top
         tableView.dataSource = self
         tableView.delegate = self
@@ -31,6 +34,19 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
         updateAll()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.refreshControl.endRefreshing()
+        }
+    }
+    override func viewDidLayoutSubviews() {
+        print(self.view.safeAreaInsets.top)
+        var heightT = safeAreaTopT! + 44 + 80
+        self.view.frame = CGRect(x: 0, y: heightT, width: self.view.frame.width, height: self.view.frame.height)
+        self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 124)
+    }
+    var safeAreaTopHeight:CGFloat{
+        if #available(iOS 11, *){
+            return 44
+        }else {
+            return 0
         }
     }
     var tableView:UITableView!

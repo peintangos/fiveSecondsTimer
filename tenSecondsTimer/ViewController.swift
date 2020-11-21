@@ -95,6 +95,10 @@ class ViewController: UIViewController,UITextFieldDelegate{
         var storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthersViewController
         let ui = UIAlertController(title: "遊ぶ人数を選択してね", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        ui.addAction(UIAlertAction.init(title: "2人", style: .default, handler: { (UIAlertAction) in
+            temporaryCount = 2
+            self.present(vc, animated: true, completion: nil)
+        }))
         ui.addAction(UIAlertAction.init(title: "3人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 3
             self.present(vc, animated: true, completion: nil)

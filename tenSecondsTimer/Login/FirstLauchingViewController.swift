@@ -121,10 +121,16 @@ class FirstLauchingViewController: UIViewController {
         loginViewModel.isValid().bind(to: loginButton.rx.isEnabled).disposed(by: dispose)
         loginViewModel.isValid().map{$0 ? 1 : 0.5}.bind(to: loginButton.rx.alpha).disposed(by: dispose)        
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+           // キーボードを閉じる
+           textField.resignFirstResponder()
+           return true
+       }
     override func viewDidAppear(_ animated: Bool) {
         self.loginButton.rx.tap.subscribe{ [self](action) in
 //            self.dismiss(animated: true, completion: nil)
 //            このsaveUser()に失敗したときに
+//            一次的に以下のメソッドはコメントアウトする
             self.saveUser()
 //            以下のコードがあったことで、saveUser()のswitch文の中のコードの後に、switc文の処理が行われるより先にこのコードを通ってしまった。
 //            その結果、エラーなのに画面遷移ができてしまうということがあったので、この文はsaveUsr()switch文の中に移動させた
@@ -132,6 +138,7 @@ class FirstLauchingViewController: UIViewController {
 //            let viewController = storyBoard.instantiateViewController(identifier: "ViewController")
 //            viewController.modalPresentationStyle = .fullScreen
 //            self.present(viewController, animated: true, completion: nil)
+
         }.disposed(by: dispose)
     }
     func makeColorLayer(number:Int,view:UIView){
