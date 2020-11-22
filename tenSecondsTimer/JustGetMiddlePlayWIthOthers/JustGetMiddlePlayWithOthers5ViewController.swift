@@ -116,25 +116,26 @@ class JustGetMiddlePlayWithOthers5ViewController: UIViewController,UITextFieldDe
                 
                 self.present(viewController!, animated: true, completion: nil);
             }else {
-                var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
-                alert.addTextField { (textFiled) in
-                    textFiled.delegate = self
-                }
-                alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
-                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                    self.saveJustGetMiddleReultWithOthers(name: alert.textFields![0].text!, stroke: Double(CGFloat(stroke!)))
-                    var viewController:UIViewController?
+                self.saveJustGetMiddleReultWithOthers(name: name!, stroke: Double(CGFloat(stroke!)))
                     switch temporaryCount {
                     case 5:
-                    viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController") as! JustGetMiddlePlayWithOthersResultViewController
+                        self.present(viewController, animated: true, completion: nil)
                     default:
-                    viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers6ViewController")
+                        var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
+                        alert.addTextField { (textFiled) in
+                            textFiled.delegate = self
+                        }
+                        alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
+                            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers6ViewController") as! JustGetMiddlePlayWithOthers6ViewController
+                        viewController.name = alert.textFields?[0].text!
+                        self.present(viewController, animated: true, completion: nil)
                     }
-                    
-                    self.present(viewController!, animated: true, completion: nil);
-                    
-                }))
-                self.present(alert, animated: true, completion: nil)
+                 ))
+                        self.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }
@@ -186,6 +187,7 @@ class JustGetMiddlePlayWithOthers5ViewController: UIViewController,UITextFieldDe
         shapelayer.path = path.cgPath
     }
     var goal:Double?
+    var name:String?
 //    0 - 1 の間に正規化（Double.piとかめんどくさかったので。）
     var goalUse:CGFloat?
     func makeIngicatorCircle(shapeLayer shapelayer:CAShapeLayer){

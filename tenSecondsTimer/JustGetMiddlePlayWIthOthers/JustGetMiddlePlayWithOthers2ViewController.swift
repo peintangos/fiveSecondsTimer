@@ -81,6 +81,7 @@ class JustGetMiddlePlayWithOthers2ViewController:UIViewController,UITextFieldDel
     }
     var startStop = UIButton()
     var resetButton = UIButton()
+    var name:String?
     @objc func resetData(){
         if (isFirst2!){
             startCircling(shapelayer: self.shapeLayer)
@@ -91,23 +92,36 @@ class JustGetMiddlePlayWithOthers2ViewController:UIViewController,UITextFieldDel
             let stroke = self.shapeLayer.presentation()?.strokeEnd
             if isUserNameSaved(){
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers3ViewController")
+                var viewController:UIViewController?
                 self.saveJustGetMiddleReultWithOthers(name: "player2", stroke: Double(CGFloat(stroke!)))
-                self.present(viewController,animated: true, completion: nil);
-            }else {
-                var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
-                alert.addTextField { (textFiled) in
-                    textFiled.delegate = self
+                switch temporaryCount {
+                case 2:
+                viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
+                default:
+                viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers3ViewController")
                 }
-                alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
+                self.present(viewController!,animated: true, completion: nil);
+            }else {
+                self.saveJustGetMiddleReultWithOthers(name: name!, stroke: Double(CGFloat(stroke!)))
+                switch temporaryCount {
+                case 2:
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                    let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers3ViewController")
-                    self.saveJustGetMiddleReultWithOthers(name: alert.textFields![0].text!, stroke: Double(CGFloat(stroke!)))
-                    
-                    self.present(viewController,animated: true, completion: nil);
-                    
-                }))
-                self.present(alert, animated: true, completion: nil)
+                    let vc = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
+                    self.present(vc, animated: true, completion: nil)
+                default:
+                    var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
+                    alert.addTextField { (textFiled) in
+                        textFiled.delegate = self
+                    }
+                    alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
+                        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                        var vc:JustGetMiddlePlayWithOthers3ViewController!
+                        vc = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers3ViewController") as! JustGetMiddlePlayWithOthers3ViewController
+                        vc.name = alert.textFields?[0].text!
+                        self.present(vc!,animated: true, completion: nil);
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }

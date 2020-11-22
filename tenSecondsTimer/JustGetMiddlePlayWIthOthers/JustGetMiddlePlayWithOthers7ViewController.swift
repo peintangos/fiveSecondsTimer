@@ -81,6 +81,7 @@ class JustGetMiddlePlayWithOthers7ViewController: UIViewController,UITextFieldDe
     override func viewDidAppear(_ animated: Bool) {
         isFirst2 = true
     }
+    var name:String?
     var startStop = UIButton()
     var resetButton = UIButton()
     @objc func resetData(){
@@ -104,26 +105,26 @@ class JustGetMiddlePlayWithOthers7ViewController: UIViewController,UITextFieldDe
                 
                 self.present(viewController!, animated: true, completion: nil);
             }else {
-                var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
-                alert.addTextField { (textFiled) in
-                    textFiled.delegate = self
-                }
-                alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
-                    self.saveJustGetMiddleReultWithOthers(name: alert.textFields![0].text!, stroke: Double(CGFloat(stroke!)))
-                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                    
-                    var viewController:UIViewController?
+                self.saveJustGetMiddleReultWithOthers(name: name!, stroke: Double(CGFloat(stroke!)))
                     switch temporaryCount {
-                    case 7:
-                    viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
+                    case 8:
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController") as! JustGetMiddlePlayWithOthersResultViewController
+                        self.present(viewController, animated: true, completion: nil)
                     default:
-                    viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers8ViewController")
+                        var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
+                        alert.addTextField { (textFiled) in
+                            textFiled.delegate = self
+                        }
+                        alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
+                            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers8ViewController") as! JustGetMiddlePlayWithOthers8ViewController
+                        viewController.name = alert.textFields?[0].text!
+                        self.present(viewController, animated: true, completion: nil)
                     }
-                    
-                    self.present(viewController!, animated: true, completion: nil);
-                    
-                }))
-                self.present(alert, animated: true, completion: nil)
+                 ))
+                        self.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }

@@ -75,7 +75,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         do{
             self.worldButton = makeWorld()
             self.worldButton?.rx.tap.subscribe{[weak self] _ in
-                var storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyBoard.instantiateViewController(identifier: "WorldScoreViewController")
                 vc.modalPresentationStyle = .fullScreen
                 self?.present(vc, animated: true, completion: nil)
@@ -92,54 +92,175 @@ class ViewController: UIViewController,UITextFieldDelegate{
     }
     
     func makeAlertForJustGetMiddle(){
-        var storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthersViewController
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
         let ui = UIAlertController(title: "遊ぶ人数を選択してね", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         ui.addAction(UIAlertAction.init(title: "2人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 2
-            self.present(vc, animated: true, completion: nil)
+            if isSaved!{
+                self.present(vc, animated: true, completion: nil)
+            }else {
+                let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
+                nameInput.addTextField { (uiTextField) in
+                    uiTextField.delegate = self
+                }
+                nameInput.addAction(type(of: UIAlertAction).init(title: "入力完了", style: .default, handler: { (action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
+                    nextView.name = nameInput.textFields?[0].text!
+                    self.present(nextView, animated: true, completion: nil)
+                }))
+                self.present(nameInput, animated: true, completion: nil)
+            }
         }))
         ui.addAction(UIAlertAction.init(title: "3人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 3
-            self.present(vc, animated: true, completion: nil)
+            if isSaved!{
+                self.present(vc, animated: true, completion: nil)
+            }else {
+                let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
+                nameInput.addTextField { (uiTextField) in
+                    uiTextField.delegate = self
+                }
+                nameInput.addAction(type(of: UIAlertAction).init(title: "入力完了", style: .default, handler: { (action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
+                    nextView.name = nameInput.textFields?[0].text!
+                    self.present(nextView, animated: true, completion: nil)
+                }))
+                self.present(nameInput, animated: true, completion: nil)
+            }
         }))
         ui.addAction(UIAlertAction.init(title: "4人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 4
-            self.present(vc, animated: true, completion: nil)
-            
+            if isSaved!{
+                self.present(vc, animated: true, completion: nil)
+            }else {
+                let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
+                nameInput.addTextField { (uiTextField) in
+                    uiTextField.delegate = self
+                }
+                nameInput.addAction(type(of: UIAlertAction).init(title: "入力完了", style: .default, handler: { (action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
+                    nextView.name = nameInput.textFields?[0].text!
+                    self.present(nextView, animated: true, completion: nil)
+                }))
+                self.present(nameInput, animated: true, completion: nil)
+            }
         }))
         ui.addAction(UIAlertAction.init(title: "5人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 5
-            self.present(vc, animated: true, completion: nil)
-            
+            if isSaved!{
+                self.present(vc, animated: true, completion: nil)
+            }else {
+                let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
+                nameInput.addTextField { (uiTextField) in
+                    uiTextField.delegate = self
+                }
+                nameInput.addAction(type(of: UIAlertAction).init(title: "入力完了", style: .default, handler: { (action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
+                    nextView.name = nameInput.textFields?[0].text!
+                    self.present(nextView, animated: true, completion: nil)
+                }))
+                self.present(nameInput, animated: true, completion: nil)
+            }
         }))
         ui.addAction(UIAlertAction.init(title: "6人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 6
-            self.present(vc, animated: true, completion: nil)
-            
+            if isSaved!{
+                self.present(vc, animated: true, completion: nil)
+            }else {
+                let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
+                nameInput.addTextField { (uiTextField) in
+                    uiTextField.delegate = self
+                }
+                nameInput.addAction(type(of: UIAlertAction).init(title: "入力完了", style: .default, handler: { (action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
+                    nextView.name = nameInput.textFields?[0].text!
+                    self.present(nextView, animated: true, completion: nil)
+                }))
+                self.present(nameInput, animated: true, completion: nil)
+            }
         }))
         ui.addAction(UIAlertAction.init(title: "7人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 7
-            self.present(vc, animated: true, completion: nil)
-            
+            if isSaved!{
+                self.present(vc, animated: true, completion: nil)
+            }else {
+                let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
+                nameInput.addTextField { (uiTextField) in
+                    uiTextField.delegate = self
+                }
+                nameInput.addAction(type(of: UIAlertAction).init(title: "入力完了", style: .default, handler: { (action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
+                    nextView.name = nameInput.textFields?[0].text!
+                    self.present(nextView, animated: true, completion: nil)
+                }))
+                self.present(nameInput, animated: true, completion: nil)
+            }
         }))
         ui.addAction(UIAlertAction.init(title: "8人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 8
-            self.present(vc, animated: true, completion: nil)
-            
+            if isSaved!{
+                self.present(vc, animated: true, completion: nil)
+            }else {
+                let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
+                nameInput.addTextField { (uiTextField) in
+                    uiTextField.delegate = self
+                }
+                nameInput.addAction(type(of: UIAlertAction).init(title: "入力完了", style: .default, handler: { (action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
+                    nextView.name = nameInput.textFields?[0].text!
+                    self.present(nextView, animated: true, completion: nil)
+                }))
+                self.present(nameInput, animated: true, completion: nil)
+            }
         }))
         ui.addAction(UIAlertAction.init(title: "9人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 9
-            self.present(vc, animated: true, completion: nil)
-            
+            if isSaved!{
+                self.present(vc, animated: true, completion: nil)
+            }else {
+                let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
+                nameInput.addTextField { (uiTextField) in
+                    uiTextField.delegate = self
+                }
+                nameInput.addAction(type(of: UIAlertAction).init(title: "入力完了", style: .default, handler: { (action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
+                    nextView.name = nameInput.textFields?[0].text!
+                    self.present(nextView, animated: true, completion: nil)
+                }))
+                self.present(nameInput, animated: true, completion: nil)
+            }
         }))
         ui.addAction(UIAlertAction.init(title: "10人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 10
-            self.present(vc, animated: true, completion: nil)
+            if isSaved!{
+                self.present(vc, animated: true, completion: nil)
+            }else {
+                let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
+                nameInput.addTextField { (uiTextField) in
+                    uiTextField.delegate = self
+                }
+                nameInput.addAction(type(of: UIAlertAction).init(title: "入力完了", style: .default, handler: { (action) in
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
+                    nextView.name = nameInput.textFields?[0].text!
+                    self.present(nextView, animated: true, completion: nil)
+                }))
+                self.present(nameInput, animated: true, completion: nil)
+            }
         }))
         ui.addAction(UIAlertAction.init(title: "戻る", style: .cancel, handler: nil))
         self.present(ui, animated: true, completion: nil)
     }
+    
     func makeColorLayer(number:Int){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
         layer!.frame = self.view.frame
@@ -159,6 +280,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         settingTitle(view: titleLabel)
         self.view.addSubview(self.titleLabel)
     }
+    
     override func viewDidLayoutSubviews() {
         makePlaySelf(playSelf: self.playSelf!)
         makePlayWithOthers(playWithOthers: self.playWithOthers!)
@@ -172,7 +294,6 @@ class ViewController: UIViewController,UITextFieldDelegate{
         settingUpdate()
         isSaved = UserDefaults.standard.bool(forKey: "isNameSaved")
         self.button = makeSettingButton()
-//        self.justGetMiddlePlayWithOthers = makeJustGetMiddlePlayWidthOthers()
         self.view.addSubview(self.button!)
         self.button!.addTarget(self,action:#selector(tapSetting),for: UIControl.Event.touchUpInside)
         self.button!.addTarget(self,action:#selector(tapSetting),for: UIControl.Event.touchUpInside)
@@ -206,7 +327,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         return button
     }
     func makeWorld() ->UIButton{
-        var button = UIButton(frame: CGRect(x: 0, y:0, width: 30, height: 30))
+        let button = UIButton(frame: CGRect(x: 0, y:0, width: 30, height: 30))
         button.setImage(UIImage(named: "world"), for: .normal)
         return button
     }
@@ -214,7 +335,6 @@ class ViewController: UIViewController,UITextFieldDelegate{
     func makeAutoLayout(button:UIButton,settingButton:UIButton,worldButton:UIButton){
         let height = self.view.safeAreaInsets.top
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         button.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -200).isActive = true
         
         settingButton.translatesAutoresizingMaskIntoConstraints = false
