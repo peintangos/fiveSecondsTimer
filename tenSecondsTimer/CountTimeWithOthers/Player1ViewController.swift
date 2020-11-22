@@ -229,7 +229,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         stopBeer(imageView: self.imageView)
         display(timersec: self.timerSec, timermill: self.timerMill, messageNew: self.message)
     }
-    func changeButtonSetting(stopbutton stopbutton:UIButton,startbutton :UIButton,messageNew:UILabel,imageview imageview:UIView){
+    func changeButtonSetting(stopbutton:UIButton,startbutton :UIButton,messageNew:UILabel,imageview:UIView){
         stopbutton.isEnabled = true
         messageNew.isHidden = false
         imageview.isHidden = false
@@ -260,7 +260,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         timersec.isHidden = true
         timermil.isHidden = true
     }
-    func display(timersec timersec:UILabel, timermill:UILabel, messageNew messageNew:UILabel){
+    func display(timersec timersec:UILabel, timermill:UILabel, messageNew:UILabel){
         timersec.isHidden = false
         timermill.isHidden = false
         messageNew.isHidden = true

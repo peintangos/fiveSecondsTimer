@@ -73,31 +73,7 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
     }
     
     override func viewDidLayoutSubviews() {
-        var height = 0
-        switch (UIScreen.main.nativeBounds.height) {
-        case 1334:
-        // iPhone 6
-          // iPhone 6s
-          // iPhone 7
-          // iPhone 8
-            height = 80
-            break;
-        case 2208:
-            // iPhone 6 Plus
-            // iPhone 6s Plus
-            // iPhone 7 Plus
-            // iPhone 8 Plus
-            height = 80
-            break
-        case 2436:
-            //iPhone X
-            height = 124
-            break
-        default:
-            height = 124
-            break
-        }
-        var heightT = safeAreaTopT! + 44 + 80
+        let heightT = safeAreaTopT! + 44 + 80
         self.view.frame = CGRect(x: 0, y: heightT, width: self.view.frame.width, height: self.view.frame.height)
     }
     @objc func refresh(){
@@ -261,7 +237,7 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
             rightAccView.center.y = cell.center.y
             rightAccView.textAlignment = NSTextAlignment.center
             rightAccView.font = UIFont.systemFont(ofSize: 15)
-            guard let isConnect = self.isConnectionSuccess  else {
+            guard self.isConnectionSuccess != nil  else {
                 cell.textLabel?.text = "??"
                 return cell
             }

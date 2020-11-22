@@ -109,14 +109,14 @@ class JustGetMiddlePlayWithOthers2ViewController:UIViewController,UITextFieldDel
                     let vc = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
                     self.present(vc, animated: true, completion: nil)
                 default:
-                    var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
+                    let alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
                     alert.addTextField { (textFiled) in
                         textFiled.delegate = self
                     }
                     alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
                         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                         var vc:JustGetMiddlePlayWithOthers3ViewController!
-                        vc = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers3ViewController") as! JustGetMiddlePlayWithOthers3ViewController
+                        vc = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers3ViewController") as? JustGetMiddlePlayWithOthers3ViewController
                         vc.name = alert.textFields?[0].text!
                         self.present(vc!,animated: true, completion: nil);
                     }))

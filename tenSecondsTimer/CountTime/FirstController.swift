@@ -241,7 +241,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
         makeAutoLayout()
     }
     func makeStart(startX: UIButton){
-        var imagView = UIImageView(image: UIImage(named: "cheer")!)
+        let imagView = UIImageView(image: UIImage(named: "cheer")!)
         imagView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         startX.addSubview(imagView)
         startX.isEnabled = true
@@ -253,7 +253,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(startX)
     }
     func makeStop(stopX:UIButton){
-        var imagView = UIImageView(image: UIImage(named: "del")!)
+        let imagView = UIImageView(image: UIImage(named: "del")!)
         imagView.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         stopX.layer.cornerRadius = 50
         stopX.isEnabled = false

@@ -20,8 +20,8 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.text = "\(indexPath.row + 1)位 名前:\(resultRanking[indexPath.row].name) 解離:\(resultRanking[indexPath.row].difference)"
         cell.detailTextLabel?.text = "日付:\(resultRanking[indexPath.row].date!)"
-        var randomNumber = Int.random(in: 1..<5)
-        var imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let randomNumber = Int.random(in: 1..<5)
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         switch indexPath.row{
         case temporaryCount! - 3:
             if randomNumber >= 3{
@@ -60,7 +60,6 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
         self.stopButton = makeStartTimer()
         self.view.addSubview(self.stopButton!)
         self.stopButton?.rx.tap.subscribe({ _ in
-            print(temporaryCount)
             switch temporaryCount {
             case 3:
                 self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -81,7 +80,7 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
             default:
                 self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
             }
-        })
+        }).dispose()
         makeColorLayer(number: backgroundColorNumberStatic)
 
     }

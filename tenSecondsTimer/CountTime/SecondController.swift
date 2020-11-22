@@ -85,7 +85,7 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
     }
 
     func update(){
-        if let newNum = self.myTableView {
+        if self.myTableView != nil {
             self.myTableView.reloadData()
         } else {
         }

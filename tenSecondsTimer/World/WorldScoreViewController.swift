@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 var safeAreaTopT:CGFloat?
 class WorldScoreViewController: UIViewController {
@@ -60,7 +62,7 @@ class WorldScoreViewController: UIViewController {
             default:
                 print("エラー")
             }
-        })
+        }).disposed(by: dispose)
 //        self.view.addSubview(myView)
         self.view.addSubview(self.segmentControl!)
         self.view.addSubview(navBar)
@@ -86,6 +88,7 @@ class WorldScoreViewController: UIViewController {
         
         
     }
+    let dispose = DisposeBag()
     var safeAreaTop:CGFloat{
         if #available(iOS 11, *){
             return self.view.safeAreaInsets.top

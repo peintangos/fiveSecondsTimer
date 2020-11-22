@@ -33,8 +33,8 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
         cell.textLabel?.text = "\((indexPath as NSIndexPath).row + 1)位\(tableCells![(indexPath as NSIndexPath).row].name!)"
         cell.detailTextLabel?.text = "タイム：\(tableCells![(indexPath as NSIndexPath).row].timerSecond!)\(tableCells![(indexPath as NSIndexPath).row].timerMill!) 解離：\(tableCells![(indexPath as NSIndexPath).row].timeDifference.description)"
 
-        var randomNumber = Int.random(in: 1..<3)
-        var imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let randomNumber = Int.random(in: 1..<3)
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         switch indexPath.row{
         case playerNumberAll! - 2:
             if randomNumber >= 2{
@@ -47,7 +47,6 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
         default:
             return cell
         }
-        return cell
         return cell
     }
     override func viewWillAppear(_ animated: Bool) {

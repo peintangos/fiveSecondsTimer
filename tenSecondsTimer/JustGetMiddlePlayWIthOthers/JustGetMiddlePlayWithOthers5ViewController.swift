@@ -123,7 +123,7 @@ class JustGetMiddlePlayWithOthers5ViewController: UIViewController,UITextFieldDe
                     let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController") as! JustGetMiddlePlayWithOthersResultViewController
                         self.present(viewController, animated: true, completion: nil)
                     default:
-                        var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
+                        let alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
                         alert.addTextField { (textFiled) in
                             textFiled.delegate = self
                         }

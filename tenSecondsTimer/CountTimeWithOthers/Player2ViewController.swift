@@ -118,7 +118,7 @@ class Player2ViewController: UIViewController, UITextFieldDelegate {
         self.view.layer.addSublayer(self.shapeLayer)
     }
     func calc(startTime:Date){
-        var currentTime = Date().timeIntervalSince(startTime)
+        let currentTime = Date().timeIntervalSince(startTime)
         self.timserSecDouble = (Double)(fmod(currentTime, 60))
     }
     func saveResults2(timerMill:UILabel,timerSecond:UILabel,timerSecDouble:Double){

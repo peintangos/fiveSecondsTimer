@@ -92,7 +92,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         }else {
             pauseAnimation(layer: self.shapeLayer)
             let stroke = self.shapeLayer.presentation()?.strokeEnd
-            var alert = UIAlertController(title: "結果発表", message: "名前を入れてね！", preferredStyle: .alert)
+            let alert = UIAlertController(title: "結果発表", message: "名前を入れてね！", preferredStyle: .alert)
             alert.addTextField { (textFiled) in
                 textFiled.delegate = self
             }
@@ -128,7 +128,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
 //        日付をStringに変換する
         let sDate = format.string(from: date)
         let paramters:[String:Any] = [
-            "deviceNumber":uuid,
+            "deviceNumber":uuid!,
             "createdAt":sDate,
             "name":name,
             "difference":timeDifference]

@@ -38,7 +38,7 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
     }
     override func viewDidLayoutSubviews() {
         print(self.view.safeAreaInsets.top)
-        var heightT = safeAreaTopT! + 44 + 80
+        let heightT = safeAreaTopT! + 44 + 80
         self.view.frame = CGRect(x: 0, y: heightT, width: self.view.frame.width, height: self.view.frame.height)
         self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 124)
     }
@@ -80,7 +80,7 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
             rightAccView.textAlignment = NSTextAlignment.center
             rightAccView.font = UIFont.systemFont(ofSize: 15)
 //            レコードがない場合に、順位の判定ができないため、レコードがない場合は全て??を返す
-            guard let connection = self.isConnectionSuccess else {
+            guard self.isConnectionSuccess != nil else {
                 cell.textLabel?.text = "??"
                 return cell
             }
