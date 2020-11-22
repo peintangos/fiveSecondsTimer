@@ -98,21 +98,11 @@ class JustGetMiddlePlayWithOthers10ViewController: UIViewController,UITextFieldD
                 viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
                 self.present(viewController!, animated: true, completion: nil);
             }else {
-                var alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
-                alert.addTextField { (textFiled) in
-                    textFiled.delegate = self
-                }
-                alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
-                    self.saveJustGetMiddleReultWithOthers(name: alert.textFields![0].text!, stroke: Double(CGFloat(stroke!)))
+                    self.saveJustGetMiddleReultWithOthers(name: name!, stroke: Double(CGFloat(stroke!)))
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                    
                     var viewController:UIViewController?
                     viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
-                    
                     self.present(viewController!, animated: true, completion: nil);
-                    
-                }))
-                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -177,6 +167,7 @@ class JustGetMiddlePlayWithOthers10ViewController: UIViewController,UITextFieldD
         shapelayer.path = path.cgPath
     }
     var goal:Double?
+    var name:String?
 //    0 - 1 の間に正規化（Double.piとかめんどくさかったので。）
     var goalUse:CGFloat?
     func makeIngicatorCircle(shapeLayer shapelayer:CAShapeLayer){

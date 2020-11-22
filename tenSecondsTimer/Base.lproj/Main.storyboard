@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SGH-9F-sRl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SGH-9F-sRl">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Just Get Middle Play With Others View Controller-->
+        <!--Just Get Middle Play With Others1 View Controller-->
         <scene sceneID="z44-Nk-Xre">
             <objects>
-                <viewController storyboardIdentifier="JustGetMiddlePlayWithOthers1ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="n48-Il-eoH" customClass="JustGetMiddlePlayWithOthersViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JustGetMiddlePlayWithOthers1ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="n48-Il-eoH" customClass="JustGetMiddlePlayWithOthers1ViewController" customModule="tenSecondsTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="F5u-lc-RKJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

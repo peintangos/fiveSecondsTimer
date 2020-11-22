@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 var numberForAGame:Int?
-class JustGetMiddlePlayWithOthersViewController: UIViewController, UITextFieldDelegate {
+class JustGetMiddlePlayWithOthers1ViewController: UIViewController, UITextFieldDelegate {
     
     func makeColorLayer(number:Int){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
@@ -68,19 +68,20 @@ class JustGetMiddlePlayWithOthersViewController: UIViewController, UITextFieldDe
             numberForAGame = Int.random(in: 1..<10000000)
             let stroke = self.shapeLayer.presentation()?.strokeEnd
             if isUserNameSaved(){
+                self.saveJustGetMiddleReultWithOthers(name: "Player1", stroke: Double(CGFloat(stroke!)))
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let viewController2 = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers2ViewController")
-                self.saveJustGetMiddleReultWithOthers(name: "player1", stroke: Double(CGFloat(stroke!)))
                 self.present(viewController2, animated: true, completion: nil)
             }else {
-                let alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: "名前を入れてね！", preferredStyle: .alert)
+                self.saveJustGetMiddleReultWithOthers(name: name!, stroke: Double(CGFloat(stroke!)))
+                let alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
                 alert.addTextField { (textFiled) in
                     textFiled.delegate = self
                 }
                 alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                    let viewController2 = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers2ViewController")
-                    self.saveJustGetMiddleReultWithOthers(name: alert.textFields![0].text!, stroke: Double(CGFloat(stroke!)))
+                    let viewController2 = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers2ViewController") as! JustGetMiddlePlayWithOthers2ViewController
+                    viewController2.name = alert.textFields?[0].text!
                     self.present(viewController2, animated: true, completion: nil);
                 }))
                 self.present(alert, animated: true, completion: nil)
@@ -93,6 +94,7 @@ class JustGetMiddlePlayWithOthersViewController: UIViewController, UITextFieldDe
     }
     var imageView = UIImageView()
     var isFirst:Bool = true
+    var name:String?
     func vibrated(view: UIView) {
         if isFirst{
             var animation: CABasicAnimation
