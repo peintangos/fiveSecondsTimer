@@ -195,36 +195,55 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
         if let timenum = timeNumber {
             defaults.set(timenum,forKey: "timeNumber")
             timeNumberStatic = timenum
+            self.dismiss(animated: true, completion: nil)
+            return
         }
         if let iconnum = iconNumber {
             defaults.set(iconNumber!,forKey: "iconNumber")
             iconNumberStatic = iconnum
+            self.dismiss(animated: true, completion: nil)
+            return
         }
         if let colornum = colorNumber {
             defaults.set(colorNumber!,forKey: "colorNumber")
             colorNumberStatic = colornum
+            self.dismiss(animated: true, completion: nil)
+            return
         }
         if let buttonColornum = buttoColorNumber{
             defaults.set(buttoColorNumber!,forKey:"buttonColorNumber")
             buttonColorNumberStatic = buttonColornum
+            self.dismiss(animated: true, completion: nil)
+            return
         }
         if let a = buttoWidthColorNumber{
             defaults.setValue(buttoWidthColorNumber!, forKey: "buttonWithColorNumber")
             buttonWidthNumberStatic = a
+            self.dismiss(animated: true, completion: nil)
+            return
         }
         if let b = buttonTextColorNumber{
             defaults.setValue(buttonTextColorNumber!, forKey: "buttonTextColorNumber")
             buttonTextColorNumberStatic = b
+            self.dismiss(animated: true, completion: nil)
+            return
         }
         if let size = buttonTextSizeNumber{
             defaults.setValue(buttonTextSizeNumber!, forKey: "buttonTextSizeNumber")
             buttonTextSizeNumberStatic = size
+            self.dismiss(animated: true, completion: nil)
+            return
         }
         if let background = backgroundColorNumber{
             defaults.setValue(backgroundColorNumber, forKey: "backgroundColorNumber")
             backgroundColorNumberStatic = background
+            let alertAction = UIAlertController(title: "背景色の変更を確かめるには、一度アプリを終了してください。", message: nil, preferredStyle: .alert)
+            alertAction.addAction(UIAlertAction.init(title: "はい", style: .default, handler: { (action) in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alertAction, animated: true, completion: nil)
         }
-        self.dismiss(animated: true, completion: nil)
+        
     }
     
     

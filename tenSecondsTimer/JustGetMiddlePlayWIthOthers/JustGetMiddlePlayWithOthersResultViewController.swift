@@ -80,10 +80,11 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
             default:
                 self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
             }
-        }).dispose()
+        }).disposed(by: dispose)
         makeColorLayer(number: backgroundColorNumberStatic)
 
     }
+    let dispose = DisposeBag()
     func makeColorLayer(number:Int){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
         layer!.frame = self.view.frame
