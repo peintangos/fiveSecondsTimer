@@ -280,7 +280,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
         }
 //        何も選択せずに、終了した場合にモーダルが閉じないので、以下の文を挿入する
         self.dismiss(animated: true, completion: nil)
-        
+        }
     }
     
     

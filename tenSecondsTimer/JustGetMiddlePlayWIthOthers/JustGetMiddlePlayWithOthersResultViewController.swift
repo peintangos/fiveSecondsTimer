@@ -142,7 +142,7 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
             alert.dismiss(animated: true, completion: nil)
             alert = nil
         }
-    
+
     let dispose = DisposeBag()
     func makeColorLayer(number:Int){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
