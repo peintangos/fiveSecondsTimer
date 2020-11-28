@@ -9,7 +9,8 @@ import UIKit
 
 let web = ["秒数の設定","名前の省略"]
 let web2 = ["アイコン","輪っかの色","ボタンの文字の色","ボタンの文字の大きさ","ボタンの枠の色","ボタンの枠の幅","背景のグラデーションの設定"]
-let rule = ["ルールの設定","レイアウトの設定"]
+let rule = ["ルールの設定","レイアウトの設定","コンテンツ"]
+let web3 = ["絆ルール","王様ルール"]
 
 class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationBarDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -18,6 +19,8 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             return 2
         case 1:
             return web2.count
+        case 2:
+            return web3.count
         default:
 //            適当
             return 4
@@ -43,8 +46,11 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 cell.accessoryType = .disclosureIndicator
             }
             cell.textLabel?.text = web[indexPath.row]
-        }else {
+        }else if indexPath.section == 1{
             cell.textLabel?.text = web2[indexPath.row]
+            cell.accessoryType = .disclosureIndicator
+        }else if indexPath.section == 2 {
+            cell.textLabel?.text = web3[indexPath.row]
             cell.accessoryType = .disclosureIndicator
         }
         

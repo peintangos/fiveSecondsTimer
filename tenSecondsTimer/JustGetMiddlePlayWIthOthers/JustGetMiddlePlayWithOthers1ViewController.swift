@@ -29,7 +29,37 @@ class JustGetMiddlePlayWithOthers1ViewController: UIViewController, UITextFieldD
         self.view.layer.addSublayer(self.shapeLayerIngicator)
         makeImageView(imageview: self.imageView)
         self.view.addSubview(self.imageView)
+        self.view.addSubview(makeTitle(name: "\(name ?? "player1")さんの挑戦です"))
+        makeMessage()
         makeColorLayer(number: backgroundColorNumberStatic)
+        makeMessagefirst()
+        self.imageView.isHidden = true
+        self.message.isHidden = true
+    }
+    var messageFirst:UILabel!
+    func makeMessagefirst(){
+        self.messageFirst = UILabel(frame: CGRect(x: 0, y: 0, width: 230, height: 200))
+        self.messageFirst.center.x = self.view.center.x
+        self.messageFirst.center.y = self.view.center.y - 100
+        self.messageFirst.textAlignment = NSTextAlignment.center
+        self.messageFirst.textColor = .white
+        self.messageFirst.text = "インジケータが進むよ！\nちょうどのところで止めて、反射神経を確かめよう！"
+//        改行するには、numberOfLines = 0にする必要があるらしい。なんか、tableViewでもnumberOfLinesを見たきたする
+        self.messageFirst.numberOfLines = 0
+        self.view.addSubview(self.messageFirst)
+    }
+    func makeTitle(name:String) -> UILabel{
+        let label = UILabel()
+        label.text = name
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.frame = CGRect(x: self.view.bounds.width/2, y: 10, width: 300, height: 70)
+        label.textAlignment = NSTextAlignment.center
+        label.center = CGPoint(x: myBoundSize.width/2, y:60)
+        label.textColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1)
+        label.layer.borderWidth = 2.0
+        label.layer.borderColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1).cgColor
+        label.layer.cornerRadius = 4.0
+        return label
     }
     func isUserNameSaved() ->Bool{
         let userDefaults = UserDefaults.standard
@@ -43,6 +73,16 @@ class JustGetMiddlePlayWithOthers1ViewController: UIViewController, UITextFieldD
         layer.lineWidth = 2
         return layer
 }()
+    func makeMessage(){
+        self.message = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        self.message.center.x = self.view.center.x
+        self.message.center.y = self.view.center.y
+        self.message.font = UIFont.systemFont(ofSize: 20)
+        self.message.textAlignment = NSTextAlignment.center
+        self.message.text = "今日は飲むぞ〜！!"
+        self.message.textColor = .white
+        self.view.addSubview(self.message)
+    }
     let shapeLayerIngicator: CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.frame = CGRect(x: 0, y: 0, width: 500.0, height: 500.0)
@@ -58,11 +98,15 @@ class JustGetMiddlePlayWithOthers1ViewController: UIViewController, UITextFieldD
     var startStop = UIButton()
     var resetButton = UIButton()
     var isNameSaved:Bool?
+    var message:UILabel!
     @objc func resetData(){
         if (isFirst2!){
             startCircling(shapelayer: self.shapeLayer)
             isFirst2 = false
             vibrated(view: self.imageView)
+            self.messageFirst.isHidden = true
+            self.imageView.isHidden = false
+            self.message.isHidden = false
         }else {
             pauseAnimation(layer: self.shapeLayer)
             numberForAGame = Int.random(in: 1..<10000000)
@@ -90,6 +134,9 @@ class JustGetMiddlePlayWithOthers1ViewController: UIViewController, UITextFieldD
     }
     func makeImageView(imageview:UIImageView){
         imageview.frame = CGRect(x: self.view.bounds.width/2 - 50, y: self.view.bounds.height/2 - 100 , width: 100, height: 100)
+        //        アイコンが円の中心になるように、プロパティを上書きする
+        imageview.center.x = self.view.center.x
+        imageview.center.y = self.view.center.y - 100
         imageview.image = UIImage(named: (Setting.icon.init(rawValue: iconNumberStatic)?.getName())!)
     }
     var imageView = UIImageView()
@@ -216,25 +263,26 @@ class JustGetMiddlePlayWithOthers1ViewController: UIViewController, UITextFieldD
         let anim = CABasicAnimation(keyPath: "strokeEnd")
         let randomInt = Int.random(in: 1...8)
 //        難易度普通
+        print(randomInt)
         switch randomInt {
         case 1:
-            anim.duration = 0.5
+            anim.duration = 2
         case 2:
-            anim.duration = 0.6
+            anim.duration = 3
         case 3:
-            anim.duration = 0.7
+            anim.duration = 4
         case 4:
-            anim.duration = 0.8
+            anim.duration = 5
         case 5:
-            anim.duration = 0.9
+            anim.duration = 6
         case 6:
-            anim.duration = 1.0
+            anim.duration = 7
         case 7:
-            anim.duration = 1.1
+            anim.duration = 8
         case 8:
-            anim.duration = 1.2
+            anim.duration = 9
         default:
-            anim.duration = 1.3
+            anim.duration = 1
         }
         anim.fromValue = 0.0
         anim.toValue = 1.0

@@ -77,6 +77,8 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         timersec.textAlignment = NSTextAlignment.center
         timersec.font = UIFont.systemFont(ofSize: 40)
         timersec.textColor = .white
+        timersec.center.y = self.view.center.y - 30
+        timersec.center.x = self.view.center.x - 40
     }
     func makeTimerMill(timermill:UILabel){
         timermill.text = "00"
@@ -85,7 +87,8 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
 //        timerMill.backgroundColor = .darkGray
         timermill.font = UIFont.systemFont(ofSize: 40)
         timermill.textColor = .white
-        
+        timermill.center.y = self.view.center.y - 30
+        timermill.center.x = self.view.center.x + 40
     }
     
     func makeImageView(imageview:UIImageView){
@@ -93,9 +96,20 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
 //        imageView.backgroundColor = .cyan
         imageview.isHidden = true
     }
+    
+    func makeMessage(){
+        self.message = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        self.message.center.x = self.view.center.x
+        self.message.center.y = self.view.center.y
+        self.message.font = UIFont.systemFont(ofSize: 20)
+        self.message.textAlignment = NSTextAlignment.center
+        self.message.text = "今日は飲むぞ〜！!"
+        self.message.textColor = .white
+        self.view.addSubview(self.message)
+    }
 
     func makeMessage(messageNew:UILabel,imageView imageview:UIImageView){
-        messageNew.text = "もう飲めないよ！！"
+        messageNew.text = "今日は飲むぞ〜！!"
         messageNew.frame = CGRect(x: Int(UIScreen.main.bounds.width)/2 - widthMessage/2, y: Int(self.view.bounds.height)/2 , width: widthMessage, height: heightMessage)
 //        message.backgroundColor = .brown
         messageNew.font = UIFont.boldSystemFont(ofSize: 20)
@@ -134,7 +148,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
 //        セーフエリア対策色々やってみたけど、なんかモーダルだと0になるし（didLayoutSubViewで撮ったっとしても）
 //        固定値で間を開けるしかない気がする
 //        print(viewSelf.safeAreaInsets.bottom)
-        button.frame = CGRect(x: self.view.bounds.width/2 + 50, y: self.view.bounds.height - 170, width: 100, height: 100)
+        button.frame = CGRect(x: self.view.bounds.width/2 + 50, y: self.view.bounds.height - 170 - safeAreaTopFirstView!, width: 100, height: 100)
         button.backgroundColor = UIColor.white
         button.layer.cornerRadius = 50
         button.isEnabled = false
@@ -154,7 +168,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
 //    Startタイマーを作るメソッド
     func makeStartTimer(button:UIButton,viewSelf:UIView){
         print(viewSelf.safeAreaInsets.top)
-        button.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 170, width: 100, height: 100)
+        button.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 170 - safeAreaTopFirstView!, width: 100, height: 100)
         button.backgroundColor = UIColor.white
         button.layer.cornerRadius = 50
         button.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
@@ -281,13 +295,13 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         case 1:
             anim.duration = 1.0
         case 2:
-            anim.duration = 5.0
+            anim.duration = 2.0
         case 3:
-            anim.duration = 10.0
+            anim.duration = 3.0
         case 4:
-            anim.duration = 20
+            anim.duration = 4
         default:
-            anim.duration = 1.0
+            anim.duration = 5
             
         }
         anim.fromValue = 0.0

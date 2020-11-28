@@ -29,14 +29,22 @@ var buttonWidthNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonW
 var buttonTextColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonTextColorNumber")
 //ボタンの文字の大きさをUserDefaultsからとってきて格納する箱
 var buttonTextSizeNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonTextSizeNumber")
-//
+//背景色をUserDefaultsからとってきて格納する箱
 var backgroundColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "backgroundColorNumber")
+//絆ルールをUserDefaultsからとってきて保存する箱
+var kizunaRuleNumberStatic:Int = UserDefaults.standard.integer(forKey: "kizuna")
+//王様ルールをUserDefaultsからとってきて保存する箱
+var kingsRuleNumberStatic:Int = UserDefaults.standard.integer(forKey: "kings")
 //初回で入力したユーザ名をUserDefaultに登録
 var name:String = UserDefaults.standard.string(forKey: "username")!
 var playerNumberAll:Int?
 var isSaved:Bool?
 //リストで取得する配列の数を表現
 //var responseListLength = 10
+
+//セーフエリアの高さ
+var safeAreaTopFirstView:CGFloat?
+var safeAreaBottomFirstView:CGFloat?
 
 var temporaryCount:Int?
 class ViewController: UIViewController,UITextFieldDelegate{
@@ -60,6 +68,8 @@ class ViewController: UIViewController,UITextFieldDelegate{
                                          "buttonWithColorNumber":1,
                                          "buttonTextSizeNumber":2,
                                          "backgroundColorNumber":0,
+                                         "kizuna":1,
+                                         "kings":1,
                                          "isNameSaved":false])
             timeNumberStatic = defaults.integer(forKey: "timeNumber")
             iconNumberStatic = defaults.integer(forKey: "iconNumber")
@@ -69,6 +79,8 @@ class ViewController: UIViewController,UITextFieldDelegate{
             buttonWidthNumberStatic = defaults.integer(forKey: "buttonWithColorNumber")
             buttonTextSizeNumberStatic = defaults.integer(forKey: "buttonTextSizeNumber")
             backgroundColorNumberStatic = defaults.integer(forKey: "backgroundColorNumber")
+            kizunaRuleNumberStatic = defaults.integer(forKey: "kizua")
+            kingsRuleNumberStatic = defaults.integer(forKey: "kings")
             isSaved = UserDefaults.standard.bool(forKey: "isNameSaved")
         }
 //        左上の設定ボタンを作り、viewに配置する。また、タップ時のイベントをサブスクライブする。
@@ -88,7 +100,6 @@ class ViewController: UIViewController,UITextFieldDelegate{
                 self?.makeAlertForJustGetMiddle()
             }.disposed(by: dispose)
         }
-
     }
     
     func makeAlertForJustGetMiddle(){
@@ -289,6 +300,13 @@ class ViewController: UIViewController,UITextFieldDelegate{
         self.view.addSubview(self.worldButton!)
         self.view.addSubview(self.justGetMiddlePlayWithOthers!)
         makeAutoLayout(button: self.justGetMiddle, settingButton: self.button!,worldButton: self.worldButton!)
+        
+        if safeAreaTopFirstView == nil {
+            safeAreaTopFirstView = self.view.safeAreaInsets.top
+        }
+        if safeAreaBottomFirstView == nil {
+            safeAreaBottomFirstView = self.view.safeAreaInsets.bottom
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         settingUpdate()

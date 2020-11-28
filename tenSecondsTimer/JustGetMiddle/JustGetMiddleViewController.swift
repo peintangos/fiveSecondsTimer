@@ -13,7 +13,11 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
     var imageView = UIImageView()
     func makeImageView(imageview:UIImageView){
         imageview.frame = CGRect(x: self.view.bounds.width/2 - 50, y: self.view.bounds.height/2 - 100 , width: 100, height: 100)
+//        アイコンが円の中心になるように、プロパティを上書きする
+        imageview.center.x = self.view.center.x
+        imageview.center.y = self.view.center.y - 100
         imageview.image = UIImage(named: (Setting.icon.init(rawValue: iconNumberStatic)?.getName())!)
+        imageview.isHidden = true
     }
     var isFirst:Bool = true
     func vibrated(view: UIView) {
@@ -59,6 +63,9 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         self.view.layer.addSublayer(self.shapeLayerIngicator)
         makeImageView(imageview: self.imageView)
         self.view.addSubview(imageView)
+        
+        makeMessage()
+        makeMessagefirst()
         // Do any additional setup after loading the view.
         makeColorLayer(number: backgroundColorNumberStatic)
     }
@@ -89,6 +96,9 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
             startCircling(shapelayer: self.shapeLayer)
             vibrated(view: self.imageView)
             isFirst2 = false
+            self.message.isHidden = false
+            self.imageView.isHidden = false
+            self.messageFirst.isHidden = true
         }else {
             pauseAnimation(layer: self.shapeLayer)
             let stroke = self.shapeLayer.presentation()?.strokeEnd
@@ -132,10 +142,34 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
             "createdAt":sDate,
             "name":name,
             "difference":timeDifference]
-        Alamofire.request("http://localhost:8080/justgetmiddle/list",method: .post,parameters: paramters,encoding: JSONEncoding.default,headers: nil).responseString{(response) in
+        Alamofire.request("http://springbootawscounttimerecords-env.eba-mvju5xjx.ap-northeast-1.elasticbeanstalk.com/justgetmiddle/list",method: .post,parameters: paramters,encoding: JSONEncoding.default,headers: nil).responseString{(response) in
         }
     }
     
+    var message:UILabel!
+    var messageFirst:UILabel!
+    func makeMessage(){
+        self.message = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        self.message.center.x = self.view.center.x
+        self.message.center.y = self.view.center.y
+        self.message.font = UIFont.systemFont(ofSize: 20)
+        self.message.textAlignment = NSTextAlignment.center
+        self.message.text = "今日は飲むぞ〜！!"
+        self.message.textColor = .white
+        self.message.isHidden = true
+        self.view.addSubview(self.message)
+    }
+    func makeMessagefirst(){
+        self.messageFirst = UILabel(frame: CGRect(x: 0, y: 0, width: 230, height: 200))
+        self.messageFirst.center.x = self.view.center.x
+        self.messageFirst.center.y = self.view.center.y - 100
+        self.messageFirst.textAlignment = NSTextAlignment.center
+        self.messageFirst.textColor = .white
+        self.messageFirst.text = "インジケータが進むよ！\nちょうどのところで止めて、反射神経を確かめよう！"
+//        改行するには、numberOfLines = 0にする必要があるらしい。なんか、tableViewでもnumberOfLinesを見たきたする
+        self.messageFirst.numberOfLines = 0
+        self.view.addSubview(self.messageFirst)
+    }
     
     func moldTime(date:Date) -> String{
         let formatter = DateFormatter()

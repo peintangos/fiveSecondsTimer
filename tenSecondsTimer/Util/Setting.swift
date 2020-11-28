@@ -13,6 +13,56 @@ import Foundation
 import UIKit
 
 enum Setting:CaseIterable{
+    enum kizuna:Int,CaseIterable{
+        case min = 0
+        case medium = 1
+        case max = 2
+        func getInt() -> Int{
+            switch self {
+            case .min:
+                return 7
+            case .medium:
+                return 6
+            case .max:
+                return 5
+            }
+        }
+        func getName() ->String{
+            switch self {
+            case .min:
+                return "1レベル"
+            case .medium:
+                return "2レベル"
+            case .max:
+                return "3レベル"
+            }
+        }
+    }
+    enum kings:Int,CaseIterable{
+        case min = 0
+        case medium = 1
+        case max = 2
+        func getName() ->String{
+            switch self {
+            case .min:
+                return "1レベル"
+            case .medium:
+                return "2レベル"
+            case .max:
+                return "3レベル"
+            }
+        }
+        func getInt() -> Int{
+            switch self {
+            case .min:
+                return 10
+            case .medium:
+                return 9
+            case .max:
+                return 8
+            }
+        }
+    }
     enum backgroundColor:Int,CaseIterable{
         case rainbow = 0
         case purpleblue = 1

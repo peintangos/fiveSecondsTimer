@@ -154,7 +154,7 @@ class FirstLauchingViewController: UIViewController {
         "password":self.passwordTextField.text!,
         "uuid":UserDefaults.standard.string(forKey: "UUID")!
         ]
-        Alamofire.request("http://localhost:8080/user/register",method:.post,parameters:parameters,encoding:JSONEncoding.default).responseString{
+        Alamofire.request("http://springbootawscounttimerecords-env.eba-mvju5xjx.ap-northeast-1.elasticbeanstalk.com/user/register",method:.post,parameters:parameters,encoding:JSONEncoding.default).responseString{
             response in
             if let code = response.response?.statusCode {
                 switch code {

@@ -24,6 +24,8 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
     var buttonTextColorNumber:Int?
     var buttonTextSizeNumber:Int?
     var backgroundColorNumber:Int?
+    var kizunaRuleNumber:Int?
+    var kingsRuleNumber:Int?
     
 
 //    Enumの個数を数えるのに、Enum本体にCaseIterableプロトコルを実装し、.allCases.countプロパティでアクセス
@@ -47,7 +49,11 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
         }else if sectionNumber! == 1 && self.rowNumber! == 6{
             return Setting.backgroundColor.allCases.count
         }
-        else{
+        else if sectionNumber! == 2 && self.rowNumber == 0{
+            return Setting.kizuna.allCases.count
+        }else if sectionNumber! == 2 && self.rowNumber == 1 {
+            return Setting.kings.allCases.count
+        }else {
             return 1
         }
     }
@@ -107,14 +113,23 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             if backgroundColorNumberStatic == indexPath.row {
                 cell.accessoryType = .checkmark
             }
-            
+        }else if sectionNumber! == 2 && self.rowNumber! == 0 {
+            cell.textLabel?.text = Setting.kizuna.init(rawValue: indexPath.row)!.getName()
+            if defaults.integer(forKey: "kizuna") == indexPath.row{
+                cell.accessoryType = .checkmark
+            }
+        }else if sectionNumber! == 2 && self.rowNumber! == 1 {
+            cell.textLabel?.text = Setting.kings.init(rawValue: indexPath.row)!.getName()
+            if defaults.integer(forKey: "kings") == indexPath.row{
+                cell.accessoryType = .checkmark
+            }
         }
         else {
-            
         }
         return cell
     }
 //    セルが選択された時、初期状態で表示していたセルのチェックマークを外すという処置をしたかったが、できなかった。
+//    ここで行っていることは、初期値のchekmarkが残ってしまうという問題があったので、タップされた時に、初期値のchekmarkを消すという処理を行う
 //    選択したときに、その値を変数に入れるという処理も同時に行っている。
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let defaults = UserDefaults.standard
@@ -151,6 +166,14 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             let cell = tableView.cellForRow(at: IndexPath(row:defaults.integer(forKey: "backgroundColorNumber"),section: indexPath.section))
             cell?.accessoryType = .none
             self.backgroundColorNumber = indexPath.row
+        }else if sectionNumber! == 2 && self.rowNumber! == 0 {
+            let cell = tableView.cellForRow(at: IndexPath(row:defaults.integer(forKey: "kizuna"),section: indexPath.section))
+            cell?.accessoryType = .none
+            self.kizunaRuleNumber = indexPath.row
+        }else if sectionNumber! == 2 && self.rowNumber! == 1{
+            let cell = tableView.cellForRow(at: IndexPath(row:defaults.integer(forKey: "kings"),section: indexPath.section))
+            cell?.accessoryType = .none
+            self.kingsRuleNumber = indexPath.row
         }
         else
         {
@@ -242,8 +265,22 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
                 self.dismiss(animated: true, completion: nil)
             }))
             self.present(alertAction, animated: true, completion: nil)
+//            returnを入れないと、下部のself.dismissが非同期で走ってしまいダイアログが閉じてしまう
+            return
         }
-        
+        if let kizuna = kizunaRuleNumber {
+            defaults.setValue(kizunaRuleNumber, forKey: "kizuna")
+            kizunaRuleNumberStatic = kizuna
+            self.dismiss(animated: true, completion: nil)
+        }
+        if let kings = kingsRuleNumber {
+            defaults.setValue(kingsRuleNumber, forKey: "kings")
+            kingsRuleNumberStatic = kings
+            self.dismiss(animated: true, completion: nil)
+        }
+//        何も選択せずに、終了した場合にモーダルが閉じないので、以下の文を挿入する
+        self.dismiss(animated: true, completion: nil)
+        }
     }
     
     

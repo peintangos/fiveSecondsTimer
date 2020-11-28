@@ -215,7 +215,7 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
 //        現状、レコードがない場合に失敗してしまう
         let parameters:[String:String] = [
             "key":name]
-        Alamofire.request("http://localhost:8080/justgetmiddle/keys",method: .get,parameters: parameters).validate(statusCode: 200..<400).responseData{response in
+        Alamofire.request("http://springbootawscounttimerecords-env.eba-mvju5xjx.ap-northeast-1.elasticbeanstalk.com/justgetmiddle/keys",method: .get,parameters: parameters).validate(statusCode: 200..<400).responseData{response in
             switch response.result {
             case .success:
                 self.yourResponseRanking = String(data:response.data!,encoding: .utf8)
@@ -227,7 +227,7 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
     func updeYourScoreLabel(){
         let parameters:[String:String] = [
             "key":name]
-        Alamofire.request("http://localhost:8080/justgetmiddle/rank",method: .get,parameters: parameters).validate(statusCode: 200..<400).responseString{response in
+        Alamofire.request("http://springbootawscounttimerecords-env.eba-mvju5xjx.ap-northeast-1.elasticbeanstalk.com/justgetmiddle/rank",method: .get,parameters: parameters).validate(statusCode: 200..<400).responseString{response in
             switch response.result {
             case .success:
                 self.isConnectionSuccess = true
@@ -238,7 +238,7 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
         }
     }
     func updateLabel(){
-        Alamofire.request("http://localhost:8080/justgetmiddle/listLabel",method: .get).validate(statusCode: 200..<400).responseJSON { (response) in
+        Alamofire.request("http://springbootawscounttimerecords-env.eba-mvju5xjx.ap-northeast-1.elasticbeanstalk.com/justgetmiddle/listLabel",method: .get).validate(statusCode: 200..<400).responseJSON { (response) in
             let decoder = JSONDecoder()
             do{
                 let list = try decoder.decode(JustGetMiddleLabelDto.self, from: response.data!)
@@ -252,7 +252,7 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
     func update(){
 //        let parameters:[String:Int] = [
 //            "key": responseListLength]
-        Alamofire.request("http://localhost:8080/justgetmiddle/list").responseJSON { [self] (response) in
+        Alamofire.request("http://springbootawscounttimerecords-env.eba-mvju5xjx.ap-northeast-1.elasticbeanstalk.com/justgetmiddle/list").responseJSON { [self] (response) in
             let decoder = JSONDecoder()
             do{
                 let justGetMiddleDtos = try decoder.decode([JustGetMiddleDto].self, from: response.data!)
