@@ -10,32 +10,53 @@ import RealmSwift
 import RxCocoa
 import RxSwift
 
+var randomIntMiracle:Int?
+
 class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.resultRanking.count
     }
+    var nameList = Array<String>()
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style:.subtitle, reuseIdentifier: "CELL")
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.text = "\(indexPath.row + 1)位 名前:\(resultRanking[indexPath.row].name) 解離:\(resultRanking[indexPath.row].difference)"
         cell.detailTextLabel?.text = "日付:\(resultRanking[indexPath.row].date!)"
-        let randomNumber = Int.random(in: 1..<5)
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        if randomIntMiracle! >= (Setting.kings.init(rawValue: kingsRuleNumberStatic)?.getInt())! {
+            if indexPath.row == 0 {
+                imageView.image = UIImage(named: "king")
+                cell.accessoryView = imageView
+                name = "王様：\(resultRanking[indexPath.row].name)"
+                return cell
+            }
+            return cell
+        }
+        if randomIntMiracle! >= (Setting.kizuna.init(rawValue: kizunaRuleNumberStatic)?.getInt())! {
+            imageView.image = UIImage(named: (Setting.icon.init(rawValue: iconNumberStatic)?.getName())!)
+            cell.accessoryView = imageView
+            nameList.append(resultRanking[indexPath.row].name)
+            return cell
+        }
+        let randomNumber = Int.random(in: 1..<5)
         switch indexPath.row{
         case temporaryCount! - 3:
             if randomNumber >= 3{
                 imageView.image = UIImage(named: (Setting.icon.init(rawValue: iconNumberStatic)?.getName())!)
                 cell.accessoryView = imageView
+                nameList.append(resultRanking[indexPath.row].name)
             }
         case temporaryCount! - 2:
             if randomNumber >= 2{
                 imageView.image = UIImage(named: (Setting.icon.init(rawValue: iconNumberStatic)?.getName())!)
                 cell.accessoryView = imageView
+                nameList.append(resultRanking[indexPath.row].name)
             }
         case temporaryCount! - 1:
             imageView.image = UIImage(named: (Setting.icon.init(rawValue: iconNumberStatic)?.getName())!)
             cell.accessoryView = imageView
+            nameList.append(resultRanking[indexPath.row].name)
         default:
             return cell
         }
@@ -82,8 +103,46 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
             }
         }).disposed(by: dispose)
         makeColorLayer(number: backgroundColorNumberStatic)
-
+        
+        randomIntMiracle = Int.random(in: 1..<10)
+    
     }
+    var alert:UIAlertController!
+    override func viewDidAppear(_ animated: Bool) {
+        
+        nameList.forEach { (nameElement) in
+            name += nameElement + "さん\n"
+            print(nameElement)
+            print(name)
+        }
+        if randomIntMiracle! >= (Setting.kings.init(rawValue: kingsRuleNumberStatic)?.getInt())! {
+            alert = UIAlertController(title: "👑王様タイム！\n王様は一緒に飲みたい人を指名できるよ！", message: name, preferredStyle: .alert)
+            present(alert, animated: true, completion: {
+                self.alert.view.superview?.isUserInteractionEnabled = true
+                self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.closeAlert)))
+            })
+            return
+        }
+        if randomIntMiracle! >= (Setting.kizuna.init(rawValue: kizunaRuleNumberStatic)?.getInt())!{
+            alert = UIAlertController(title: "絆タイム!\n全員で飲んで、絆を深める！", message: name, preferredStyle: .alert)
+            present(alert, animated: true, completion: {
+                self.alert.view.superview?.isUserInteractionEnabled = true
+                self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.closeAlert)))
+            })
+            return
+        }
+        alert = UIAlertController(title: "飲み足りない人☆", message: name, preferredStyle: .alert)
+        present(alert, animated: true, completion: {
+            self.alert.view.superview?.isUserInteractionEnabled = true
+            self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.closeAlert)))
+        })
+    }
+    var name = ""
+    @objc func closeAlert() {
+            alert.dismiss(animated: true, completion: nil)
+            alert = nil
+        }
+    
     let dispose = DisposeBag()
     func makeColorLayer(number:Int){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
@@ -98,7 +157,7 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
     }
     func makeStartTimer() -> UIButton{
         let startButton = UIButton()
-        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.frame.height - 170 , width: 100, height: 100)
+        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.frame.height - 170 - safeAreaBottomFirstView!, width: 100, height: 100)
         startButton.backgroundColor = UIColor.white
         startButton.layer.cornerRadius = 50
         let image = UIImage(named: "back")

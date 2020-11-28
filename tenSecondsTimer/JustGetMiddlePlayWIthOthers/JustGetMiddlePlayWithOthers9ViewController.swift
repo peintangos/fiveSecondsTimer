@@ -12,7 +12,20 @@ class JustGetMiddlePlayWithOthers9ViewController: UIViewController,UITextFieldDe
     var imageView = UIImageView()
     func makeImageView(imageview:UIImageView){
         imageview.frame = CGRect(x: self.view.bounds.width/2 - 50, y: self.view.bounds.height/2 - 100 , width: 100, height: 100)
+        //        アイコンが円の中心になるように、プロパティを上書きする
+        imageview.center.x = self.view.center.x
+        imageview.center.y = self.view.center.y - 100
         imageview.image = UIImage(named: (Setting.icon.init(rawValue: iconNumberStatic)?.getName())!)
+    }
+    func makeMessage(){
+        self.message = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        self.message.center.x = self.view.center.x
+        self.message.center.y = self.view.center.y
+        self.message.font = UIFont.systemFont(ofSize: 20)
+        self.message.textAlignment = NSTextAlignment.center
+        self.message.text = "今日は飲むぞ〜！!"
+        self.message.textColor = .white
+        self.view.addSubview(self.message)
     }
     var isFirst:Bool = true
     func vibrated(view: UIView) {
@@ -58,8 +71,26 @@ class JustGetMiddlePlayWithOthers9ViewController: UIViewController,UITextFieldDe
         self.view.layer.addSublayer(self.shapeLayerIngicator)
         makeImageView(imageview: self.imageView)
         self.view.addSubview(self.imageView)
+        makeMessage()
+        let payer1 = JustGetMiddlePlayWithOthers1ViewController()
+        self.view.addSubview(payer1.makeTitle(name: "\(name ?? "player9")さんの挑戦です"))
+        makeMessagefirst()
         // Do any additional setup after loading the view.
         makeColorLayer(number: backgroundColorNumberStatic)
+        self.imageView.isHidden = true
+        self.message.isHidden = true
+    }
+    var messageFirst:UILabel!
+    func makeMessagefirst(){
+        self.messageFirst = UILabel(frame: CGRect(x: 0, y: 0, width: 230, height: 200))
+        self.messageFirst.center.x = self.view.center.x
+        self.messageFirst.center.y = self.view.center.y - 100
+        self.messageFirst.textAlignment = NSTextAlignment.center
+        self.messageFirst.textColor = .white
+        self.messageFirst.text = "インジケータが進むよ！\nちょうどのところで止めて、反射神経を確かめよう！"
+//        改行するには、numberOfLines = 0にする必要があるらしい。なんか、tableViewでもnumberOfLinesを見たきたする
+        self.messageFirst.numberOfLines = 0
+        self.view.addSubview(self.messageFirst)
     }
     let shapeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
@@ -84,11 +115,15 @@ class JustGetMiddlePlayWithOthers9ViewController: UIViewController,UITextFieldDe
     var startStop = UIButton()
     var resetButton = UIButton()
     var name:String?
+    var message:UILabel!
     @objc func resetData(){
         if (isFirst2!){
             startCircling(shapelayer: self.shapeLayer)
             vibrated(view: self.imageView)
             isFirst2 = false
+            self.messageFirst.isHidden = true
+            self.imageView.isHidden = false
+            self.message.isHidden = false
         }else {
             pauseAnimation(layer: self.shapeLayer)
             let stroke = self.shapeLayer.presentation()?.strokeEnd
@@ -234,23 +269,23 @@ class JustGetMiddlePlayWithOthers9ViewController: UIViewController,UITextFieldDe
         //        難易度易
                 switch randomInt {
                 case 1:
-                    anim.duration = 1.0
+                    anim.duration = 1
                 case 2:
-                    anim.duration = 1.1
+                    anim.duration = 2
                 case 3:
-                    anim.duration = 1.2
+                    anim.duration = 3
                 case 4:
-                    anim.duration = 1.3
+                    anim.duration = 4
                 case 5:
-                    anim.duration = 1.4
+                    anim.duration = 5
                 case 6:
-                    anim.duration = 1.5
+                    anim.duration = 6
                 case 7:
-                    anim.duration = 1.6
+                    anim.duration = 7
                 case 8:
-                    anim.duration = 1.7
+                    anim.duration = 8
                 default:
-                    anim.duration = 1.8
+                    anim.duration = 9
                     
                 }
         anim.fromValue = 0.0

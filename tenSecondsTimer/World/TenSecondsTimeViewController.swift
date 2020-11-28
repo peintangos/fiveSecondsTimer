@@ -97,7 +97,7 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
     func update(){
         let parameters:[String:Int]=[
             "page":self.page]
-        Alamofire.request("http://localhost:8080/countTime/list",method:.get,parameters: parameters).responseJSON { (reponse) in
+        Alamofire.request("http://springbootawscounttimerecords-env.eba-mvju5xjx.ap-northeast-1.elasticbeanstalk.com/countTime/list",method:.get,parameters: parameters).responseJSON { (reponse) in
             let deocder:JSONDecoder = JSONDecoder()
             do{
                 let countTimeDtos :[CountTimeDto] = try deocder.decode([CountTimeDto].self, from: reponse.data!)
@@ -118,7 +118,7 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
     func updateYourScore(){
         let parameters:[String:String] = [
             "key":name]
-        Alamofire.request("http://localhost:8080/countTime/keys",method: .get,parameters: parameters).validate(statusCode: 200..<400).responseString { [self]response in
+        Alamofire.request("http://springbootawscounttimerecords-env.eba-mvju5xjx.ap-northeast-1.elasticbeanstalk.com/countTime/keys",method: .get,parameters: parameters).validate(statusCode: 200..<400).responseString { [self]response in
             switch response.result {
             case .success:
                 yourScore = String(data: response.data!,encoding: .utf8)!
@@ -128,7 +128,7 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
         }
     }
     func updateLabel(){
-        Alamofire.request("http://localhost:8080/countTime/listLabel",method: .get).validate(statusCode: 200..<400).responsePropertyList { (response) in
+        Alamofire.request("http://springbootawscounttimerecords-env.eba-mvju5xjx.ap-northeast-1.elasticbeanstalk.com/countTime/listLabel",method: .get).validate(statusCode: 200..<400).responsePropertyList { (response) in
             let decoder = JSONDecoder()
             do{
                 let data = try decoder.decode(CountTimeLabelDto.self, from: response.data!)
@@ -141,7 +141,7 @@ class TenSecondsTimeViewController: UIViewController,UITableViewDataSource,UITab
     func updateYourLabelScore(){
         let parameters:[String:String] = [
             "key":name]
-        Alamofire.request("http://localhost:8080/countTime/rank",method:.get,parameters: parameters).validate(statusCode: 200..<400).responseString { (response) in
+        Alamofire.request("http://springbootawscounttimerecords-env.eba-mvju5xjx.ap-northeast-1.elasticbeanstalk.com/countTime/rank",method:.get,parameters: parameters).validate(statusCode: 200..<400).responseString { (response) in
             switch response.result{
             case .success:
                 self.isConnectionSuccess = true

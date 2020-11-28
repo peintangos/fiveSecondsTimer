@@ -80,7 +80,7 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
         self.justGetMiddleResult = realm.objects(JustGetMiddleResult.self).sorted(byKeyPath: "dateNoMold", ascending: false)
         tableView?.refreshControl = UIRefreshControl()
         tableView?.refreshControl!.addTarget(self, action: #selector(onRefresh(_:)), for: .valueChanged)
-        tableView?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 200)
+        tableView?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 250)
 //        self.tableView!.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         self.stopButton = makeStartTimer()
         self.stopButton!.addTarget(self, action: #selector(end), for: UIControl.Event.touchUpInside)
@@ -121,7 +121,7 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
 //    }
     func makeStartTimer() -> UIButton{
         let startButton = UIButton()
-        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 180 , width: 100, height: 100)
+        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 180 - safeAreaBottomFirstView! , width: 100, height: 100)
         startButton.backgroundColor = UIColor.white
         startButton.layer.cornerRadius = 50
         let image = UIImage(named: "back")

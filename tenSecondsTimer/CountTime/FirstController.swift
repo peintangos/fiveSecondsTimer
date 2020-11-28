@@ -22,6 +22,10 @@ class FirstController: UIViewController, UITextFieldDelegate {
         timersec.textAlignment = NSTextAlignment.center
         timersec.font = UIFont.systemFont(ofSize: 40)
         timersec.textColor = .white
+        timersec.center.y = self.view.center.y
+        timersec.center.x = self.view.center.x - 40
+//        秒を表示してたが、ルールがわからないかなと思ったので、説明文に変更
+        timersec.isHidden = true
         self.view.addSubview(timersec)
     }
     
@@ -31,8 +35,13 @@ class FirstController: UIViewController, UITextFieldDelegate {
         timermill.textAlignment = NSTextAlignment.center
         timermill.font = UIFont.systemFont(ofSize: 40)
         timermill.textColor = .white
+        timermill.center.y = self.view.center.y
+        timermill.center.x = self.view.center.x + 40
+//        秒を表示してたが、ルールがわからないかなと思ったので、説明文に変更
+        timermill.isHidden = true
         self.view.addSubview(timermill)
     }
+    
     func makeCircle(shapeLayer shapelayer:CAShapeLayer){
         let center = CGPoint(x: self.view.center.x, y: self.view.center.y) // 中心座標
 //        下の数字は目分量。最悪です
@@ -59,7 +68,19 @@ class FirstController: UIViewController, UITextFieldDelegate {
         makeStop(stopX: self.stop2)
         self.start2.addTarget(self, action: #selector(go), for: .touchUpInside)
         self.stop2.addTarget(self, action: #selector(back), for: .touchUpInside)
+        makeExplanation()
         makeColorLayer(number: backgroundColorNumberStatic)
+    }
+    var explanation:UILabel!
+    func makeExplanation(){
+        self.explanation = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 100))
+        self.explanation.center.x = self.view.center.x
+        self.explanation.center.y = self.view.center.y - 10
+        self.explanation.textColor = .white
+        self.explanation.textAlignment = NSTextAlignment.center
+        self.explanation.text = "\(timeNumberStatic)秒間ストップウォッチだよ！\nインジケータに惑わされないように注意してね！"
+        self.explanation.numberOfLines = 0
+        self.view.addSubview(self.explanation)
     }
     @objc func go(){
         self.stop2.isEnabled = true
@@ -70,6 +91,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
         top.isHidden = false
         self.start2.alpha = 0.5
         self.stop2.alpha = 1.0
+        self.explanation.isHidden = true
 //                計測開始
         startTime = Date()
 //                 アニメーション開始
@@ -187,7 +209,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
             "createdAt":sDate,
             "name":name,
             "timeDifference":timeDifference]
-        Alamofire.request("http://localhost:8080/countTime/list",method: .post,parameters: paramters,encoding: JSONEncoding.default,headers: nil).responseString{(response) in
+        Alamofire.request("http://springbootawscounttimerecords-env.eba-mvju5xjx.ap-northeast-1.elasticbeanstalk.com/countTime/list",method: .post,parameters: paramters,encoding: JSONEncoding.default,headers: nil).responseString{(response) in
         }
     }
     
@@ -201,10 +223,10 @@ class FirstController: UIViewController, UITextFieldDelegate {
         top.frame.size = CGSize(width: 200, height: 20)
         top.center = self.view.center
         top.center.x = self.view.center.x
-        top.center.y = self.view.center.y - 100
-        top.text = "\(timeNumberStatic)秒で止めれるかな？"
+        top.center.y = self.view.center.y + 100
+        top.text = "\(timeNumberStatic)秒って意外と長いぞ〜"
         top.textAlignment = NSTextAlignment.center
-        top.textColor = UIColor.gray
+        top.textColor = UIColor.white
         top.isHidden = true
 
         //        炎アイコンを中心に設定し、メラメラするように設定
@@ -215,7 +237,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
         self.isFirst = true
                 
         //        タイトルラベルを作成し、追加
-        self.titleLabel.text = "\(timeNumberStatic)SecondsTimer"
+        self.titleLabel.text = "\(timeNumberStatic) Seconds Timer"
         self.titleLabel.textAlignment = NSTextAlignment.center
         self.titleLabel.frame = CGRect(x:40,y:20,width: 300,height: 70)
         self.titleLabel.center = CGPoint(x: myBoundSize.width/2, y:80)
