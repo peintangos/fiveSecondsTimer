@@ -122,9 +122,10 @@ class FirstController: UIViewController, UITextFieldDelegate {
         //        表示/非表示の制御
                 self.top.isHidden = true
                 self.fire.isHidden = true
-        //        self
-//                self.timerSecond.isHidden = false
-//                self.timerMsec.isHidden = false
+        
+//        止めるボタンを押した瞬間は、記録が出るようにする。（その後、名前を登録した後は、explanationと被ってしまうので、そのままにする）
+                self.timerSecond.isHidden = false
+                self.timerMsec.isHidden = false
                 
         //        円形のサークルが、ストップボタンを押すと止まるように設定（.speed = 0 とすると、2回目こうやるときに動かなくなってしまったので、こちらを使用）
                 shapeLayer.removeAllAnimations()
@@ -159,6 +160,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
                         let realm = try! Realm()
                         let record = Record()
                         record.date = Date()
+                        record.mokuhyo = timeNumberStatic
                         record.name = alertInput.textFields?[0].text!
                         record.timerSecond = self.timerSecond.text!
                         record.timerMsec = self.timerMsec.text!
@@ -169,6 +171,9 @@ class FirstController: UIViewController, UITextFieldDelegate {
                         try! realm.write{
                             realm.add(record)
                         }
+                        self.timerSecond.isHidden = true
+                        self.timerMsec.isHidden = true
+                        
 //                        AFを用いて、サーバーにデータを登録する
                         self.saveData(date: Date(), timeDifference: timeDiffrenceTemporary)
 
@@ -186,16 +191,17 @@ class FirstController: UIViewController, UITextFieldDelegate {
                     
                     self.present(alertInput, animated: true, completion: nil)
                 }))
-                alert.addAction(UIAlertAction(title: "記録を見にいく!", style: .default, handler: {(action) -> Void in
-        //            なんかわからないけど、ググったら出てきた笑
-        //            タブを切り替える方法ぽい
-                    
-                    let UINavigationController = self.tabBarController?.viewControllers?[1];
-                    self.tabBarController?.selectedViewController = UINavigationController;
-                    self.start2.alpha = 1
-                    self.stop2.alpha = 0.5
-                    self.explanation.isHidden = false
-                }))
+//        タブを切り替える方法を学ぶために、書いたコードなので、メモしたら消す
+//                alert.addAction(UIAlertAction(title: "記録を見にいく!", style: .default, handler: {(action) -> Void in
+//        //            なんかわからないけど、ググったら出てきた笑
+//        //            タブを切り替える方法ぽい
+//
+//                    let UINavigationController = self.tabBarController?.viewControllers?[1];
+//                    self.tabBarController?.selectedViewController = UINavigationController;
+//                    self.start2.alpha = 1
+//                    self.stop2.alpha = 0.5
+//                    self.explanation.isHidden = false
+//                }))
         alert.addAction(UIAlertAction(title: "もう一回挑戦する!", style: .default, handler: { (action) in
             self.start2.alpha = 1
             self.stop2.alpha = 0.5

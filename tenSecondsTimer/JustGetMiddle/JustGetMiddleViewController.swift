@@ -101,6 +101,8 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
             self.imageView.isHidden = false
             self.messageFirst.isHidden = true
         }else {
+//            CountTimeと同じようにするとすれば、stopCirclingを使うべきだが、今回はストップボタンを押したタイミングで、インジケータが止まって欲しい。
+//            stopCirclingでは、インジケータが1まで行ってしまうので、挙動としてあまり良くない。まあ多分アニメーションを作り直せば良いと思うが、よくわかっていないので、このままにする。
             pauseAnimation(layer: self.shapeLayer)
             let stroke = self.shapeLayer.presentation()?.strokeEnd
             let alert = UIAlertController(title: "結果発表", message: "名前を入れてね！", preferredStyle: .alert)

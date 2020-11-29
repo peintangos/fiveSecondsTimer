@@ -1,36 +1,41 @@
 //
-//  JustGetMiddleResultsDetailViewController.swift
+//  ThirdViewController.swift
 //  tenSecondsTimer
 //
-//  Created by 松尾淳平 on 2020/10/24.
+//  Created by 松尾淳平 on 2020/11/29.
 //
 
-/**
- ちょうど、ぴったしを狙う画面のviewで
- */
 import UIKit
+import Realm
 import RealmSwift
 import RxSwift
 import RxCocoa
 
-class JustGetMiddleResultsDetailViewController: UIViewController,UITableViewDataSource,UITableViewDelegate{
-    var row:Int?
-    var section:Int?
+class ThirdViewController: UIViewController,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        cell.textLabel?.text = "名前:\(justGetMiddleResult!.name)\n解離:\(justGetMiddleResult!.difference)%\n日付:\( justGetMiddleResult!.date!)\nゴール:\(justGetMiddleResult!.goal)\nストローク:\(justGetMiddleResult!.end)"
-        cell.textLabel?.numberOfLines = 0
-        
-        if section! == 0{
-            cell.accessoryView = setImg2(kairi: justGetMiddleResult!.difference,row:row!)
-        }else {
-            cell.accessoryView = setImg(kairi: justGetMiddleResult!.difference)
+        switch self.section! {
+        case 0:
+            cell.textLabel?.text = "名前 \(self.tableCells![row!].name!)\n日付 \(self.moldTime(self.tableCells![row!].date!))\n目標タイム \(self.tableCells![row!].mokuhyo)\n結果 \(self.tableCells![row!].result!)\n解離 \(floor(self.tableCells![row!].timeDifference * 10000) / 10000)"
+            cell.accessoryView = self.setImg2(row: self.row!)
+        case 1:
+            cell.textLabel?.text = "名前 \(self.tableCellsHistory![row!].name!)\n日付 \(self.moldTime(self.tableCellsHistory![row!].date!))\n目標タイム \(self.tableCellsHistory![row!].mokuhyo)\n結果 \(self.tableCellsHistory![row!].result!)\n解離 \(floor(self.tableCellsHistory![row!].timeDifference * 10000) / 10000)"
+            cell.accessoryView = self.setImg(kairi: self.tableCellsHistory![row!].timeDifference)
+        default:
+            print("ありえない")
         }
+        cell.textLabel?.numberOfLines = 0
         return cell
+    }
+    func moldTime(_ time:Date) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yydMMM", options: 0, locale: Locale(identifier: "ja_JP"))
+        return formatter.string(from:time)
     }
     func setImg(kairi:Double) ->UIImageView{
         let uiImagevView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
@@ -56,7 +61,7 @@ class JustGetMiddleResultsDetailViewController: UIViewController,UITableViewData
         }
         return uiImagevView
     }
-    func setImg2(kairi:Double,row:Int) ->UIImageView{
+    func setImg2(row:Int) ->UIImageView{
         let uiImagevView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         let gold = UIImage(named: "ichi")
         let diamond = UIImage(named:"ni")
@@ -74,17 +79,18 @@ class JustGetMiddleResultsDetailViewController: UIViewController,UITableViewData
         return uiImagevView
     }
     
-    var justGetMiddleResult:JustGetMiddleResult?
+    var tableCells:Results<Record>?
+    var tableCellsHistory:Results<Record>?
+    var section:Int?
+    var row:Int?
+    var myTableView:UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        tableView = UITableView(frame: view.frame, style: .grouped)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = UITableView.automaticDimension
-        self.view.addSubview(tableView)
-        tableView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0)
+        myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height), style: UITableView.Style.grouped)
+        myTableView.dataSource = self
+        myTableView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        self.view.addSubview(myTableView)
         makeColorLayer(view:self.view,number: backgroundColorNumberStatic)
         self.stopButton = makeStartTimer()
         self.view.addSubview(self.stopButton!)
@@ -117,12 +123,6 @@ class JustGetMiddleResultsDetailViewController: UIViewController,UITableViewData
         layer!.frame = self.view.frame
         view.layer.insertSublayer(layer!, at: 0)
     }
-    let myImageView = UIImageView()
-    var tableView:UITableView!
-
-    
-
-    
 
     /*
     // MARK: - Navigation
