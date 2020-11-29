@@ -27,17 +27,33 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         self.stopButton = UIButton()
         self.view.addSubview(self.stopButton!)
         self.view.addSubview(self.startButton!)
+        makeMessagefirst(view:self.view)
         self.view.addSubview(makeTitle(name:"\(name ?? "ハリー")の挑戦です"))
         self.startButton!.addTarget(self, action: #selector(tapStart(_:)), for: UIControl.Event.touchUpInside)
         self.stopButton!.addTarget(self, action: #selector(tapStop(_:)), for: UIControl.Event.touchUpInside)
         makeColorLayer(number: backgroundColorNumberStatic)
+    }
+    var messageFirst:UILabel!
+    func makeMessagefirst(view:UIView){
+        self.messageFirst = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
+        self.messageFirst.center.x = self.view.center.x
+        self.messageFirst.center.y = self.view.center.y - 30
+        self.messageFirst.textAlignment = NSTextAlignment.center
+        self.messageFirst.textColor = .white
+        self.messageFirst.font = UIFont.systemFont(ofSize: 20)
+        self.messageFirst.text = "\(timeNumberStatic)秒間ストップウォッチだよ！\nインジケータに惑わされないように注意しよう！"
+//        改行するには、numberOfLines = 0にする必要があるらしい。なんか、tableViewでもnumberOfLinesを見たきたする
+        self.messageFirst.numberOfLines = 0
+        view.addSubview(self.messageFirst)
     }
     func makeColorLayer(number:Int){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
         layer!.frame = self.view.frame
         self.view.layer.insertSublayer(layer!, at: 0)
     }
-    
+//    override func viewDidAppear(_ animated: Bool) {
+//        self.messageFirst.isHidden = false
+//    }
     
     var timerSec = UILabel()
     var timerMill = UILabel()
@@ -79,6 +95,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         timersec.textColor = .white
         timersec.center.y = self.view.center.y - 30
         timersec.center.x = self.view.center.x - 40
+        timersec.isHidden = true
     }
     func makeTimerMill(timermill:UILabel){
         timermill.text = "00"
@@ -89,6 +106,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         timermill.textColor = .white
         timermill.center.y = self.view.center.y - 30
         timermill.center.x = self.view.center.x + 40
+        timermill.isHidden = true
     }
     
     func makeImageView(imageview:UIImageView){
@@ -233,6 +251,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         vibrated(view: self.imageView)
         self.startButton?.alpha = 0.5
         self.stopButton?.alpha = 1.0
+        self.messageFirst.isHidden = true
     }
     @objc func tapStop(_ sender:UIButton){
 
@@ -247,7 +266,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         stopbutton.isEnabled = true
         messageNew.isHidden = false
         imageview.isHidden = false
-        
+        messageFirst.isHidden = true
     }
     func count(starttime:Date){
         let currentTime = Date().timeIntervalSince(starttime)
@@ -275,8 +294,8 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         timermil.isHidden = true
     }
     func display(timersec timersec:UILabel, timermill:UILabel, messageNew:UILabel){
-        timersec.isHidden = false
-        timermill.isHidden = false
+//        timersec.isHidden = false
+//        timermill.isHidden = false
         messageNew.isHidden = true
     }
 //

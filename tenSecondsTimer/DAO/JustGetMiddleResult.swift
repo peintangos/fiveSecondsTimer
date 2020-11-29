@@ -12,6 +12,7 @@ import Foundation
 import RealmSwift
 
 class JustGetMiddleResult:Object{
+    @objc dynamic var id = Int.random(in: 0..<1000000)
     @objc dynamic var name = "デフォルト"
     @objc dynamic var dateNoMold = Date()
     @objc dynamic var date:String?

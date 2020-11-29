@@ -43,7 +43,7 @@ class JustGetMiddlePlayWithOthers1ViewController: UIViewController, UITextFieldD
         self.messageFirst.center.y = self.view.center.y - 100
         self.messageFirst.textAlignment = NSTextAlignment.center
         self.messageFirst.textColor = .white
-        self.messageFirst.text = "インジケータが進むよ！\nちょうどのところで止めて、反射神経を確かめよう！"
+        self.messageFirst.text = "インジケータが進むよ！\nちょうどのところで止めよう！"
 //        改行するには、numberOfLines = 0にする必要があるらしい。なんか、tableViewでもnumberOfLinesを見たきたする
         self.messageFirst.numberOfLines = 0
         self.view.addSubview(self.messageFirst)

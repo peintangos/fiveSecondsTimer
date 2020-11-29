@@ -17,9 +17,11 @@ class Player3ViewController: UIViewController, UITextFieldDelegate {
         self.stopButton = UIButton()
         self.view.addSubview(self.stopButton!)
         self.view.addSubview(self.startButton!)
+        player1.makeMessagefirst(view:self.view)
         // Do any additional setup after loading the view.
         makeColorLayer(number: backgroundColorNumberStatic)
     }
+    var messageFirst:UILabel!
     func makeColorLayer(number:Int){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
         layer!.frame = self.view.frame

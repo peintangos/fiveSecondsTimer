@@ -48,10 +48,12 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             return Setting.time.allCases.count
         }else if sectionNumber! == 1 && self.rowNumber! == 6{
             return Setting.backgroundColor.allCases.count
+        }else if sectionNumber! == 2 && self.rowNumber == 0 {
+            return Setting.nomikaiMode.allCases.count
         }
-        else if sectionNumber! == 2 && self.rowNumber == 0{
+        else if sectionNumber! == 2 && self.rowNumber == 1{
             return Setting.kizuna.allCases.count
-        }else if sectionNumber! == 2 && self.rowNumber == 1 {
+        }else if sectionNumber! == 2 && self.rowNumber == 2{
             return Setting.kings.allCases.count
         }else {
             return 1
@@ -113,12 +115,12 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             if backgroundColorNumberStatic == indexPath.row {
                 cell.accessoryType = .checkmark
             }
-        }else if sectionNumber! == 2 && self.rowNumber! == 0 {
+        }else if sectionNumber! == 2 && self.rowNumber! == 1 {
             cell.textLabel?.text = Setting.kizuna.init(rawValue: indexPath.row)!.getName()
             if defaults.integer(forKey: "kizuna") == indexPath.row{
                 cell.accessoryType = .checkmark
             }
-        }else if sectionNumber! == 2 && self.rowNumber! == 1 {
+        }else if sectionNumber! == 2 && self.rowNumber! == 2 {
             cell.textLabel?.text = Setting.kings.init(rawValue: indexPath.row)!.getName()
             if defaults.integer(forKey: "kings") == indexPath.row{
                 cell.accessoryType = .checkmark
@@ -295,4 +297,4 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
     }
     */
 
-}
+

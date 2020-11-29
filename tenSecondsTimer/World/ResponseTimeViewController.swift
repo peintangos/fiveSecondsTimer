@@ -84,7 +84,7 @@ class ResponseTimeViewController: UIViewController,UITableViewDataSource,UITable
                 cell.textLabel?.text = "??"
                 return cell
             }
-            if indexPath.row + 1 < self.yourResponseLabelRanking! {
+            if indexPath.row + 1 < self.yourResponseLabelRanking ?? 10 {
                 cell.textLabel?.text = "??"
                 return cell
             }

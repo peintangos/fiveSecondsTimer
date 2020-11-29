@@ -13,6 +13,7 @@ import UIKit
 import RealmSwift
 
 class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSource,UITabBarDelegate{
+    var recordId:Int?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        もし、全てを返したかったら、以下を返せば良い
         return self.tableCells.count
@@ -28,12 +29,20 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
             cell.textLabel?.text = "\((indexPath as NSIndexPath).row + 1)位 \(tableCells[(indexPath as NSIndexPath).row].timeDifference.description)"
             cell.detailTextLabel?.text = "日付：\(self.moldTime(tableCells[(indexPath as NSIndexPath).row].date!)) 名前：\(tableCells[(indexPath as NSIndexPath).row].name!)"
+            if recordIdStatic == tableCells[(indexPath as NSIndexPath).row].id{
+                cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+                cell.detailTextLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+            }
             return cell
         }
         else {
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
             cell.textLabel?.text = "名前：\(self.tableCellsHistory[(indexPath as NSIndexPath).row].name!)"
             cell.detailTextLabel?.text = "日付：\(self.moldTime(self.tableCellsHistory[(indexPath as NSIndexPath).row].date!))タイム：\(self.tableCellsHistory[(indexPath as NSIndexPath).row].timeDifference)"
+            if recordIdStatic == tableCellsHistory[(indexPath as NSIndexPath).row].id{
+                cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+                cell.detailTextLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+            }
 //            if tableCells[(indexPath as NSIndexPath).row].timeDifference <= 0.3 {
 ////                セルの背景色を変えたい場合は以下
 ////                cell.contentView.backgroundColor = UIColor.orange

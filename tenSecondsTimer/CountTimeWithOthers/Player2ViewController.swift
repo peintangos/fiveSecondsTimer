@@ -20,12 +20,14 @@ class Player2ViewController: UIViewController, UITextFieldDelegate {
         self.stopButton = UIButton()
         self.view.addSubview(self.stopButton!)
         self.view.addSubview(self.startButton!)
+        player1.makeMessagefirst(view:self.view)
     }
     func makeColorLayer(number:Int){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
         layer!.frame = self.view.frame
         self.view.layer.insertSublayer(layer!, at: 0)
     }
+    var messageFirst:UILabel!
     var timerSec = UILabel()
     var timserSecDouble:Double?
     var timerMill = UILabel()

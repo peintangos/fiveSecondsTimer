@@ -10,7 +10,7 @@ import UIKit
 let web = ["秒数の設定","名前の省略"]
 let web2 = ["アイコン","輪っかの色","ボタンの文字の色","ボタンの文字の大きさ","ボタンの枠の色","ボタンの枠の幅","背景のグラデーションの設定"]
 let rule = ["ルールの設定","レイアウトの設定","コンテンツ"]
-let web3 = ["絆ルール","王様ルール"]
+let web3 = ["飲み会モード","絆ルール","王様ルール"]
 
 class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationBarDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,6 +31,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         return rule[section]
     }
     var switchS = UISwitch(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+    var switchNomikaiMode = UISwitch(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
 
@@ -49,7 +50,12 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         }else if indexPath.section == 1{
             cell.textLabel?.text = web2[indexPath.row]
             cell.accessoryType = .disclosureIndicator
-        }else if indexPath.section == 2 {
+        }else if indexPath.section == 2 && indexPath.row == 0 {
+//            名前省略の時には、訳わからない設定を入れているが、普通に下記のようにaccessoryViewに設定してあげればOK
+            cell.accessoryView = switchNomikaiMode
+            cell.textLabel?.text = web3[0]
+        }
+        else if indexPath.section == 2 {
             cell.textLabel?.text = web3[indexPath.row]
             cell.accessoryType = .disclosureIndicator
         }
@@ -59,6 +65,9 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 1 {
+            return
+        }
+        if indexPath.section == 2 && indexPath.row == 0 {
             return
         }
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -86,6 +95,41 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        以下がデフォルトのナビゲーションエリアの色らしい
         view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
         self.view.addSubview(view)
+        
+        self.switchNomikaiMode.isOn = Setting.nomikaiMode.init(rawValue: UserDefaults.standard.integer(forKey: "nomikaiMode"))!.getBool()
+        self.switchNomikaiMode.addTarget(self, action: #selector(changeSwitchNomikaiMode), for: UIControl.Event.valueChanged)
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+    }
+    var alert:UIAlertController!
+    @objc func changeSwitchNomikaiMode(sender:UISwitch){
+        let onCheck:Bool = sender.isOn
+        let defo = UserDefaults.standard
+        switch onCheck {
+        case true:
+            defo.setValue(1, forKey: "nomikaiMode")
+            nomikaiModeStatic = 1
+            alert = UIAlertController(title: "飲み会モードをオンにしました。\nお酒の飲み過ぎには注意してね！", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction.init(title: "はい", style: .default, handler: nil))
+            present(alert, animated: true) {
+                self.alert.view.superview?.isUserInteractionEnabled = true
+                self.alert.view.superview?.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(self.close)))
+            }
+        case false:
+            defo.setValue(0, forKey: "nomikaiMode")
+            nomikaiModeStatic = 0
+            alert = UIAlertController(title: "飲み会モードをオフにしました。", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction.init(title: "はい", style: .default, handler: nil))
+            present(alert, animated: true) {
+                self.alert.view.superview?.isUserInteractionEnabled = true
+                self.alert.view.superview?.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(self.close)))
+            }
+        }
+    }
+    @objc func close(){
+        alert.dismiss(animated: true, completion: nil)
+        alert = nil
     }
     func makeColorLayer(number:Int,viewT:UIView){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()

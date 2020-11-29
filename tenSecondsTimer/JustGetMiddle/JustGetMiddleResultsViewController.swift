@@ -34,8 +34,16 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
         cell.accessoryType = .disclosureIndicator
         if indexPath.section == 0{
             cell.textLabel?.text = "\(indexPath.row + 1)位 名前\(justGetMiddleResultRanking[(indexPath as NSIndexPath).row].name)　乖離率\(justGetMiddleResultRanking[(indexPath as NSIndexPath).row].difference)%"
+            if justGetMiddleIdStatic! == justGetMiddleResultRanking[(indexPath as NSIndexPath).row].id{
+                cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+                cell.detailTextLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+            }
         }else if indexPath.section == 1{
             cell.textLabel?.text = "\(justGetMiddleResult[(indexPath as NSIndexPath).row].date!) 乖離率\(justGetMiddleResult[(indexPath as NSIndexPath).row].difference)%"
+            if justGetMiddleIdStatic! == justGetMiddleResult[(indexPath as NSIndexPath).row].id{
+                cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+                cell.detailTextLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
+            }
         }
         return cell
     }

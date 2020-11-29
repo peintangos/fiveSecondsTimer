@@ -34,20 +34,22 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
         cell.textLabel?.text = "\((indexPath as NSIndexPath).row + 1)位\(tableCells![(indexPath as NSIndexPath).row].name!)"
         cell.detailTextLabel?.text = "タイム：\(tableCells![(indexPath as NSIndexPath).row].timerSecond!)\(tableCells![(indexPath as NSIndexPath).row].timerMill!) 解離：\(tableCells![(indexPath as NSIndexPath).row].timeDifference.description)"
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        if randomIntMiracleCount! >= (Setting.kings.init(rawValue: kingsRuleNumberStatic)?.getInt())! {
-            if indexPath.row == 0 {
-                imageView.image = UIImage(named: "king")
-                cell.accessoryView = imageView
-                name = "王様：\(tableCells![(indexPath as NSIndexPath).row].name!)"
+        if Setting.nomikaiMode.init(rawValue: nomikaiModeStatic)!.getBool() {
+            if randomIntMiracleCount! >= (Setting.kings.init(rawValue: kingsRuleNumberStatic)?.getInt())! {
+                if indexPath.row == 0 {
+                    imageView.image = UIImage(named: "king")
+                    cell.accessoryView = imageView
+                    name = "王様：\(tableCells![(indexPath as NSIndexPath).row].name!)"
+                    return cell
+                }
                 return cell
             }
-            return cell
-        }
-        if randomIntMiracleCount! >= (Setting.kizuna.init(rawValue: kizunaRuleNumberStatic)?.getInt())! {
-            imageView.image = UIImage(named: (Setting.icon.init(rawValue: iconNumberStatic)?.getName())!)
-            cell.accessoryView = imageView
-            nameList.append(tableCells![(indexPath as NSIndexPath).row].name!)
-            return cell
+            if randomIntMiracleCount! >= (Setting.kizuna.init(rawValue: kizunaRuleNumberStatic)?.getInt())! {
+                imageView.image = UIImage(named: (Setting.icon.init(rawValue: iconNumberStatic)?.getName())!)
+                cell.accessoryView = imageView
+                nameList.append(tableCells![(indexPath as NSIndexPath).row].name!)
+                return cell
+            }            
         }
 
         let randomNumber = Int.random(in: 1..<3)
@@ -71,33 +73,35 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
     var nameList = Array<String>()
     var alert:UIAlertController!
     override func viewDidAppear(_ animated: Bool) {
+        if Setting.nomikaiMode.init(rawValue: nomikaiModeStatic)!.getBool() {
+            nameList.forEach { (nameElement) in
+                name += nameElement + "さん\n"
+                print(nameElement)
+                print(name)
+            }
+            if randomIntMiracleCount! >= (Setting.kings.init(rawValue: kingsRuleNumberStatic)?.getInt())! {
+                alert = UIAlertController(title: "👑王様タイム！\n王様は一緒に飲みたい人を指名できるよ！", message: name, preferredStyle: .alert)
+                present(alert, animated: true, completion: {
+                    self.alert.view.superview?.isUserInteractionEnabled = true
+                    self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.closeAlert)))
+                })
+                return
+            }
+            if randomIntMiracleCount! >= (Setting.kizuna.init(rawValue: kizunaRuleNumberStatic)?.getInt())!{
+                alert = UIAlertController(title: "絆タイム!\n全員で飲んで、絆を深める！", message: name, preferredStyle: .alert)
+                present(alert, animated: true, completion: {
+                    self.alert.view.superview?.isUserInteractionEnabled = true
+                    self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.closeAlert)))
+                })
+                return
+            }
+            alert = UIAlertController(title: "飲み足りない人☆", message: name, preferredStyle: .alert)
+            present(alert, animated: true, completion: {
+                self.alert.view.superview?.isUserInteractionEnabled = true
+                self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.closeAlert)))
+            })
+        }
         
-        nameList.forEach { (nameElement) in
-            name += nameElement + "さん\n"
-            print(nameElement)
-            print(name)
-        }
-        if randomIntMiracleCount! >= (Setting.kings.init(rawValue: kingsRuleNumberStatic)?.getInt())! {
-            alert = UIAlertController(title: "👑王様タイム！\n王様は一緒に飲みたい人を指名できるよ！", message: name, preferredStyle: .alert)
-            present(alert, animated: true, completion: {
-                self.alert.view.superview?.isUserInteractionEnabled = true
-                self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.closeAlert)))
-            })
-            return
-        }
-        if randomIntMiracleCount! >= (Setting.kizuna.init(rawValue: kizunaRuleNumberStatic)?.getInt())!{
-            alert = UIAlertController(title: "絆タイム!\n全員で飲んで、絆を深める！", message: name, preferredStyle: .alert)
-            present(alert, animated: true, completion: {
-                self.alert.view.superview?.isUserInteractionEnabled = true
-                self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.closeAlert)))
-            })
-            return
-        }
-        alert = UIAlertController(title: "飲み足りない人☆", message: name, preferredStyle: .alert)
-        present(alert, animated: true, completion: {
-            self.alert.view.superview?.isUserInteractionEnabled = true
-            self.alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.closeAlert)))
-        })
     }
     @objc func closeAlert() {
             alert.dismiss(animated: true, completion: nil)

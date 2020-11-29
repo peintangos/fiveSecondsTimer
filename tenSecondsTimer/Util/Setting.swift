@@ -13,6 +13,26 @@ import Foundation
 import UIKit
 
 enum Setting:CaseIterable{
+    enum nomikaiMode:Int,CaseIterable{
+        case off = 0 
+        case on = 1
+        func getBool() -> Bool{
+            switch self {
+            case .on:
+                return true
+            case .off:
+                return false
+            }
+        }
+        func getString() -> String{
+            switch self {
+            case .on:
+                return "オン"
+            case .off:
+                return "オフ"
+            }
+        }
+    }
     enum kizuna:Int,CaseIterable{
         case min = 0
         case medium = 1

@@ -37,6 +37,8 @@ var kizunaRuleNumberStatic:Int = UserDefaults.standard.integer(forKey: "kizuna")
 var kingsRuleNumberStatic:Int = UserDefaults.standard.integer(forKey: "kings")
 //初回で入力したユーザ名をUserDefaultに登録
 var name:String = UserDefaults.standard.string(forKey: "username")!
+//飲み会モードの設定
+var nomikaiModeStatic:Int = UserDefaults.standard.integer(forKey: "nomikaiMode")
 var playerNumberAll:Int?
 var isSaved:Bool?
 //リストで取得する配列の数を表現
@@ -70,6 +72,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                                          "backgroundColorNumber":0,
                                          "kizuna":1,
                                          "kings":1,
+                                         "nomikaiMode":false,
                                          "isNameSaved":false])
             timeNumberStatic = defaults.integer(forKey: "timeNumber")
             iconNumberStatic = defaults.integer(forKey: "iconNumber")
@@ -95,8 +98,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }
 //        一番下のボタンを作り、viewに配置する。また、タップ時のイベントをサブスクライブする。
         do{
-            self.justGetMiddlePlayWithOthers = makeJustGetMiddlePlayWidthOthers()
-            self.justGetMiddlePlayWithOthers?.rx.tap.subscribe{[weak self] _ in
+            self.justGetMiddlePlayWithOthers.rx.tap.subscribe{[weak self] _ in
                 self?.makeAlertForJustGetMiddle()
             }.disposed(by: dispose)
         }
@@ -285,7 +287,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
     var button:UIButton?
     var justGetMiddle:UIButton = UIButton()
     var worldButton:UIButton?
-    var justGetMiddlePlayWithOthers:UIButton?
+    var justGetMiddlePlayWithOthers = UIButton()
     
     override func viewDidAppear(_ animated: Bool) {
         settingTitle(view: titleLabel)
@@ -296,9 +298,10 @@ class ViewController: UIViewController,UITextFieldDelegate{
         makePlaySelf(playSelf: self.playSelf!)
         makePlayWithOthers(playWithOthers: self.playWithOthers!)
         justGetMiddle(justGetMiddle: self.justGetMiddle)
+        makeJustGetMiddlePlayWidthOthers()
         self.view.addSubview(self.justGetMiddle)
         self.view.addSubview(self.worldButton!)
-        self.view.addSubview(self.justGetMiddlePlayWithOthers!)
+        self.view.addSubview(self.justGetMiddlePlayWithOthers)
         makeAutoLayout(button: self.justGetMiddle, settingButton: self.button!,worldButton: self.worldButton!)
         
         if safeAreaTopFirstView == nil {
@@ -368,7 +371,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
     
     func makePlaySelf(playSelf playself:UIButton){
         playself.backgroundColor = UIColor.white
-        playself.setTitle("一人で秒当てをする！", for: .normal)
+        playself.setTitle("ストップウォッチで遊ぶ（一人で）", for: .normal)
         playself.tintColor = Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor()
         playself.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         playself.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
@@ -379,7 +382,11 @@ class ViewController: UIViewController,UITextFieldDelegate{
     
     func makePlayWithOthers(playWithOthers playwithothers:UIButton){
         playwithothers.backgroundColor = UIColor.white
-        playwithothers.setTitle("みんなで秒当てをする！", for: .normal)
+        if Setting.nomikaiMode.init(rawValue: nomikaiModeStatic)!.getBool(){
+            playwithothers.setTitle("飲みたい人はだ〜れだ？", for: .normal)
+        }else {
+            playwithothers.setTitle("ストップウォッチで遊ぶ（みんなで）", for: .normal)
+        }
         playwithothers.tintColor = Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor()
         playwithothers.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         playwithothers.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
@@ -393,30 +400,32 @@ class ViewController: UIViewController,UITextFieldDelegate{
         justGetMiddle.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         justGetMiddle.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         justGetMiddle.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
-        justGetMiddle.setTitle("反射神経を確かめる！", for: .normal)
+        justGetMiddle.setTitle("反射神経で遊ぶ（一人で）", for: .normal)
         justGetMiddle.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
         justGetMiddle.layer.cornerRadius = 4.0
         justGetMiddle.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 150, width: 300, height: 50)
     }
-    func makeJustGetMiddlePlayWidthOthers() -> UIButton{
-        let justGetMiddlePlayWithOthersA = UIButton()
-        justGetMiddlePlayWithOthersA.center.x = self.view.center.x
-        justGetMiddlePlayWithOthersA.backgroundColor = UIColor.white
-        justGetMiddlePlayWithOthersA.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
-        justGetMiddlePlayWithOthersA.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
-        justGetMiddlePlayWithOthersA.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
-        justGetMiddlePlayWithOthersA.setTitle("みんなで反射神経を確かめる！", for: .normal)
-        justGetMiddlePlayWithOthersA.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
-        justGetMiddlePlayWithOthersA.layer.cornerRadius = 4.0
-        justGetMiddlePlayWithOthersA.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 250, width: 300, height: 50)
-        return justGetMiddlePlayWithOthersA
+    func makeJustGetMiddlePlayWidthOthers(){
+        self.justGetMiddlePlayWithOthers.center.x = self.view.center.x
+        self.justGetMiddlePlayWithOthers.backgroundColor = UIColor.white
+        self.justGetMiddlePlayWithOthers.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        self.justGetMiddlePlayWithOthers.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+        self.justGetMiddlePlayWithOthers.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
+        if Setting.nomikaiMode.init(rawValue: nomikaiModeStatic)!.getBool(){
+            self.justGetMiddlePlayWithOthers.setTitle("飲みたい人はだ〜れだ？？？", for: .normal)
+        }else {
+            self.justGetMiddlePlayWithOthers.setTitle("反射神経で遊ぶ（みんなで）", for: .normal)
+        }
+        self.justGetMiddlePlayWithOthers.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
+        self.justGetMiddlePlayWithOthers.layer.cornerRadius = 4.0
+        self.justGetMiddlePlayWithOthers.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 250, width: 300, height: 50)
     }
 //    無理やり過ぎてやりたくはないが、Rxの関係で、viewWillAppeaerの前でもう一度代入すると動かなくなるので、設定だけ更新する
     func settingUpdate(){
-        self.justGetMiddlePlayWithOthers!.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
-        self.justGetMiddlePlayWithOthers!.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
-        self.justGetMiddlePlayWithOthers?.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
-        self.justGetMiddlePlayWithOthers!.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
+        self.justGetMiddlePlayWithOthers.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
+        self.justGetMiddlePlayWithOthers.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
+        self.justGetMiddlePlayWithOthers.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
+        self.justGetMiddlePlayWithOthers.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
     }
     
     func settingButton (view viewA:UIButton){

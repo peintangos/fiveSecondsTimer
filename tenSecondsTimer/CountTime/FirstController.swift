@@ -15,6 +15,7 @@ import RxCocoa
 import RxSwift
 //　　画面サイズの定数
 let myBoundSize: CGSize = UIScreen.main.bounds.size
+var recordIdStatic:Int?
 class FirstController: UIViewController, UITextFieldDelegate {
     func makeTimerSec(timersec:UILabel){
         timersec.text = "00"
@@ -122,8 +123,8 @@ class FirstController: UIViewController, UITextFieldDelegate {
                 self.top.isHidden = true
                 self.fire.isHidden = true
         //        self
-                self.timerSecond.isHidden = false
-                self.timerMsec.isHidden = false
+//                self.timerSecond.isHidden = false
+//                self.timerMsec.isHidden = false
                 
         //        円形のサークルが、ストップボタンを押すと止まるように設定（.speed = 0 とすると、2回目こうやるときに動かなくなってしまったので、こちらを使用）
                 shapeLayer.removeAllAnimations()
@@ -162,6 +163,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
                         record.timerSecond = self.timerSecond.text!
                         record.timerMsec = self.timerMsec.text!
                         record.result = self.timerSecond.text! + self.timerMsec.text!
+                        recordIdStatic = record.id
                         let timeDiffrenceTemporary = self.calculate(second: secondDouble)
                         record.timeDifference = timeDiffrenceTemporary
                         try! realm.write{
@@ -176,6 +178,7 @@ class FirstController: UIViewController, UITextFieldDelegate {
                         
                         self.start2.alpha = 1
                         self.stop2.alpha = 0.5
+                        self.explanation.isHidden = false
                     }))
         //            セカンドコントローラをアップデートする（これ必要かわからん）
                     let secondController = SecondController()
@@ -186,8 +189,12 @@ class FirstController: UIViewController, UITextFieldDelegate {
                 alert.addAction(UIAlertAction(title: "記録を見にいく!", style: .default, handler: {(action) -> Void in
         //            なんかわからないけど、ググったら出てきた笑
         //            タブを切り替える方法ぽい
+                    
                     let UINavigationController = self.tabBarController?.viewControllers?[1];
                     self.tabBarController?.selectedViewController = UINavigationController;
+                    self.start2.alpha = 1
+                    self.stop2.alpha = 0.5
+                    self.explanation.isHidden = false
                 }))
         alert.addAction(UIAlertAction(title: "もう一回挑戦する!", style: .default, handler: { (action) in
             self.start2.alpha = 1

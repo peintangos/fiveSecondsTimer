@@ -9,6 +9,7 @@ import RealmSwift
 import UIKit
 import Alamofire
 
+var justGetMiddleIdStatic:Int?
 class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
     var imageView = UIImageView()
     func makeImageView(imageview:UIImageView){
@@ -113,6 +114,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
 //                後でメソッド化すること
                 let realm = try! Realm()
                 let record = JustGetMiddleResult()
+                justGetMiddleIdStatic = record.id
                 record.name = alert.textFields![0].text!
                 record.date = moldTime(date: record.dateNoMold)
                 let diff = self.calcTime2(goal: goalUse!, end: stroke!)
@@ -254,24 +256,23 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         let randomInt = Int.random(in: 1...8)
         switch randomInt {
         case 1:
-            anim.duration = 0.4
-        case 2:
-            anim.duration = 0.1
-        case 3:
-            anim.duration = 0.2
-        case 4:
-            anim.duration = 0.3
-        case 5:
             anim.duration = 0.5
-        case 6:
-            anim.duration = 0.7
-        case 7:
+        case 2:
             anim.duration = 0.6
-        case 8:
+        case 3:
+            anim.duration = 0.7
+        case 4:
             anim.duration = 0.8
-        default:
+        case 5:
             anim.duration = 0.9
-            
+        case 6:
+            anim.duration = 1.0
+        case 7:
+            anim.duration = 1.1
+        case 8:
+            anim.duration = 1.2
+        default:
+            anim.duration = 1.3
         }
         anim.fromValue = 0.0
         anim.toValue = 1.0
