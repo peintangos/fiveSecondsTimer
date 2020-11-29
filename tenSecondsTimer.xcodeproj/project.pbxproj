@@ -49,6 +49,7 @@
 		0F66BB7F2551626200B152DF /* CountTimeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB7E2551626200B152DF /* CountTimeDto.swift */; };
 		0F66BB842551627D00B152DF /* JustGetMiddleDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB832551627D00B152DF /* JustGetMiddleDto.swift */; };
 		0F66BB89255166EB00B152DF /* CountTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB88255166EB00B152DF /* CountTimeViewModel.swift */; };
+		0FA3CEA1257352D20014379F /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3CEA0257352D20014379F /* ThirdViewController.swift */; };
 		0FB3A945255F9E5E00BF58DB /* JustGetMiddlePlayWithOthers7ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3A944255F9E5E00BF58DB /* JustGetMiddlePlayWithOthers7ViewController.swift */; };
 		0FB3A94A255F9E9F00BF58DB /* JustGetMiddlePlayWithOthers8ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3A949255F9E9F00BF58DB /* JustGetMiddlePlayWithOthers8ViewController.swift */; };
 		0FB3A94F255F9EB100BF58DB /* JustGetMiddlePlayWithOthers9ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3A94E255F9EB100BF58DB /* JustGetMiddlePlayWithOthers9ViewController.swift */; };
@@ -132,6 +133,7 @@
 		0F66BB7E2551626200B152DF /* CountTimeDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountTimeDto.swift; sourceTree = "<group>"; };
 		0F66BB832551627D00B152DF /* JustGetMiddleDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleDto.swift; sourceTree = "<group>"; };
 		0F66BB88255166EB00B152DF /* CountTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountTimeViewModel.swift; sourceTree = "<group>"; };
+		0FA3CEA0257352D20014379F /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		0FB3A944255F9E5E00BF58DB /* JustGetMiddlePlayWithOthers7ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthers7ViewController.swift; sourceTree = "<group>"; };
 		0FB3A949255F9E9F00BF58DB /* JustGetMiddlePlayWithOthers8ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthers8ViewController.swift; sourceTree = "<group>"; };
 		0FB3A94E255F9EB100BF58DB /* JustGetMiddlePlayWithOthers9ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthers9ViewController.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 			children = (
 				0F4DBD8A254FAFD900AA26BB /* FirstController.swift */,
 				0F4DBD8B254FAFD900AA26BB /* SecondController.swift */,
+				0FA3CEA0257352D20014379F /* ThirdViewController.swift */,
 			);
 			path = CountTime;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 				0FB3A954255F9EC800BF58DB /* JustGetMiddlePlayWithOthers10ViewController.swift in Sources */,
 				0F66BB842551627D00B152DF /* JustGetMiddleDto.swift in Sources */,
 				0F318A5A254FEE5E008538BD /* JustGetMiddlePlayWithOthers5ViewController.swift in Sources */,
+				0FA3CEA1257352D20014379F /* ThirdViewController.swift in Sources */,
 				0F4DBDA3254FAFD900AA26BB /* FirstController.swift in Sources */,
 				0F4DBDA2254FAFD900AA26BB /* ResultsPlayWithOthersViewController.swift in Sources */,
 				0FB3A972255FB7DC00BF58DB /* Player10ViewController.swift in Sources */,

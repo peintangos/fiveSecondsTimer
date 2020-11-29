@@ -16,33 +16,50 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
     var recordId:Int?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        もし、全てを返したかったら、以下を返せば良い
-        return self.tableCells.count
-//        if section == 0{
-//            return 3
-//        }
 //        return self.tableCells.count
+        if section == 0{
+            return 3
+        }
+        return self.tableCellsHistory.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //        StoryBoardを使わなくても画面遷移ができることを発見
+        let vc = ThirdViewController()
+        if indexPath.section == 0 {
+            vc.tableCells = self.tableCells
+            vc.section = 0
+            vc.row = indexPath.row
+        }else if indexPath.section == 1 {
+            vc.tableCellsHistory = self.tableCellsHistory
+            vc.section = 1
+            vc.row = indexPath.row
+        }
+        self.present(vc, animated: true, completion: nil)
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath as NSIndexPath).section == 0 {
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-            cell.textLabel?.text = "\((indexPath as NSIndexPath).row + 1)位 \(tableCells[(indexPath as NSIndexPath).row].timeDifference.description)"
-            cell.detailTextLabel?.text = "日付：\(self.moldTime(tableCells[(indexPath as NSIndexPath).row].date!)) 名前：\(tableCells[(indexPath as NSIndexPath).row].name!)"
+            cell.textLabel?.text = "\((indexPath as NSIndexPath).row + 1)位 名前 \(tableCells[(indexPath as NSIndexPath).row].name!) 解離\(floor(tableCells[(indexPath as NSIndexPath).row].timeDifference * 10000) / 10000 )"
+            cell.detailTextLabel?.text = "日付：\(self.moldTime(tableCells[(indexPath as NSIndexPath).row].date!))"
             if recordIdStatic == tableCells[(indexPath as NSIndexPath).row].id{
                 cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
                 cell.detailTextLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
             }
+            cell.accessoryType = .disclosureIndicator
             return cell
         }
         else {
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-            cell.textLabel?.text = "名前：\(self.tableCellsHistory[(indexPath as NSIndexPath).row].name!)"
-            cell.detailTextLabel?.text = "日付：\(self.moldTime(self.tableCellsHistory[(indexPath as NSIndexPath).row].date!))タイム：\(self.tableCellsHistory[(indexPath as NSIndexPath).row].timeDifference)"
+            cell.textLabel?.text = "\(self.moldTime(self.tableCellsHistory[(indexPath as NSIndexPath).row].date!)) 解離\(floor(self.tableCellsHistory[(indexPath as NSIndexPath).row].timeDifference * 10000) / 10000)"
+//            cell.detailTextLabel?.text = "名前\(self.tableCellsHistory[(indexPath as NSIndexPath).row].name!)"
             if recordIdStatic == tableCellsHistory[(indexPath as NSIndexPath).row].id{
                 cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
                 cell.detailTextLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
             }
+            cell.accessoryType = .disclosureIndicator
 //            if tableCells[(indexPath as NSIndexPath).row].timeDifference <= 0.3 {
 ////                セルの背景色を変えたい場合は以下
 ////                cell.contentView.backgroundColor = UIColor.orange
@@ -64,7 +81,7 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
     }
     func moldTime(_ time:Date) -> String{
         let formatter = DateFormatter()
-        formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "ydMMM", options: 0, locale: Locale(identifier: "ja_JP"))
+        formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yydMMM", options: 0, locale: Locale(identifier: "ja_JP"))
         return formatter.string(from:time)
     }
     var tableCells: Results<Record>!
@@ -110,6 +127,7 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
     override func viewWillAppear(_ animated: Bool) {
         self.update()
     }
+    
 //
     
     //    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
