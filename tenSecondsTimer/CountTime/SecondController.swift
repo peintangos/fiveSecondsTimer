@@ -15,12 +15,32 @@ import RealmSwift
 class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSource,UITabBarDelegate{
     var recordId:Int?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        もし、全てを返したかったら、以下を返せば良い
-//        return self.tableCells.count
+//        このテーブルのセクションの数には、少し考慮が必要
+//        単に、tableCellsの個数を返すと、tableCellsの個数が3個未満の時にバグるので、3コマでは分岐する
         if section == 0{
-            return 3
+            switch tableCells.count{
+            case 0:
+                return 0
+            case 1:
+                return 1
+            case 2:
+                return 3
+            case 3:
+                return 3
+            default:
+                return 3
+            }
+        }else if section == 1 {
+            if tableCellsHistory.count == 0 {
+                return 0
+            }else {
+                return tableCellsHistory.count
+            }
+        }else {
+//            あり得ないと思うが
+            return self.tableCells.count
         }
-        return self.tableCellsHistory.count
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
