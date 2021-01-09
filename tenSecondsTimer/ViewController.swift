@@ -13,6 +13,7 @@ import UIKit
 import RxSwift
 import  RealmSwift
 import RxCocoa
+import AVFoundation
 //対戦ごとに一位になるID
 var orderAllNew:Int?
 //秒数をUserDefaultsからとってきて格納する箱
@@ -53,8 +54,9 @@ class ViewController: UIViewController,UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.playSound(name: "work.mp3")
 //        ユーザデフォルトから各種設定を読み込む（初回ダウンロードのみ初期設定がないため、registerしてある設定から読み込む
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
+            
         do{
 //            let storyBd = UIStoryboard(name: "Main", bundle: nil)
 //            let tutorialVC = storyBd.instantiateViewController(withIdentifier: "ViewController")
@@ -727,4 +729,22 @@ class ViewController: UIViewController,UITextFieldDelegate{
     
 }
 
+extension ViewController: AVAudioPlayerDelegate {
+    func playSound(name: String) {
+        do {
+            let path = Bundle.main.bundleURL.appendingPathComponent(name)
+            // AVAudioPlayerのインスタンス化
+            audioPlayer = try AVAudioPlayer(contentsOf: path, fileTypeHint: nil)
+            // AVAudioPlayerのデリゲートをセット
+            audioPlayer.delegate = self
+            // 音声の再生
+            print("a")
+            audioPlayer.play()
+        } catch {
+            print("b")
+        }
+    }
+}
+
+    var audioPlayer:AVAudioPlayer!
 
