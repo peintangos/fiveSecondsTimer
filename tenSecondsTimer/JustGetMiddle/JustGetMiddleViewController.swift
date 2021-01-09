@@ -51,6 +51,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.modalPresentationStyle = .fullScreen
 //        makeStartStop(button:self.startStop)
         self.view.addSubview(self.startStop)
 //        self.startStop.addTarget(self, action: #selector(tapStart), for: UIControl.Event.touchUpInside)
@@ -112,7 +113,7 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
             alert.addAction(UIAlertAction(title: "結果を見に行く!", style: .default, handler: { [self] (action) in
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddleResultsViewController") as? JustGetMiddleResultsViewController
-                
+                viewController?.modalPresentationStyle = .fullScreen
 //                後でメソッド化すること
                 let realm = try! Realm()
                 let record = JustGetMiddleResult()

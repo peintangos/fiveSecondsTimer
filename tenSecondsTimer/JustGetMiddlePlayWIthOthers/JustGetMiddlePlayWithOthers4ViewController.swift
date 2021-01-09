@@ -129,6 +129,7 @@ class JustGetMiddlePlayWithOthers4ViewController: UIViewController,UITextFieldDe
             if isUserNameSaved(){
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 var viewController:UIViewController?
+                viewController?.modalPresentationStyle = .fullScreen
                 self.saveJustGetMiddleReultWithOthers(name: "player4", stroke: Double(CGFloat(stroke!)))
                 switch temporaryCount {
                 case 4:
@@ -136,6 +137,7 @@ class JustGetMiddlePlayWithOthers4ViewController: UIViewController,UITextFieldDe
                 default:
                 viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers5ViewController")
                 }
+                viewController!.modalPresentationStyle = .fullScreen
                 self.present(viewController!, animated: true, completion: nil)
             }else {
                 self.saveJustGetMiddleReultWithOthers(name: name!, stroke: Double(CGFloat(stroke!)))
@@ -143,6 +145,7 @@ class JustGetMiddlePlayWithOthers4ViewController: UIViewController,UITextFieldDe
                     case 4:
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController") as! JustGetMiddlePlayWithOthersResultViewController
+                        viewController.modalPresentationStyle = .fullScreen
                         self.present(viewController, animated: true, completion: nil)
                     default:
                         let alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
@@ -152,6 +155,7 @@ class JustGetMiddlePlayWithOthers4ViewController: UIViewController,UITextFieldDe
                         alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
                             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers5ViewController") as! JustGetMiddlePlayWithOthers5ViewController
+                            viewController.modalPresentationStyle = .fullScreen
                         viewController.name = alert.textFields?[0].text!
                         self.present(viewController, animated: true, completion: nil)
                     }

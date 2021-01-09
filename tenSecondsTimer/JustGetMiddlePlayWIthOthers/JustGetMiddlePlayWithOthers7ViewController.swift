@@ -134,10 +134,11 @@ class JustGetMiddlePlayWithOthers7ViewController: UIViewController,UITextFieldDe
                 switch temporaryCount {
                 case 7:
                 viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
+                    viewController!.modalPresentationStyle = .fullScreen
                 default:
                 viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers8ViewController")
                 }
-                
+                viewController!.modalPresentationStyle = .fullScreen
                 self.present(viewController!, animated: true, completion: nil);
             }else {
                 self.saveJustGetMiddleReultWithOthers(name: name!, stroke: Double(CGFloat(stroke!)))
@@ -145,6 +146,7 @@ class JustGetMiddlePlayWithOthers7ViewController: UIViewController,UITextFieldDe
                     case 8:
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController") as! JustGetMiddlePlayWithOthersResultViewController
+                        viewController.modalPresentationStyle = .fullScreen
                         self.present(viewController, animated: true, completion: nil)
                     default:
                         let alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
@@ -155,6 +157,7 @@ class JustGetMiddlePlayWithOthers7ViewController: UIViewController,UITextFieldDe
                             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers8ViewController") as! JustGetMiddlePlayWithOthers8ViewController
                         viewController.name = alert.textFields?[0].text!
+                            viewController.modalPresentationStyle = .fullScreen
                         self.present(viewController, animated: true, completion: nil)
                     }
                  ))

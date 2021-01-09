@@ -22,6 +22,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         print(Realm.Configuration.defaultConfiguration.fileURL!)
 //        self.startButton = makeStartTimer()
+        self.modalPresentationStyle = .fullScreen
         self.startButton = UIButton()
 //        self.stopButton = makeStopTimer()
         self.stopButton = UIButton()
@@ -356,6 +357,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let player2ViewController = storyBoard.instantiateViewController(withIdentifier: "Player2ViewController") as! Player2ViewController
             player2ViewController.name = "player2"
+            player2ViewController.modalPresentationStyle = .fullScreen
             self.saveResults(timerMill: self.timerMill, timerSecond: self.timerSec,timerSecDouble: self.timerSecDouble)
             self.present(player2ViewController, animated: true, completion: nil)
         }else {

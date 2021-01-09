@@ -136,7 +136,7 @@ class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDe
                 default:
                 viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers7ViewController")
                 }
-                
+                viewController?.modalPresentationStyle = .fullScreen
                 self.present(viewController!, animated: true, completion: nil);
             }else {
                 self.saveJustGetMiddleReultWithOthers(name: name!, stroke: Double(CGFloat(stroke!)))
@@ -145,6 +145,7 @@ class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDe
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController") as! JustGetMiddlePlayWithOthersResultViewController
                         self.present(viewController, animated: true, completion: nil)
+                        viewController.modalPresentationStyle = .fullScreen
                     default:
                         let alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
                         alert.addTextField { (textFiled) in
@@ -154,6 +155,7 @@ class JustGetMiddlePlayWithOthers6ViewController: UIViewController,UITextFieldDe
                             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers7ViewController") as! JustGetMiddlePlayWithOthers7ViewController
                         viewController.name = alert.textFields?[0].text!
+                            viewController.modalPresentationStyle = .fullScreen
                         self.present(viewController, animated: true, completion: nil)
                     }
                  ))

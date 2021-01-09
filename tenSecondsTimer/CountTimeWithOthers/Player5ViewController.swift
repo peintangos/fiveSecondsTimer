@@ -39,6 +39,7 @@ class Player5ViewController: UIViewController,UITextFieldDelegate {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let nextView = storyBoard.instantiateViewController(withIdentifier: "Player6ViewController") as! Player6ViewController
             nextView.name = "player6"
+            nextView.modalPresentationStyle = .fullScreen
             self.present(nextView, animated: true, completion: nil)
             
         }else {
@@ -50,6 +51,7 @@ class Player5ViewController: UIViewController,UITextFieldDelegate {
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player6ViewController") as! Player6ViewController
                 nextView.name = nav.textFields?[0].text!
+                nextView.modalPresentationStyle = .fullScreen
                 self.present(nextView, animated: true, completion: nil)
             }))
             self.present(nav, animated: true, completion: nil)
@@ -113,6 +115,7 @@ class Player5ViewController: UIViewController,UITextFieldDelegate {
         if ( playerNumberAll == 5){
             let result = self.storyboard?.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
 //            result.playerNumber = self.playerNumber
+            result.modalPresentationStyle = .fullScreen
             self.present(result, animated: true, completion: nil)
         }else{
             self.goNext(playerNumber: playerNumberAll!)
