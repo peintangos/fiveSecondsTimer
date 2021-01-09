@@ -24,7 +24,7 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
             case 1:
                 return 1
             case 2:
-                return 3
+                return 2
             case 3:
                 return 3
             default:
@@ -80,21 +80,6 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
                 cell.detailTextLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
             }
             cell.accessoryType = .disclosureIndicator
-//            if tableCells[(indexPath as NSIndexPath).row].timeDifference <= 0.3 {
-////                セルの背景色を変えたい場合は以下
-////                cell.contentView.backgroundColor = UIColor.orange
-//                cell.textLabel?.textColor = UIColor.red
-//            }
-//            if tableCells[(indexPath as NSIndexPath).row].timeDifference <= 0.4 {
-////                セルの背景色を変えたい場合は以下
-////                cell.contentView.backgroundColor = UIColor.orange
-//                cell.textLabel?.textColor = UIColor.blue
-//            }
-//            if tableCells[(indexPath as NSIndexPath).row].timeDifference <= 0.5 {
-////                セルの背景色を変えたい場合は以下
-////                cell.contentView.backgroundColor = UIColor.orange
-//                cell.textLabel?.textColor = UIColor.green
-//            }
             return cell
             
         }

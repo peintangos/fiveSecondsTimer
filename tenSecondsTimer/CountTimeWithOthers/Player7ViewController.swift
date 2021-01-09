@@ -40,6 +40,7 @@ class Player7ViewController: UIViewController,UITextFieldDelegate {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let nextView = storyBoard.instantiateViewController(withIdentifier: "Player8ViewController") as! Player8ViewController
             nextView.name = "player8"
+            nextView.modalPresentationStyle = .fullScreen
             self.present(nextView, animated: true, completion: nil)
             
         }else {
@@ -50,6 +51,7 @@ class Player7ViewController: UIViewController,UITextFieldDelegate {
             nav.addAction(UIAlertAction(title: "次へ", style: UIAlertAction.Style.default, handler: {(action) in
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player8ViewController") as! Player8ViewController
+                nextView.modalPresentationStyle = .fullScreen
                 nextView.name = nav.textFields?[0].text!
                 self.present(nextView, animated: true, completion: nil)
             }))
@@ -114,6 +116,7 @@ class Player7ViewController: UIViewController,UITextFieldDelegate {
         if ( playerNumberAll == 7){
             let result = self.storyboard?.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
 //            result.playerNumber = self.playerNumber
+            result.modalPresentationStyle = .fullScreen
             self.present(result, animated: true, completion: nil)
         }else{
             self.goNext(playerNumber: playerNumberAll!)

@@ -92,6 +92,7 @@ class Player10ViewController: UIViewController,UITextFieldDelegate {
         self.saveResults3(timerMill: self.timerMill, timerSecond: self.timerSec, timerSecDouble: self.timserSecDouble!)
             let result = self.storyboard?.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
 //            result.playerNumber = self.playerNumber
+        result.modalPresentationStyle = .fullScreen
             self.present(result, animated: true, completion: nil)
     }
     func count(starttime:Date){

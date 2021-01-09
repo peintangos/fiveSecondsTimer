@@ -107,6 +107,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
     func makeAlertForJustGetMiddle(){
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
+        vc.modalPresentationStyle = .fullScreen
         let ui = UIAlertController(title: "遊ぶ人数を選択してね", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         ui.addAction(UIAlertAction.init(title: "2人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 2
@@ -121,6 +122,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
                     nextView.name = nameInput.textFields?[0].text!
+                    nextView.modalPresentationStyle = .fullScreen
                     self.present(nextView, animated: true, completion: nil)
                 }))
                 self.present(nameInput, animated: true, completion: nil)
@@ -139,6 +141,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
                     nextView.name = nameInput.textFields?[0].text!
+                    nextView.modalPresentationStyle = .fullScreen
                     self.present(nextView, animated: true, completion: nil)
                 }))
                 self.present(nameInput, animated: true, completion: nil)
@@ -157,6 +160,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
                     nextView.name = nameInput.textFields?[0].text!
+                    nextView.modalPresentationStyle = .fullScreen
                     self.present(nextView, animated: true, completion: nil)
                 }))
                 self.present(nameInput, animated: true, completion: nil)
@@ -175,6 +179,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
                     nextView.name = nameInput.textFields?[0].text!
+                    nextView.modalPresentationStyle = .fullScreen
                     self.present(nextView, animated: true, completion: nil)
                 }))
                 self.present(nameInput, animated: true, completion: nil)
@@ -193,6 +198,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
                     nextView.name = nameInput.textFields?[0].text!
+                    nextView.modalPresentationStyle = .fullScreen
                     self.present(nextView, animated: true, completion: nil)
                 }))
                 self.present(nameInput, animated: true, completion: nil)
@@ -211,6 +217,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
                     nextView.name = nameInput.textFields?[0].text!
+                    nextView.modalPresentationStyle = .fullScreen
                     self.present(nextView, animated: true, completion: nil)
                 }))
                 self.present(nameInput, animated: true, completion: nil)
@@ -229,6 +236,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
                     nextView.name = nameInput.textFields?[0].text!
+                    nextView.modalPresentationStyle = .fullScreen
                     self.present(nextView, animated: true, completion: nil)
                 }))
                 self.present(nameInput, animated: true, completion: nil)
@@ -247,6 +255,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
                     nextView.name = nameInput.textFields?[0].text!
+                    nextView.modalPresentationStyle = .fullScreen
                     self.present(nextView, animated: true, completion: nil)
                 }))
                 self.present(nameInput, animated: true, completion: nil)
@@ -265,6 +274,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let nextView = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers1ViewController") as! JustGetMiddlePlayWithOthers1ViewController
                     nextView.name = nameInput.textFields?[0].text!
+                    nextView.modalPresentationStyle = .fullScreen
                     self.present(nextView, animated: true, completion: nil)
                 }))
                 self.present(nameInput, animated: true, completion: nil)
@@ -457,6 +467,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"
+                nextView.modalPresentationStyle = .fullScreen
 //                nextView.playerNumber = 2
                 self.present(nextView, animated: true, completion: nil)
                 
@@ -467,6 +478,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                     let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                     nextView.name = nav.textFields?[0].text!
 //                    nextView.playerNumber = 2
+                    nextView.modalPresentationStyle = .fullScreen
                     self.present(nextView, animated: true, completion: nil)
                     
                 }))
@@ -514,6 +526,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"
+                nextView.modalPresentationStyle = .fullScreen
 //                nextView.playerNumber = 4
                 self.present(nextView, animated: true, completion: nil)
             }else {
@@ -522,6 +535,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                     nextView.name = nav.textFields?[0].text!
+                    nextView.modalPresentationStyle = .fullScreen
 //                    nextView.playerNumber = 4
                     self.present(nextView, animated: true, completion: nil)
                     

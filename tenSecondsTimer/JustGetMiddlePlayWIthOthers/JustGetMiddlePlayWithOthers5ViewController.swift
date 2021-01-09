@@ -148,7 +148,7 @@ class JustGetMiddlePlayWithOthers5ViewController: UIViewController,UITextFieldDe
                 default:
                 viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers6ViewController")
                 }
-                
+                viewController!.modalPresentationStyle = .fullScreen
                 self.present(viewController!, animated: true, completion: nil);
             }else {
                 self.saveJustGetMiddleReultWithOthers(name: name!, stroke: Double(CGFloat(stroke!)))
@@ -156,6 +156,7 @@ class JustGetMiddlePlayWithOthers5ViewController: UIViewController,UITextFieldDe
                     case 5:
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController") as! JustGetMiddlePlayWithOthersResultViewController
+                        viewController.modalPresentationStyle = .fullScreen
                         self.present(viewController, animated: true, completion: nil)
                     default:
                         let alert = UIAlertController(title: "次のプレイヤーの名前を入れてね", message: nil, preferredStyle: .alert)
@@ -165,7 +166,8 @@ class JustGetMiddlePlayWithOthers5ViewController: UIViewController,UITextFieldDe
                         alert.addAction(UIAlertAction(title: "入力完了", style: .default, handler: { [self] (action) in
                             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers6ViewController") as! JustGetMiddlePlayWithOthers6ViewController
-                        viewController.name = alert.textFields?[0].text!
+                            viewController.modalPresentationStyle = .fullScreen
+                            viewController.name = alert.textFields?[0].text!
                         self.present(viewController, animated: true, completion: nil)
                     }
                  ))

@@ -37,6 +37,7 @@ class Player3ViewController: UIViewController, UITextFieldDelegate {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let nextView = storyBoard.instantiateViewController(withIdentifier: "Player4ViewController") as! Player4ViewController
             nextView.name = "player4"
+            nextView.modalPresentationStyle = .fullScreen
             self.present(nextView, animated: true, completion: nil)
             
         }else {
@@ -110,6 +111,7 @@ class Player3ViewController: UIViewController, UITextFieldDelegate {
 
         if ( playerNumberAll == 3){
             let result = self.storyboard?.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
+            result.modalPresentationStyle = .fullScreen
 //            result.playerNumber = self.playerNumber
             self.present(result, animated: true, completion: nil)
         }else{

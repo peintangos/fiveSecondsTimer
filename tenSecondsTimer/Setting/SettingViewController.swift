@@ -72,9 +72,57 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         }
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyBoard.instantiateViewController(identifier: "ChangeIcons") as ChangeIconsViewController
+        vc.modalPresentationStyle = .fullScreen
+        let headerTitle:String!
+        switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                headerTitle = "秒数の設定"
+            case 1:
+                headerTitle = "デフォルト"
+            default:
+                headerTitle = "デフォルト"
+            }
+        case 1:
+            switch indexPath.row{
+            case 0:
+                headerTitle = "アイコンの設定"
+            case 1:
+                headerTitle = "輪っかの設定"
+            case 2:
+                headerTitle = "ボタンの文字の色の設定"
+            case 3:
+                headerTitle = "ボタンの文字の大きさの設定"
+            case 4:
+                headerTitle = "ボタン枠の色の設定"
+            case 5:
+                headerTitle = "ボタンの枠の幅の設定"
+            case 6:
+                headerTitle = "背景のグラデーションの設定"
+            default:
+                headerTitle = "デフォルト"
+            }
+
+        case 2:
+            switch indexPath.row {
+            case 0:
+                headerTitle = "デフォルト"
+            case 1:
+                headerTitle = "絆ルール"
+            case 2:
+                headerTitle = "王様ルール"
+            default:
+                headerTitle = "デフォルト"
+            }
+        default:
+            headerTitle = "デフォルト"
+        }
         vc.sectionNumber = indexPath.section
         vc.rowNumber = indexPath.row
+        vc.headerTitle = headerTitle
         self.present(vc, animated: true, completion: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return rule.count
@@ -131,6 +179,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         alert.dismiss(animated: true, completion: nil)
         alert = nil
     }
+
     func makeColorLayer(number:Int,viewT:UIView){
         let layer = Setting.backgroundColor.init(rawValue: number)?.getGradationLayer()
         layer!.frame = CGRect(x: 0, y: 0, width: viewT.frame.width, height: viewT.frame.height)

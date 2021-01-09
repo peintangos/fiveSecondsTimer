@@ -15,6 +15,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
 //    遷移元から値を引き継ぐ
     var sectionNumber :Int?
     var rowNumber:Int?
+    var headerTitle:String?
 //    選択している値を一時的に保存する変数（完了ボタンタップでUserDefaultsに保存する
     var timeNumber:Int?
     var iconNumber:Int?
@@ -206,9 +207,10 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
         }
         do{
             let bar = UINavigationBar()
-            bar.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44)
+            bar.frame = CGRect(x: 0, y: safeAreaTopFirstView!, width: self.view.frame.width, height: 44)
             let navItem = UINavigationItem()
             navItem.rightBarButtonItem = UIBarButtonItem(title: "完了", style: UIBarButtonItem.Style.done, target: nil, action:#selector(self.goBack))
+            navItem.title = headerTitle
             bar.pushItem(navItem, animated: true)
             self.view.addSubview(bar)
         }
@@ -216,7 +218,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
 
     @objc func goBack(){
         let defaults = UserDefaults.standard
-//        行いたいことは、UserDefaultsとxxxNumberStaticの更新。timeNumberは初期値でnilが入っているが、tableViewでタップされるとタップされた値が入っていく。ので、nilの場合は何もしないが、nilでない場合は、値が更新されているということなので、その値をUserDefaultsと全体で共通としてもっているxxxNumberStaticに入れる。
+//        行いたいことは、UserDefaultsとxxxNumberStaticの更新。timeNumberは初期値でnilが入っているが、tableViewでタップされるとタップされた値が入っていく。ので、nilの場合は何もしないが、nilでない場合は、値が更新されてzいるということなので、その値をUserDefaultsと全体で共通としてもっているxxxNumberStaticに入れる。
         if let timenum = timeNumber {
             defaults.set(timenum,forKey: "timeNumber")
             timeNumberStatic = timenum

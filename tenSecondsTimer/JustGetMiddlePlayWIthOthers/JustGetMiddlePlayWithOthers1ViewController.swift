@@ -115,6 +115,7 @@ class JustGetMiddlePlayWithOthers1ViewController: UIViewController, UITextFieldD
                 self.saveJustGetMiddleReultWithOthers(name: "Player1", stroke: Double(CGFloat(stroke!)))
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let viewController2 = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers2ViewController")
+                viewController2.modalPresentationStyle = .fullScreen
                 self.present(viewController2, animated: true, completion: nil)
             }else {
                 self.saveJustGetMiddleReultWithOthers(name: name!, stroke: Double(CGFloat(stroke!)))
@@ -126,6 +127,7 @@ class JustGetMiddlePlayWithOthers1ViewController: UIViewController, UITextFieldD
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController2 = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthers2ViewController") as! JustGetMiddlePlayWithOthers2ViewController
                     viewController2.name = alert.textFields?[0].text!
+                    viewController2.modalPresentationStyle = .fullScreen
                     self.present(viewController2, animated: true, completion: nil);
                 }))
                 self.present(alert, animated: true, completion: nil)

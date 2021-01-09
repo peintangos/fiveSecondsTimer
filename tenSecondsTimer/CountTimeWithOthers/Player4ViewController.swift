@@ -87,6 +87,7 @@ class Player4ViewController: UIViewController, UITextFieldDelegate {
         saveResults4(timerMill: self.timerMill, timerSecond: self.timerSec, timerSecDouble: self.timserSecDouble!)
         if ( playerNumberAll == 4){
             let result = self.storyboard?.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
+            result.modalPresentationStyle = .fullScreen
 //            result.playerNumber = self.playerNumber
             self.present(result, animated: true, completion: nil)
         }else{
@@ -98,6 +99,7 @@ class Player4ViewController: UIViewController, UITextFieldDelegate {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let nextView = storyBoard.instantiateViewController(withIdentifier: "Player5ViewController") as! Player5ViewController
             nextView.name = "player5"
+            nextView.modalPresentationStyle = .fullScreen
             self.present(nextView, animated: true, completion: nil)
             
         }else {
@@ -109,6 +111,7 @@ class Player4ViewController: UIViewController, UITextFieldDelegate {
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player5ViewController") as! Player5ViewController
                 nextView.name = nav.textFields?[0].text!
+                nextView.modalPresentationStyle = .fullScreen
                 self.present(nextView, animated: true, completion: nil)
             }))
             self.present(nav, animated: true, completion: nil)

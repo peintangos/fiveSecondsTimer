@@ -131,12 +131,14 @@ class JustGetMiddlePlayWithOthers10ViewController: UIViewController,UITextFieldD
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 var viewController:UIViewController?
                 viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
+                viewController!.modalPresentationStyle = .fullScreen
                 self.present(viewController!, animated: true, completion: nil);
             }else {
                     self.saveJustGetMiddleReultWithOthers(name: name!, stroke: Double(CGFloat(stroke!)))
                     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                     var viewController:UIViewController?
                     viewController = storyBoard.instantiateViewController(identifier: "JustGetMiddlePlayWithOthersResultViewController")
+                viewController!.modalPresentationStyle = .fullScreen
                     self.present(viewController!, animated: true, completion: nil);
             }
         }

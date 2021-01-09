@@ -93,6 +93,7 @@ class Player2ViewController: UIViewController, UITextFieldDelegate {
         if ( playerNumberAll == 2){
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let result = storyBoard.instantiateViewController(withIdentifier: "ResultsPlayWithOthers") as!ResultsPlayWithOthersViewController
+            result.modalPresentationStyle = .fullScreen
             self.present(result, animated: true, completion: nil)
         }else{
             self.goNext(playerNumber: playerNumberAll!)
@@ -143,6 +144,7 @@ class Player2ViewController: UIViewController, UITextFieldDelegate {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let nextView = storyBoard.instantiateViewController(withIdentifier: "Player3ViewController") as! Player3ViewController
             nextView.name = "player3"
+            nextView.modalPresentationStyle = .fullScreen
             self.present(nextView, animated: true, completion: nil)
             
         }else {
