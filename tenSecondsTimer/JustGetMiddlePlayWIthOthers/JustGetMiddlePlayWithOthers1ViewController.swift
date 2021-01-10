@@ -35,6 +35,9 @@ class JustGetMiddlePlayWithOthers1ViewController: UIViewController, UITextFieldD
         makeMessagefirst()
         self.imageView.isHidden = true
         self.message.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                Toast().show(parentView: (self.view)!, text: "丸いボタンをタップしてみよう！\nゲージが進んだら、ちょうどでタップして止めてね！")
+            }
     }
     var messageFirst:UILabel!
     func makeMessagefirst(){
@@ -54,7 +57,7 @@ class JustGetMiddlePlayWithOthers1ViewController: UIViewController, UITextFieldD
         label.font = UIFont.systemFont(ofSize: 20)
         label.frame = CGRect(x: self.view.bounds.width/2, y: 10, width: 300, height: 70)
         label.textAlignment = NSTextAlignment.center
-        label.center = CGPoint(x: myBoundSize.width/2, y:60)
+        label.center = CGPoint(x: myBoundSize.width/2, y:60 + safeAreaTopFirstView!)
         label.textColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1)
         label.layer.borderWidth = 2.0
         label.layer.borderColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1).cgColor

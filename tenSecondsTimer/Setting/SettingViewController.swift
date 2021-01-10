@@ -9,7 +9,7 @@ import UIKit
 
 let web = ["秒数の設定","名前の省略"]
 let web2 = ["アイコン","輪っかの色","ボタンの文字の色","ボタンの文字の大きさ","ボタンの枠の色","ボタンの枠の幅","背景のグラデーションの設定"]
-let rule = ["ルールの設定","レイアウトの設定","コンテンツ"]
+let rule = ["ルールの設定","レイアウトの設定","コンテンツ","初期設定"]
 let web3 = ["飲み会モード","絆ルール","王様ルール"]
 
 class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationBarDelegate{
@@ -21,6 +21,8 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             return web2.count
         case 2:
             return web3.count
+        case 3:
+            return 1
         default:
 //            適当
             return 4
@@ -31,6 +33,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         return rule[section]
     }
     var switchS = UISwitch(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+    var switchD = UISwitch(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
     var switchNomikaiMode = UISwitch(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
@@ -58,6 +61,13 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         else if indexPath.section == 2 {
             cell.textLabel?.text = web3[indexPath.row]
             cell.accessoryType = .disclosureIndicator
+        }else if indexPath.section == 3 {
+            cell.textLabel?.text = "初期設定に戻す"
+            cell.accessoryView = switchD
+            switchD.frame.origin = CGPoint(x: cell.frame.width, y: (cell.frame.height - 31) / 2)
+            cell.autoresizingMask = .flexibleHeight
+            cell.addSubview(switchD)
+            self.view.bringSubviewToFront(switchD)
         }
         
         return cell
@@ -115,6 +125,8 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             default:
                 headerTitle = "デフォルト"
             }
+        case 3:
+            headerTitle = "初期設定に戻す"
         default:
             headerTitle = "デフォルト"
         }
@@ -134,6 +146,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         self.view.frame = CGRect(x: 0, y: self.view.safeAreaInsets.top, width: self.view.frame.width, height: self.view.frame.height)
 //        self.view.backgroundColor = .white
         self.switchS.addTarget(self, action: #selector(changeSwitch), for: UIControl.Event.valueChanged)
+        self.switchD.addTarget(self, action: #selector(changeToDefaultSetting), for: UIControl.Event.valueChanged)
 //        こいつを書かないと設定上オン/オフが切り替わっていたとしても、画面の表示が切り替わらない。
         self.switchS.isOn = UserDefaults.standard.bool(forKey: "isNameSaved")
         
@@ -234,5 +247,9 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             userDefault.set(false,forKey: "isNameSaved")
             self.present(check, animated: true, completion: nil)
         }
+    }
+    @objc func changeToDefaultSetting(sender:UISwitch){
+//        ここひとつでも色が変更されていたら、OFFにするっていうやつしたい。Rx使えそう
+//        sender.isOn = false
     }
 }

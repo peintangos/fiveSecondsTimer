@@ -23,6 +23,9 @@ class Player7ViewController: UIViewController,UITextFieldDelegate {
         self.view.addSubview(self.stopButton!)
         makeColorLayer(number: backgroundColorNumberStatic)
         player1.makeMessagefirst(view:self.view)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                Toast().show(parentView: (self.view)!, text: "左下にある丸いボタンをタップしてみよう！\n\(timeNumberStatic)秒たったら、右下のボタンをタップして止めてね！")
+            }
     }
     var messageFirst:UILabel!
     func makeColorLayer(number:Int){

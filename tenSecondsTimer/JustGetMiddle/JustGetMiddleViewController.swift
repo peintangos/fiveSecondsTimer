@@ -70,6 +70,9 @@ class JustGetMiddleViewController: UIViewController,UITextFieldDelegate {
         makeMessagefirst()
         // Do any additional setup after loading the view.
         makeColorLayer(number: backgroundColorNumberStatic)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                Toast().show(parentView: (self.view)!, text: "丸いボタンをタップしてみよう！\nゲージが進んだら、ちょうどでタップして止めてね！")
+            }
     }
     let shapeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()

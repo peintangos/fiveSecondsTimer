@@ -274,6 +274,9 @@ class FirstController: UIViewController, UITextFieldDelegate {
         makeTimerMill(timermill: self.timerMsec)
         makeCircle(shapeLayer: self.shapeLayer)
         makeAutoLayout()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.showToast()
+        }
     }
     func makeStart(startX: UIButton){
         let imagView = UIImageView(image: UIImage(named: "cheer")!)
@@ -364,4 +367,12 @@ class FirstController: UIViewController, UITextFieldDelegate {
     }
     */
 
+}
+
+extension FirstController {
+    func showToast(){
+//        self.viewではなく、self.tabBarController.viewであることに注意
+//        selfの子にtabBarContrllerがあり、その上にスナックバーを表示させたいため。
+        Toast().show(parentView: (self.tabBarController?.view)!, text: "左下にある丸いボタンをタップしてみよう！\n\(timeNumberStatic)秒たったら、右下のボタンをタップして止めてね！")
+    }
 }

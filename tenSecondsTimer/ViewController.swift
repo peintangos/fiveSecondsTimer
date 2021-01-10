@@ -292,14 +292,14 @@ class ViewController: UIViewController,UITextFieldDelegate{
         self.view.layer.insertSublayer(layer!, at: 0)
     }
     
-    @IBOutlet weak var playSelf: UIButton?
-    @IBOutlet weak var playWithOthers: UIButton?
+    @IBOutlet weak var playSelf: ButtonWithLayoutAutoShrink?
+    @IBOutlet weak var playWithOthers: ButtonWithLayoutAutoShrink?
     let dispose = DisposeBag()
     var titleLabel = UILabel()
     var button:UIButton?
-    var justGetMiddle:UIButton = UIButton()
+    var justGetMiddle:UIButton = ButtonWithLayoutAutoShrink()
     var worldButton:UIButton?
-    var justGetMiddlePlayWithOthers = UIButton()
+    var justGetMiddlePlayWithOthers = ButtonWithLayoutAutoShrink()
     
     override func viewDidAppear(_ animated: Bool) {
         settingTitle(view: titleLabel)
@@ -384,27 +384,31 @@ class ViewController: UIViewController,UITextFieldDelegate{
     func makePlaySelf(playSelf playself:UIButton){
         playself.backgroundColor = UIColor.white
         playself.setTitle("ストップウォッチで遊ぶ（一人で）", for: .normal)
+        playself.titleEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 2)
+        playself.titleLabel?.adjustsFontSizeToFitWidth = true
         playself.tintColor = Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor()
         playself.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         playself.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         playself.layer.cornerRadius = 4.0
         playself.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
-        playself.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 - 50, width: 300, height: 50)
+        playself.frame = CGRect(x: self.view.bounds.size.width/2.0 - 175, y: self.view.bounds.size.height/2.0 - 50, width: 350, height: 60)
     }
     
     func makePlayWithOthers(playWithOthers playwithothers:UIButton){
         playwithothers.backgroundColor = UIColor.white
+        playwithothers.titleEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 2)
         if Setting.nomikaiMode.init(rawValue: nomikaiModeStatic)!.getBool(){
             playwithothers.setTitle("飲みたい人はだ〜れだ？", for: .normal)
         }else {
             playwithothers.setTitle("ストップウォッチで遊ぶ（みんなで）", for: .normal)
+            playwithothers.titleLabel?.adjustsFontSizeToFitWidth = true
         }
         playwithothers.tintColor = Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor()
         playwithothers.layer.borderWidth = CGFloat(buttonWidthNumberStatic)
         playwithothers.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         playwithothers.layer.cornerRadius = 4.0
         playwithothers.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
-        playwithothers.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 50, width: 300, height: 50)
+        playwithothers.frame = CGRect(x: self.view.bounds.size.width/2.0 - 175, y: self.view.bounds.size.height/2.0 + 50, width: 350, height: 60)
     }
     func justGetMiddle(justGetMiddle:UIButton){
         justGetMiddle.center.x = self.view.center.x
@@ -413,9 +417,12 @@ class ViewController: UIViewController,UITextFieldDelegate{
         justGetMiddle.layer.borderColor = Setting.color.init(rawValue: buttonColorNumberStatic)?.getUIColor().cgColor
         justGetMiddle.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
         justGetMiddle.setTitle("反射神経で遊ぶ（一人で）", for: .normal)
+        justGetMiddle.titleEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 2)
+        //        cornerRadiusを使用するときは以下のclipToBoundsも一緒に使わないと枠からはみ出た部分が表示されてしまう
+        justGetMiddle.clipsToBounds = true
         justGetMiddle.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
         justGetMiddle.layer.cornerRadius = 4.0
-        justGetMiddle.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 150, width: 300, height: 50)
+        justGetMiddle.frame = CGRect(x: self.view.bounds.size.width/2.0 - 175, y: self.view.bounds.size.height/2.0 + 150, width: 350, height: 60)
     }
     func makeJustGetMiddlePlayWidthOthers(){
         self.justGetMiddlePlayWithOthers.center.x = self.view.center.x
@@ -428,9 +435,12 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }else {
             self.justGetMiddlePlayWithOthers.setTitle("反射神経で遊ぶ（みんなで）", for: .normal)
         }
+//        cornerRadiusを使用するときは以下のclipToBoundsも一緒に使わないと枠からはみ出た部分が表示されてしまう
+        justGetMiddlePlayWithOthers.clipsToBounds = true
+        justGetMiddlePlayWithOthers.titleEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 2)
         self.justGetMiddlePlayWithOthers.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
         self.justGetMiddlePlayWithOthers.layer.cornerRadius = 4.0
-        self.justGetMiddlePlayWithOthers.frame = CGRect(x: self.view.bounds.size.width/2.0 - 150, y: self.view.bounds.size.height/2.0 + 250, width: 300, height: 50)
+        self.justGetMiddlePlayWithOthers.frame = CGRect(x: self.view.bounds.size.width/2.0 - 175, y: self.view.bounds.size.height/2.0 + 250, width: 350, height: 60)
     }
 //    無理やり過ぎてやりたくはないが、Rxの関係で、viewWillAppeaerの前でもう一度代入すると動かなくなるので、設定だけ更新する
     func settingUpdate(){
@@ -452,7 +462,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
     func settingTitle (view viewA:UILabel){
         viewA.text = "\(timeNumberStatic) Seconds Timer"
         viewA.textAlignment = NSTextAlignment.center
-        viewA.frame = CGRect(x:40,y:Int(self.view.frame.height) / 3 + Int(self.view.safeAreaInsets.top) ,width: 300,height: 70)
+        viewA.frame = CGRect(x:40,y:Int(self.view.frame.height) / 3 + Int(self.view.safeAreaInsets.top) ,width:350,height: 70)
         viewA.center = CGPoint(x: myBoundSize.width/2, y:150)
         viewA.font = UIFont.systemFont(ofSize: 20)
         viewA.textColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1)
