@@ -79,6 +79,9 @@ class JustGetMiddlePlayWithOthers7ViewController: UIViewController,UITextFieldDe
         makeColorLayer(number: backgroundColorNumberStatic)
         self.imageView.isHidden = true
         self.message.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                Toast().show(parentView: (self.view)!, text: "丸いボタンをタップしてみよう！\nゲージが進んだら、ちょうどでタップして止めてね！")
+            }
     }
     let shapeLayer: CAShapeLayer = {
         let layer = CAShapeLayer()

@@ -91,6 +91,9 @@ class JustGetMiddlePlayWithOthers5ViewController: UIViewController,UITextFieldDe
         makeMessagefirst()
         self.imageView.isHidden = true
         self.message.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                Toast().show(parentView: (self.view)!, text: "丸いボタンをタップしてみよう！\nゲージが進んだら、ちょうどでタップして止めてね！")
+            }
     }
     var messageFirst:UILabel!
     func makeMessagefirst(){

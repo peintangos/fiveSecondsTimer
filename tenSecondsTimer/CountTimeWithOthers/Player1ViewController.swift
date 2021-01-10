@@ -33,6 +33,9 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         self.startButton!.addTarget(self, action: #selector(tapStart(_:)), for: UIControl.Event.touchUpInside)
         self.stopButton!.addTarget(self, action: #selector(tapStop(_:)), for: UIControl.Event.touchUpInside)
         makeColorLayer(number: backgroundColorNumberStatic)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    Toast().show(parentView: (self.view)!, text: "左下にある丸いボタンをタップしてみよう！\n\(timeNumberStatic)秒たったら、右下のボタンをタップして止めてね！")
+                }
     }
     var messageFirst:UILabel!
     func makeMessagefirst(view:UIView){
@@ -52,9 +55,6 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         layer!.frame = self.view.frame
         self.view.layer.insertSublayer(layer!, at: 0)
     }
-//    override func viewDidAppear(_ animated: Bool) {
-//        self.messageFirst.isHidden = false
-//    }
     
     var timerSec = UILabel()
     var timerMill = UILabel()
@@ -236,7 +236,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         label.font = UIFont.systemFont(ofSize: 20)
         label.frame = CGRect(x: self.view.bounds.width/2, y: 10, width: 300, height: 70)
         label.textAlignment = NSTextAlignment.center
-        label.center = CGPoint(x: myBoundSize.width/2, y:60)
+        label.center = CGPoint(x: myBoundSize.width/2, y:60 + safeAreaTopFirstView!)
         label.textColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1)
         label.layer.borderWidth = 2.0
         label.layer.borderColor = UIColor.init(red: 215, green: 230, blue: 239, alpha: 1).cgColor
