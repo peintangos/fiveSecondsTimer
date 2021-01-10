@@ -33,13 +33,13 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
         let cell = UITableViewCell.init(style: .default, reuseIdentifier: "cell")
         cell.accessoryType = .disclosureIndicator
         if indexPath.section == 0{
-            cell.textLabel?.text = "\(indexPath.row + 1)位 名前\(justGetMiddleResultRanking[(indexPath as NSIndexPath).row].name)　乖離率\(justGetMiddleResultRanking[(indexPath as NSIndexPath).row].difference)%"
+            cell.textLabel?.text = "\(indexPath.row + 1)位 名前\(justGetMiddleResultRanking[(indexPath as NSIndexPath).row].name) ポイント：\(justGetMiddleResultRanking[(indexPath as NSIndexPath).row].difference)%"
             if justGetMiddleIdStatic! == justGetMiddleResultRanking[(indexPath as NSIndexPath).row].id{
                 cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
                 cell.detailTextLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
             }
         }else if indexPath.section == 1{
-            cell.textLabel?.text = "\(justGetMiddleResult[(indexPath as NSIndexPath).row].date!) 乖離率\(justGetMiddleResult[(indexPath as NSIndexPath).row].difference)%"
+            cell.textLabel?.text = "\(justGetMiddleResult[(indexPath as NSIndexPath).row].date!) ポイント：\(justGetMiddleResult[(indexPath as NSIndexPath).row].difference)%"
             if justGetMiddleIdStatic! == justGetMiddleResult[(indexPath as NSIndexPath).row].id{
                 cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
                 cell.detailTextLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
@@ -59,6 +59,7 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let nextView = storyBoard.instantiateViewController(withIdentifier:"JustGetMiddleResultsDetailViewController") as? JustGetMiddleResultsDetailViewController
+        nextView?.modalPresentationStyle = .fullScreen
         nextView!.row = indexPath.row
         nextView!.section = indexPath.section
         if indexPath.section == 0{
@@ -67,6 +68,7 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
             nextView?.justGetMiddleResult = self.justGetMiddleResult[indexPath.row]
         }
         present(nextView!, animated: true, completion: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     var stopButton:UIButton?
 
@@ -75,7 +77,8 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        tableView = UITableView(frame: view.frame, style: .grouped)
+//        下で上書きしているので、何の意味もない。
+        tableView = UITableView(frame: CGRect(x: view.frame.origin.x, y: safeAreaTopFirstView!, width: view.frame.width, height: view.frame.height), style: UITableView.Style.grouped)
         tableView?.dataSource = self
         tableView?.delegate = self
 //        なぜか意味不明だが、以下の文をつけることによって、layerのグラデーションが反映される
@@ -88,7 +91,7 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
         self.justGetMiddleResult = realm.objects(JustGetMiddleResult.self).sorted(byKeyPath: "dateNoMold", ascending: false)
         tableView?.refreshControl = UIRefreshControl()
         tableView?.refreshControl!.addTarget(self, action: #selector(onRefresh(_:)), for: .valueChanged)
-        tableView?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 250)
+        tableView?.frame = CGRect(x: 0, y: safeAreaTopFirstView!, width: self.view.frame.width, height: self.view.frame.height - 250)
 //        self.tableView!.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
         self.stopButton = makeStartTimer()
         self.stopButton!.addTarget(self, action: #selector(end), for: UIControl.Event.touchUpInside)
@@ -105,31 +108,10 @@ class JustGetMiddleResultsViewController: UIViewController,UITableViewDelegate,U
         self.tableView!.refreshControl?.endRefreshing()
         
     }
-//    func makeStartTimer() -> UIButton{
-//        do{
-//            AutoLayoutを設定する場合は、fraeの大きさを決定しなくて良いが、AutoLayoutとimageの相性が悪いので、ここでは固定値として決定する
-//            let uiButton = UIButton()
-//            角を丸くする
-//            uiButton.layer.cornerRadius = 40
-//            UIButton()に画像を配置するには、これだけで良い
-//            let image = UIImage(named: "back")
-//            uiButton.setImage(image, for: .normal)
-//            uiButton.backgroundColor = .white
-//        }
-//        位置はAutoLaoutで決定するので今は0 0 で良い
-//        let stopButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-//        stopButton.backgroundColor = UIColor.white
-//        let image = UIImage(named: "back")
-//        let imageView = UIImageView(image: image)
-//        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-//        imageView.layer.cornerRadius = 25
-//        imageView.backgroundColor = .white
-//        stopButton.addSubview(imageView)
-//        return stopButton
-//    }
+
     func makeStartTimer() -> UIButton{
         let startButton = UIButton()
-        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - 180 - safeAreaBottomFirstView! , width: 100, height: 100)
+        startButton.frame = CGRect(x: self.view.bounds.width/2 - 150, y: self.view.bounds.height - safeAreaBottomFirstView! - 100 , width: 100, height: 100)
         startButton.backgroundColor = UIColor.white
         startButton.layer.cornerRadius = 50
         let image = UIImage(named: "back")

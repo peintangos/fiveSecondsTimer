@@ -50,6 +50,7 @@
 		0F66BB842551627D00B152DF /* JustGetMiddleDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB832551627D00B152DF /* JustGetMiddleDto.swift */; };
 		0F66BB89255166EB00B152DF /* CountTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F66BB88255166EB00B152DF /* CountTimeViewModel.swift */; };
 		0F87FD1325AAA7CE00B5FA19 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F87FD1225AAA7CE00B5FA19 /* Toast.swift */; };
+		0F87FD1E25AAF20E00B5FA19 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F87FD1D25AAF20E00B5FA19 /* SettingViewModel.swift */; };
 		0FA3CEA1257352D20014379F /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3CEA0257352D20014379F /* ThirdViewController.swift */; };
 		0FB3A945255F9E5E00BF58DB /* JustGetMiddlePlayWithOthers7ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3A944255F9E5E00BF58DB /* JustGetMiddlePlayWithOthers7ViewController.swift */; };
 		0FB3A94A255F9E9F00BF58DB /* JustGetMiddlePlayWithOthers8ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3A949255F9E9F00BF58DB /* JustGetMiddlePlayWithOthers8ViewController.swift */; };
@@ -135,6 +136,7 @@
 		0F66BB832551627D00B152DF /* JustGetMiddleDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddleDto.swift; sourceTree = "<group>"; };
 		0F66BB88255166EB00B152DF /* CountTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountTimeViewModel.swift; sourceTree = "<group>"; };
 		0F87FD1225AAA7CE00B5FA19 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		0F87FD1D25AAF20E00B5FA19 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		0FA3CEA0257352D20014379F /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		0FB3A944255F9E5E00BF58DB /* JustGetMiddlePlayWithOthers7ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthers7ViewController.swift; sourceTree = "<group>"; };
 		0FB3A949255F9E9F00BF58DB /* JustGetMiddlePlayWithOthers8ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustGetMiddlePlayWithOthers8ViewController.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				0F4DBD91254FAFD900AA26BB /* SettingViewController.swift */,
 				0F4DBD92254FAFD900AA26BB /* ChangeIconsViewController.swift */,
 				0F4DBD93254FAFD900AA26BB /* DetailSettingViewController.swift */,
+				0F87FD1D25AAF20E00B5FA19 /* SettingViewModel.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				0F038057252070EF00053C62 /* AppDelegate.swift in Sources */,
 				0F66BB7925513F9900B152DF /* FirstLauchingViewController.swift in Sources */,
 				0F4DBDA6254FAFD900AA26BB /* JustGetMiddleResultsDetailViewController.swift in Sources */,
+				0F87FD1E25AAF20E00B5FA19 /* SettingViewModel.swift in Sources */,
 				0F4DBD9B254FAFD900AA26BB /* ResponseTimeViewController.swift in Sources */,
 				0F318A5E254FEE5E008538BD /* JustGetMiddlePlayWithOthers2ViewController.swift in Sources */,
 				0F4DBDAA254FAFD900AA26BB /* DetailSettingViewController.swift in Sources */,

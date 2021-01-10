@@ -21,7 +21,7 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style:.subtitle, reuseIdentifier: "CELL")
         cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = "\(indexPath.row + 1)位 名前:\(resultRanking[indexPath.row].name) 解離:\(resultRanking[indexPath.row].difference)"
+        cell.textLabel?.text = "\(indexPath.row + 1)位 名前:\(resultRanking[indexPath.row].name) ポイント：\(resultRanking[indexPath.row].difference)"
         cell.detailTextLabel?.text = "日付:\(resultRanking[indexPath.row].date!)"
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         if Setting.nomikaiMode.init(rawValue: nomikaiModeStatic)!.getBool(){

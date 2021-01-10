@@ -21,10 +21,10 @@ class ThirdViewController: UIViewController,UITableViewDataSource {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         switch self.section! {
         case 0:
-            cell.textLabel?.text = "名前 \(self.tableCells![row!].name!)\n日付 \(self.moldTime(self.tableCells![row!].date!))\n目標タイム \(self.tableCells![row!].mokuhyo)\n結果 \(self.tableCells![row!].result!)\n解離 \(floor(self.tableCells![row!].timeDifference * 10000) / 10000)"
+            cell.textLabel?.text = "名前 \(self.tableCells![row!].name!)\n日付 \(self.moldTime(self.tableCells![row!].date!))\n目標タイム \(self.tableCells![row!].mokuhyo)\n結果 \(self.tableCells![row!].result!)\nポイント：\(floor(self.tableCells![row!].timeDifference * 10000) / 10000)"
             cell.accessoryView = self.setImg2(row: self.row!)
         case 1:
-            cell.textLabel?.text = "名前 \(self.tableCellsHistory![row!].name!)\n日付 \(self.moldTime(self.tableCellsHistory![row!].date!))\n目標タイム \(self.tableCellsHistory![row!].mokuhyo)\n結果 \(self.tableCellsHistory![row!].result!)\n解離 \(floor(self.tableCellsHistory![row!].timeDifference * 10000) / 10000)"
+            cell.textLabel?.text = "名前 \(self.tableCellsHistory![row!].name!)\n日付 \(self.moldTime(self.tableCellsHistory![row!].date!))\n目標タイム \(self.tableCellsHistory![row!].mokuhyo)\n結果 \(self.tableCellsHistory![row!].result!)\nポイント：\(floor(self.tableCellsHistory![row!].timeDifference * 10000) / 10000)"
             cell.accessoryView = self.setImg(kairi: self.tableCellsHistory![row!].timeDifference)
         default:
             print("ありえない")

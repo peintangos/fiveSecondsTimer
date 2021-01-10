@@ -32,7 +32,7 @@ class ResultsPlayWithOthersViewController: UIViewController,UITableViewDelegate,
 //        print(tableCells?[(indexPath as NSIndexPath).row].name!)
 //        print((tableCells?[(indexPath as NSIndexPath).row].name!)!)
         cell.textLabel?.text = "\((indexPath as NSIndexPath).row + 1)位\(tableCells![(indexPath as NSIndexPath).row].name!)"
-        cell.detailTextLabel?.text = "タイム：\(tableCells![(indexPath as NSIndexPath).row].timerSecond!)\(tableCells![(indexPath as NSIndexPath).row].timerMill!) 解離：\(tableCells![(indexPath as NSIndexPath).row].timeDifference.description)"
+        cell.detailTextLabel?.text = "タイム：\(tableCells![(indexPath as NSIndexPath).row].timerSecond!)\(tableCells![(indexPath as NSIndexPath).row].timerMill!) ポイント：\(tableCells![(indexPath as NSIndexPath).row].timeDifference.description)"
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         if Setting.nomikaiMode.init(rawValue: nomikaiModeStatic)!.getBool() {
             if randomIntMiracleCount! >= (Setting.kings.init(rawValue: kingsRuleNumberStatic)?.getInt())! {
