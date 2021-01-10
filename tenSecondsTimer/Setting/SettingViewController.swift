@@ -150,7 +150,8 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        こいつを書かないと設定上オン/オフが切り替わっていたとしても、画面の表示が切り替わらない。
         self.switchS.isOn = UserDefaults.standard.bool(forKey: "isNameSaved")
         
-        myTableView = UITableView(frame: CGRect(x: 0, y: self.view.safeAreaInsets.top, width: 0, height: 0), style: .grouped)
+        myTableView = UITableView(frame: CGRect(x: 0, y: safeAreaTopFirstView!, width: 0, height: 0), style: .grouped)
+        self.view.backgroundColor = UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)
 //        セーフエリアの色がナビゲーションの色と異なるため、Viewを追加
         let view = UIView(frame:CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20))
 //        以下がデフォルトのナビゲーションエリアの色らしい
@@ -253,3 +254,14 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        sender.isOn = false
     }
 }
+
+
+self.usernameTextField.rx.text.map { $0 ?? ""}.bind(to: loginViewModel.userNamePublishSubject).disposed(by: dispose)
+self.passwordTextField.rx.text.map { $0 ?? ""}.bind(to: loginViewModel.passwordPublishSubject).disposed(by: dispose)
+self.passwordTextField.rx.text.map { (text) -> String? in
+    guard let text = text else {
+        return nil
+    }
+    return "パスワードにあと\(6 - text.count)文字入力してください"
+}.bind(to: self.lengthLagel.rx.text).disposed(by: dispose)
+loginViewModel.isUserNameEmpty().bind(to: emptyLabel.rx.isHidden).disposed(by: dispose)

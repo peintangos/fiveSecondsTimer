@@ -50,6 +50,8 @@ var safeAreaTopFirstView:CGFloat?
 var safeAreaBottomFirstView:CGFloat?
 
 var temporaryCount:Int?
+
+
 class ViewController: UIViewController,UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -418,7 +420,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         justGetMiddle.titleLabel?.font = UIFont.systemFont(ofSize: CGFloat((Setting.fontSize.init(rawValue: buttonTextSizeNumberStatic)?.getSize())!))
         justGetMiddle.setTitle("反射神経で遊ぶ（一人で）", for: .normal)
         justGetMiddle.titleEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 2)
-        //        cornerRadiusを使用するときは以下のclipToBoundsも一緒に使わないと枠からはみ出た部分が表示されてしまう
+//        cornerRadiusを使用するときは以下のclipToBoundsも一緒に使わないと枠からはみ出た部分が表示されてしまう
         justGetMiddle.clipsToBounds = true
         justGetMiddle.setTitleColor(Setting.color.init(rawValue: buttonTextColorNumberStatic)?.getUIColor(), for: .normal)
         justGetMiddle.layer.cornerRadius = 4.0

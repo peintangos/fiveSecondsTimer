@@ -22,7 +22,7 @@ class JustGetMiddleResultsDetailViewController: UIViewController,UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        cell.textLabel?.text = "名前:\(justGetMiddleResult!.name)\n解離:\(justGetMiddleResult!.difference)%\n日付:\( justGetMiddleResult!.date!)\nゴール:\(justGetMiddleResult!.goal)\nストローク:\(justGetMiddleResult!.end)"
+        cell.textLabel?.text = "名前:\(justGetMiddleResult!.name)\nポイント：\(justGetMiddleResult!.difference)%\n日付:\( justGetMiddleResult!.date!)\nゴール:\(justGetMiddleResult!.goal)\nストローク:\(justGetMiddleResult!.end)"
         cell.textLabel?.numberOfLines = 0
         
         if section! == 0{

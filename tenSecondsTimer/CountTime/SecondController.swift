@@ -55,14 +55,16 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
             vc.section = 1
             vc.row = indexPath.row
         }
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath as NSIndexPath).section == 0 {
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-            cell.textLabel?.text = "\((indexPath as NSIndexPath).row + 1)位 名前 \(tableCells[(indexPath as NSIndexPath).row].name!) 解離\(floor(tableCells[(indexPath as NSIndexPath).row].timeDifference * 10000) / 10000 )"
+            cell.textLabel?.text = "\((indexPath as NSIndexPath).row + 1)位 名前 \(tableCells[(indexPath as NSIndexPath).row].name!) ポイント：\(floor(tableCells[(indexPath as NSIndexPath).row].timeDifference * 10000) / 10000 )"
             cell.detailTextLabel?.text = "日付：\(self.moldTime(tableCells[(indexPath as NSIndexPath).row].date!))"
             if recordIdStatic == tableCells[(indexPath as NSIndexPath).row].id{
                 cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
@@ -73,7 +75,7 @@ class SecondController: UIViewController ,UITableViewDelegate ,UITableViewDataSo
         }
         else {
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-            cell.textLabel?.text = "\(self.moldTime(self.tableCellsHistory[(indexPath as NSIndexPath).row].date!)) 解離\(floor(self.tableCellsHistory[(indexPath as NSIndexPath).row].timeDifference * 10000) / 10000)"
+            cell.textLabel?.text = "\(self.moldTime(self.tableCellsHistory[(indexPath as NSIndexPath).row].date!)) ポイント：\(floor(self.tableCellsHistory[(indexPath as NSIndexPath).row].timeDifference * 10000) / 10000)"
 //            cell.detailTextLabel?.text = "名前\(self.tableCellsHistory[(indexPath as NSIndexPath).row].name!)"
             if recordIdStatic == tableCellsHistory[(indexPath as NSIndexPath).row].id{
                 cell.textLabel?.textColor = UIColor.init(red: 65 / 255, green: 184 / 255, blue: 131 / 255, alpha: 1)
