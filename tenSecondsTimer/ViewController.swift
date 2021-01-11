@@ -11,37 +11,37 @@
 
 import UIKit
 import RxSwift
-import  RealmSwift
+import RealmSwift
 import RxCocoa
 import AVFoundation
 //対戦ごとに一位になるID
 var orderAllNew:Int?
 //秒数をUserDefaultsからとってきて格納する箱
 var timeNumberStatic:Int = UserDefaults.standard.integer(forKey: "timeNumber")
+var isSaved:Bool = UserDefaults.standard.bool(forKey: "isNameSaved")
 //アイコンをUserDefaultsからとってきて格納する箱
 var iconNumberStatic:Int = UserDefaults.standard.integer(forKey: "iconNumber")
 //輪っかの色をUserDefaultsからとってきて格納する箱
-var colorNumberStatic:Int = UserDefaults.standard.integer(forKey: "colorNumber")
-//ボタンの枠色をUserDefaultsからとってきて格納する箱
-var buttonColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonColorNumber")
-//ボタンの輪っかの幅をUserDefaultsからとってきて格納する箱
-var buttonWidthNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonWithColorNumber")
-//ボタンの色をUserDefaultsからとってきて格納する箱
+var colorNumberStatic:Int = UserDefaults.standard.integer(forKey: "circleColorNumber")
+//ボタンの文字の色をUserDefaultsからとってきて格納する箱
 var buttonTextColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonTextColorNumber")
 //ボタンの文字の大きさをUserDefaultsからとってきて格納する箱
 var buttonTextSizeNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonTextSizeNumber")
+//ボタンの枠色をUserDefaultsからとってきて格納する箱
+var buttonColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonWidthColorNumber")
+//ボタンの輪っかの幅をUserDefaultsからとってきて格納する箱
+var buttonWidthNumberStatic:Int = UserDefaults.standard.integer(forKey: "buttonWidthNumber")
 //背景色をUserDefaultsからとってきて格納する箱
 var backgroundColorNumberStatic:Int = UserDefaults.standard.integer(forKey: "backgroundColorNumber")
+//飲み会モードの設定
+var nomikaiModeStatic:Int = UserDefaults.standard.integer(forKey: "nomikaiMode")
 //絆ルールをUserDefaultsからとってきて保存する箱
 var kizunaRuleNumberStatic:Int = UserDefaults.standard.integer(forKey: "kizuna")
 //王様ルールをUserDefaultsからとってきて保存する箱
 var kingsRuleNumberStatic:Int = UserDefaults.standard.integer(forKey: "kings")
 //初回で入力したユーザ名をUserDefaultに登録
 var name:String = UserDefaults.standard.string(forKey: "username")!
-//飲み会モードの設定
-var nomikaiModeStatic:Int = UserDefaults.standard.integer(forKey: "nomikaiMode")
 var playerNumberAll:Int?
-var isSaved:Bool?
 //リストで取得する配列の数を表現
 //var responseListLength = 10
 
@@ -51,6 +51,7 @@ var safeAreaBottomFirstView:CGFloat?
 
 var temporaryCount:Int?
 
+var settingViewModel:SettingViewModel!
 
 class ViewController: UIViewController,UITextFieldDelegate{
     override func viewDidLoad() {
@@ -65,31 +66,38 @@ class ViewController: UIViewController,UITextFieldDelegate{
 //            self.view.window?.rootViewController = tutorialVC
         }
         do{
+            settingViewModel = SettingViewModel()
+        }
+        do{
             let defaults = UserDefaults.standard
             defaults.register(defaults: ["timeNumber":5,
+                                         "isNameSaved":false,
                                          "iconNumber":1,
-                                         "colorNumber":3,
-                                         "buttonColorNumber":3,
-                                         "buttonTextColorNumber":5,
-                                         "buttonWithColorNumber":1,
+                                         "circleColorNumber":3,
+                                         "buttonTextColorNumber":3,
                                          "buttonTextSizeNumber":2,
+                                         "buttonWidthColorNumber":5,
+                                         "buttonWidthNumber":1,
                                          "backgroundColorNumber":0,
+                                         "nomikaiMode":1,
                                          "kizuna":1,
-                                         "kings":1,
-                                         "nomikaiMode":false,
-                                         "isNameSaved":false])
+                                         "kings":1
+                                         ])
             timeNumberStatic = defaults.integer(forKey: "timeNumber")
+            isSaved = defaults.bool(forKey: "isNameSaved")
             iconNumberStatic = defaults.integer(forKey: "iconNumber")
-            colorNumberStatic = defaults.integer(forKey: "colorNumber")
+            colorNumberStatic = defaults.integer(forKey: "circleColorNumber")
             buttonTextColorNumberStatic = defaults.integer(forKey: "buttonTextColorNumber")
-            buttonColorNumberStatic = defaults.integer(forKey: "buttonColorNumber")
-            buttonWidthNumberStatic = defaults.integer(forKey: "buttonWithColorNumber")
             buttonTextSizeNumberStatic = defaults.integer(forKey: "buttonTextSizeNumber")
+            buttonColorNumberStatic = defaults.integer(forKey: "buttonWidthColorNumber")
+            buttonWidthNumberStatic = defaults.integer(forKey: "buttonWidthNumber")
             backgroundColorNumberStatic = defaults.integer(forKey: "backgroundColorNumber")
-            kizunaRuleNumberStatic = defaults.integer(forKey: "kizua")
+            nomikaiModeStatic = defaults.integer(forKey: "nomikaiMode")
+            kizunaRuleNumberStatic = defaults.integer(forKey: "kizuna")
             kingsRuleNumberStatic = defaults.integer(forKey: "kings")
-            isSaved = UserDefaults.standard.bool(forKey: "isNameSaved")
+            
         }
+
 //        左上の設定ボタンを作り、viewに配置する。また、タップ時のイベントをサブスクライブする。
         do{
             self.worldButton = makeWorld()
@@ -115,7 +123,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         let ui = UIAlertController(title: "遊ぶ人数を選択してね", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         ui.addAction(UIAlertAction.init(title: "2人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 2
-            if isSaved!{
+            if isSaved{
                 self.present(vc, animated: true, completion: nil)
             }else {
                 let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
@@ -134,7 +142,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         ui.addAction(UIAlertAction.init(title: "3人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 3
-            if isSaved!{
+            if isSaved{
                 self.present(vc, animated: true, completion: nil)
             }else {
                 let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
@@ -153,7 +161,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         ui.addAction(UIAlertAction.init(title: "4人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 4
-            if isSaved!{
+            if isSaved{
                 self.present(vc, animated: true, completion: nil)
             }else {
                 let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
@@ -172,7 +180,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         ui.addAction(UIAlertAction.init(title: "5人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 5
-            if isSaved!{
+            if isSaved{
                 self.present(vc, animated: true, completion: nil)
             }else {
                 let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
@@ -191,7 +199,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         ui.addAction(UIAlertAction.init(title: "6人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 6
-            if isSaved!{
+            if isSaved{
                 self.present(vc, animated: true, completion: nil)
             }else {
                 let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
@@ -210,7 +218,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         ui.addAction(UIAlertAction.init(title: "7人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 7
-            if isSaved!{
+            if isSaved{
                 self.present(vc, animated: true, completion: nil)
             }else {
                 let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
@@ -229,7 +237,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         ui.addAction(UIAlertAction.init(title: "8人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 8
-            if isSaved!{
+            if isSaved{
                 self.present(vc, animated: true, completion: nil)
             }else {
                 let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
@@ -248,7 +256,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         ui.addAction(UIAlertAction.init(title: "9人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 9
-            if isSaved!{
+            if isSaved{
                 self.present(vc, animated: true, completion: nil)
             }else {
                 let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
@@ -267,7 +275,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         ui.addAction(UIAlertAction.init(title: "10人", style: .default, handler: { (UIAlertAction) in
             temporaryCount = 10
-            if isSaved!{
+            if isSaved{
                 self.present(vc, animated: true, completion: nil)
             }else {
                 let nameInput = UIAlertController(title: "一人目の名前を入力してね", message: nil, preferredStyle: UIAlertController.Style.alert)
@@ -477,7 +485,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         let actionS = UIAlertController(title: "遊ぶ人数を選択してね", message: nil, preferredStyle: .actionSheet)
         actionS.addAction(UIAlertAction(title: "2人", style: .default, handler: { (action) in
             playerNumberAll = 2
-            if isSaved!{
+            if isSaved{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"
@@ -509,7 +517,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         
         actionS.addAction(UIAlertAction(title: "3人", style: .default, handler: {(action) in
             playerNumberAll = 3
-            if isSaved!{
+            if isSaved{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"
@@ -536,7 +544,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         actionS.addAction(UIAlertAction(title: "4人", style: .default, handler: {(action) in
             playerNumberAll = 4
-            if isSaved!{
+            if isSaved{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"
@@ -566,7 +574,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         actionS.addAction(UIAlertAction(title: "5人", style: .default, handler: {(action) in
             playerNumberAll = 5
-            if isSaved!{
+            if isSaved{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"
@@ -594,7 +602,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         actionS.addAction(UIAlertAction(title: "6人", style: .default, handler: {(action) in
             playerNumberAll = 6
-            if isSaved!{
+            if isSaved{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"
@@ -622,7 +630,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         actionS.addAction(UIAlertAction(title: "7人", style: .default, handler: {(action) in
             playerNumberAll = 7
-            if isSaved!{
+            if isSaved{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"
@@ -650,7 +658,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         actionS.addAction(UIAlertAction(title: "8人", style: .default, handler: {(action) in
             playerNumberAll = 8
-            if isSaved!{
+            if isSaved{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"
@@ -678,7 +686,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         actionS.addAction(UIAlertAction(title: "9人", style: .default, handler: {(action) in
             playerNumberAll = 9
-            if isSaved!{
+            if isSaved{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"
@@ -706,7 +714,7 @@ class ViewController: UIViewController,UITextFieldDelegate{
         }))
         actionS.addAction(UIAlertAction(title: "10人", style: .default, handler: {(action) in
             playerNumberAll = 10
-            if isSaved!{
+            if isSaved{
                 let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                 let nextView = storyBoard.instantiateViewController(withIdentifier: "Player1ViewController") as! Player1ViewController
                 nextView.name = "player1"

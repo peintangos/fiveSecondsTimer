@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 let web = ["秒数の設定","名前の省略"]
 let web2 = ["アイコン","輪っかの色","ボタンの文字の色","ボタンの文字の大きさ","ボタンの枠の色","ボタンの枠の幅","背景のグラデーションの設定"]
@@ -139,7 +141,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     func numberOfSections(in tableView: UITableView) -> Int {
         return rule.count
     }
-    
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -160,6 +162,13 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         self.switchNomikaiMode.isOn = Setting.nomikaiMode.init(rawValue: UserDefaults.standard.integer(forKey: "nomikaiMode"))!.getBool()
         self.switchNomikaiMode.addTarget(self, action: #selector(changeSwitchNomikaiMode), for: UIControl.Event.valueChanged)
+        
+//        UISwitch →ViewModelへのバインドをする（他の設定値のバインディングについては、ChangeIconsViewController.swiftで行っている。
+        switchS.rx.isOn.bind(to: settingViewModel.nameOmitVieModel).disposed(by: disposeBag)
+//        switchNomikaiMode.rx.isOn.bind(to: settingViewModel.nomikaiModeViewModel).disposed(by: disposeBag)
+        switchNomikaiMode.rx.isOn.map { $0 ? 1 : 0 }.bind(to: settingViewModel.nomikaiModeViewModel).disposed(by: disposeBag)
+//        ViewModel→UIへのバインド
+        settingViewModel.changed().bind(to: switchD.rx.isOn).disposed(by: disposeBag)
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -254,14 +263,3 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        sender.isOn = false
     }
 }
-
-
-self.usernameTextField.rx.text.map { $0 ?? ""}.bind(to: loginViewModel.userNamePublishSubject).disposed(by: dispose)
-self.passwordTextField.rx.text.map { $0 ?? ""}.bind(to: loginViewModel.passwordPublishSubject).disposed(by: dispose)
-self.passwordTextField.rx.text.map { (text) -> String? in
-    guard let text = text else {
-        return nil
-    }
-    return "パスワードにあと\(6 - text.count)文字入力してください"
-}.bind(to: self.lengthLagel.rx.text).disposed(by: dispose)
-loginViewModel.isUserNameEmpty().bind(to: emptyLabel.rx.isHidden).disposed(by: dispose)

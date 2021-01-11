@@ -353,7 +353,7 @@ class Player1ViewController: UIViewController, UITextFieldDelegate {
         return userDefaults.bool(forKey: "isNameSaved")
     }
     func makeAlertController(){
-        if isSaved!{
+        if isSaved{
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let player2ViewController = storyBoard.instantiateViewController(withIdentifier: "Player2ViewController") as! Player2ViewController
             player2ViewController.name = "player2"

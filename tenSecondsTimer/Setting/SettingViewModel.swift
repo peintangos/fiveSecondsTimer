@@ -7,19 +7,20 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 class SettingViewModel{
-    private let numberCountViewModel = BehaviorSubject<Int>(value: 5)
-    private let nameOmitVieModel = BehaviorSubject<Bool>(value: true)
-    private let iconViewModel = BehaviorSubject<Int>(value: 1)
-    private let circleColorViewModel = BehaviorSubject<Int>(value: 3)
-    private let buttonColorViewModel = BehaviorSubject<Int>(value: 3)
-    private let buttonSizeViewModel = BehaviorSubject<Int>(value: 2)
-    private let buttonBorderColorViewModel = BehaviorSubject<Int>(value: 5)
-    private let buttonBorderWidthViewModel = BehaviorSubject<Int>(value: 1)
-    private let backGroundColorViewModel = BehaviorSubject<Int>(value: 0)
-    private let nomikaiModeViewModel = BehaviorSubject<Bool>(value: true)
-    private let kizunaRuleViewModel = BehaviorSubject<Int>(value: 1)
-    private let ousamaRuleViewModel = BehaviorSubject<Int>(value:1)
+    let numberCountViewModel = BehaviorRelay<Int>(value: 5)
+    let nameOmitVieModel = BehaviorRelay<Bool>(value: false)
+    let iconViewModel = BehaviorRelay<Int>(value: 1)
+    let circleColorViewModel = BehaviorRelay<Int>(value: 3)
+    let buttonTextColorViewModel = BehaviorRelay<Int>(value: 3)
+    let buttonSizeViewModel = BehaviorRelay<Int>(value: 2)
+    let buttonBorderColorViewModel = BehaviorRelay<Int>(value: 5)
+    let buttonBorderWidthViewModel = BehaviorRelay<Int>(value: 1)
+    let backGroundColorViewModel = BehaviorRelay<Int>(value: 0)
+    let nomikaiModeViewModel = BehaviorRelay<Int>(value: 1)
+    let kizunaRuleViewModel = BehaviorRelay<Int>(value: 1)
+    let ousamaRuleViewModel = BehaviorRelay<Int>(value: 1)
     
     func isSectionZeroChanged() -> Observable<Bool>{
         return Observable.combineLatest(numberCountViewModel.asObservable(), nameOmitVieModel.asObservable()).map { numberCountViewModel, nameOmitVieModel  in
@@ -27,14 +28,62 @@ class SettingViewModel{
         }
     }
     func isSectionOneChaned() -> Observable<Bool>{
-        return Observable.combineLatest(iconViewModel.asObservable(), circleColorViewModel.asObservable(), buttonColorViewModel.asObservable(), buttonSizeViewModel.asObservable(), buttonBorderColorViewModel.asObservable(), buttonBorderWidthViewModel.asObservable(), backGroundColorViewModel.asObservable()).map { (iconViewModel,circleColorViewModel,buttonColorViewModel,buttonSizeViewModel,buttonBorderColorViewModel,buttonBorderWidthViewModel,backGroundColorViewModel) in
+        return Observable.combineLatest(iconViewModel.asObservable(), circleColorViewModel.asObservable(), buttonTextColorViewModel.asObservable(), buttonSizeViewModel.asObservable(), buttonBorderColorViewModel.asObservable(), buttonBorderWidthViewModel.asObservable(), backGroundColorViewModel.asObservable()).map { (iconViewModel,circleColorViewModel,buttonColorViewModel,buttonSizeViewModel,buttonBorderColorViewModel,buttonBorderWidthViewModel,backGroundColorViewModel) in
             iconViewModel == 1 && circleColorViewModel == 3 && buttonColorViewModel == 3 && buttonSizeViewModel == 3 && buttonBorderColorViewModel == 2 && buttonBorderColorViewModel == 5 && buttonBorderWidthViewModel == 1 && backGroundColorViewModel == 0
         }
     }
     func isSectionSecondChaned() -> Observable<Bool>{
         return Observable.combineLatest(nomikaiModeViewModel.asObservable(), kizunaRuleViewModel.asObservable(), ousamaRuleViewModel.asObservable()).map { (nomikaiModeViewModel,kizunaRuleViewModel,ousamaRuleViewModel) in
-            nomikaiModeViewModel == true && kizunaRuleViewModel == 1 && ousamaRuleViewModel == 1
+            nomikaiModeViewModel == 1 && kizunaRuleViewModel == 1 && ousamaRuleViewModel == 1
         }
+    }
+    func changed() -> Observable<Bool>{
+        return Observable.combineLatest(isSectionZeroChanged(), isSectionOneChaned(), isSectionSecondChaned()).map { (zero, one, second) in
+            zero && one && second
+        }
+    }
+//    例
+    func isCountChanged() -> Observable<Bool>{
+        return numberCountViewModel.asObservable().map { (number) in
+            number == 5
+        }
+    }
+
+    func acceptCountViewModel(number:Int){
+        numberCountViewModel.accept(number)
+    }
+    func acceptnameOmitVieModel(bool:Bool){
+        nameOmitVieModel.accept(bool)
+    }
+    func acceptIconViewModel(number:Int){
+        iconViewModel.accept(number)
+    }
+    func acceptCircleColorViewModel(number:Int){
+        circleColorViewModel.accept(number)
+    }
+    func acceptButtonColorViewModel(number:Int){
+        buttonTextColorViewModel.accept(number)
+    }
+    func acceptButtonSizeViewModel(number:Int){
+        buttonSizeViewModel.accept(number)
+    }
+    func acceptButtonBorderColorViewModel(number:Int){
+        buttonBorderColorViewModel.accept(number)
+    }
+    func acceptButtonBorderWidthViewModel(number:Int){
+        buttonBorderWidthViewModel.accept(number)
+    }
+    func acceptBackGroundColorViewModel(number:Int){
+        backGroundColorViewModel.accept(number)
+    }
+    func acceptNomikaiModeViewModel(number:Int){
+        nomikaiModeViewModel.accept(number)
+    }
+    func acceptKizunaRuleViewModel(number:Int){
+        kizunaRuleViewModel.accept(number)
+    }
+    func acceptOusamaRuleViewModel(number:Int){
+        ousamaRuleViewModel.accept(number)
     }
 
 }

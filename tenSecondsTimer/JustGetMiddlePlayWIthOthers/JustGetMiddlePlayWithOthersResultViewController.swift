@@ -106,7 +106,7 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
         }).disposed(by: dispose)
         makeColorLayer(number: backgroundColorNumberStatic)
         
-        randomIntMiracle = Int.random(in: 1..<10)
+        randomIntMiracle = Int.random(in: 1...10)
     
     }
     var alert:UIAlertController!
@@ -117,6 +117,7 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
                 print(nameElement)
                 print(name)
             }
+//            王様ルールでは、0→10,1→8,2→4に対応している。(1~10がランダムに出る。その中で各数字以上であればif文に引っかかる
             if randomIntMiracle! >= (Setting.kings.init(rawValue: kingsRuleNumberStatic)?.getInt())! {
                 alert = UIAlertController(title: "👑王様タイム！\n王様は一緒に飲みたい人を指名できるよ！", message: name, preferredStyle: .alert)
                 present(alert, animated: true, completion: {
@@ -125,6 +126,7 @@ class JustGetMiddlePlayWithOthersResultViewController: UIViewController,UITableV
                 })
                 return
             }
+//            絆ルールでは、0→9,1→6,2→2に対応している。
             if randomIntMiracle! >= (Setting.kizuna.init(rawValue: kizunaRuleNumberStatic)?.getInt())!{
                 alert = UIAlertController(title: "絆タイム!\n全員で飲んで、絆を深める！", message: name, preferredStyle: .alert)
                 present(alert, animated: true, completion: {

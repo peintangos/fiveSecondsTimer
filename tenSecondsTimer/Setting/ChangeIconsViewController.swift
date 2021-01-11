@@ -83,7 +83,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
 //            輪っかの色を設定する
         }else if sectionNumber! == 1 && self.rowNumber! == 1{
             cell.textLabel?.text = Setting.color.init(rawValue: indexPath.row + 1)!.getUIColor().accessibilityName
-            if defaults.integer(forKey: "colorNumber") == indexPath.row + 1 {
+            if defaults.integer(forKey: "circleColorNumber") == indexPath.row + 1 {
                 cell.accessoryType = .checkmark
             }
 //            ボタンの色を設定する
@@ -117,13 +117,14 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
                 cell.accessoryType = .checkmark
             }
         }else if sectionNumber! == 2 && self.rowNumber! == 1 {
+//            絆ルールと王様ルールは0始まりなので、プラス1する必要なし
             cell.textLabel?.text = Setting.kizuna.init(rawValue: indexPath.row)!.getName()
-            if defaults.integer(forKey: "kizuna") == indexPath.row{
+            if kizunaRuleNumberStatic == indexPath.row{
                 cell.accessoryType = .checkmark
             }
         }else if sectionNumber! == 2 && self.rowNumber! == 2 {
             cell.textLabel?.text = Setting.kings.init(rawValue: indexPath.row)!.getName()
-            if defaults.integer(forKey: "kings") == indexPath.row{
+            if kingsRuleNumberStatic == indexPath.row{
                 cell.accessoryType = .checkmark
             }
         }
@@ -145,7 +146,7 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             cell?.accessoryType = .none
             self.iconNumber = indexPath.row + 1
         }else if sectionNumber! == 1 && self.rowNumber! == 1{
-            let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "colorNumber") - 1, section: indexPath.section))
+            let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "circleColorNumber") - 1, section: indexPath.section))
             cell?.accessoryType = .none
             self.colorNumber = indexPath.row + 1
         }else if sectionNumber! == 1 && self.rowNumber! == 2{
@@ -158,22 +159,22 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             self.buttonTextSizeNumber = indexPath.row + 1
         }
         else if sectionNumber! == 1 && self.rowNumber! == 4{
-            let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "buttonColorNumber") - 1, section: indexPath.section))
+            let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "buttonWidthColorNumber") - 1, section: indexPath.section))
             cell?.accessoryType = .none
             self.buttoColorNumber = indexPath.row + 1
         }else if sectionNumber! == 1 && self.rowNumber! == 5{
-            let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "buttonWithColorNumber") - 1, section: indexPath.section))
+            let cell = tableView.cellForRow(at: IndexPath(row: defaults.integer(forKey: "buttonWidthNumber") - 1, section: indexPath.section))
             cell?.accessoryType = .none
             self.buttoWidthColorNumber = indexPath.row + 1
         }else if sectionNumber! == 1 && self.rowNumber! == 6{
             let cell = tableView.cellForRow(at: IndexPath(row:defaults.integer(forKey: "backgroundColorNumber"),section: indexPath.section))
             cell?.accessoryType = .none
             self.backgroundColorNumber = indexPath.row
-        }else if sectionNumber! == 2 && self.rowNumber! == 0 {
+        }else if sectionNumber! == 2 && self.rowNumber! == 1 {
             let cell = tableView.cellForRow(at: IndexPath(row:defaults.integer(forKey: "kizuna"),section: indexPath.section))
             cell?.accessoryType = .none
             self.kizunaRuleNumber = indexPath.row
-        }else if sectionNumber! == 2 && self.rowNumber! == 1{
+        }else if sectionNumber! == 2 && self.rowNumber! == 2{
             let cell = tableView.cellForRow(at: IndexPath(row:defaults.integer(forKey: "kings"),section: indexPath.section))
             cell?.accessoryType = .none
             self.kingsRuleNumber = indexPath.row
@@ -223,42 +224,56 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
             defaults.set(timenum,forKey: "timeNumber")
             timeNumberStatic = timenum
             self.dismiss(animated: true, completion: nil)
+//            変更されたときに、BehaviorRealyにイベントを流す
+            settingViewModel.acceptCountViewModel(number: timeNumberStatic)
             return
         }
         if let iconnum = iconNumber {
             defaults.set(iconNumber!,forKey: "iconNumber")
             iconNumberStatic = iconnum
             self.dismiss(animated: true, completion: nil)
+//            変更されたときに、BehaviorRealyにイベントを流す
+            settingViewModel.acceptIconViewModel(number: iconNumberStatic)
             return
         }
         if let colornum = colorNumber {
             defaults.set(colorNumber!,forKey: "colorNumber")
             colorNumberStatic = colornum
             self.dismiss(animated: true, completion: nil)
+//            変更されたときに、BehaviorRealyにイベントを流す
+            settingViewModel.acceptCircleColorViewModel(number: colorNumberStatic)
             return
         }
         if let buttonColornum = buttoColorNumber{
             defaults.set(buttoColorNumber!,forKey:"buttonColorNumber")
             buttonColorNumberStatic = buttonColornum
             self.dismiss(animated: true, completion: nil)
+//            変更されたときに、BehaviorRealyにイベントを流す
+            settingViewModel.acceptButtonColorViewModel(number: buttonColorNumberStatic)
             return
         }
         if let a = buttoWidthColorNumber{
-            defaults.setValue(buttoWidthColorNumber!, forKey: "buttonWithColorNumber")
+            defaults.setValue(buttoWidthColorNumber!, forKey: "buttonWidthNumber")
             buttonWidthNumberStatic = a
             self.dismiss(animated: true, completion: nil)
+//            変更されたときに、BehaviorRealyにイベントを流す
+            settingViewModel.acceptButtonBorderWidthViewModel(number: buttonWidthNumberStatic)
             return
         }
         if let b = buttonTextColorNumber{
             defaults.setValue(buttonTextColorNumber!, forKey: "buttonTextColorNumber")
             buttonTextColorNumberStatic = b
             self.dismiss(animated: true, completion: nil)
+//            変更されたときに、BehaviorRealyにイベントを流す
+            settingViewModel.acceptButtonColorViewModel(number: buttonTextColorNumberStatic)
             return
         }
         if let size = buttonTextSizeNumber{
             defaults.setValue(buttonTextSizeNumber!, forKey: "buttonTextSizeNumber")
             buttonTextSizeNumberStatic = size
             self.dismiss(animated: true, completion: nil)
+//            変更されたときに、BehaviorRealyにイベントを流す
+            settingViewModel.acceptButtonSizeViewModel(number: buttonTextSizeNumberStatic)
             return
         }
         if let background = backgroundColorNumber{
@@ -269,17 +284,23 @@ class ChangeIconsViewController: UIViewController,UITableViewDataSource,UITableV
                 self.dismiss(animated: true, completion: nil)
             }))
             self.present(alertAction, animated: true, completion: nil)
+//            変更されたときに、BehaviorRealyにイベントを流す
+            settingViewModel.acceptBackGroundColorViewModel(number: backgroundColorNumberStatic)
 //            returnを入れないと、下部のself.dismissが非同期で走ってしまいダイアログが閉じてしまう
             return
         }
         if let kizuna = kizunaRuleNumber {
             defaults.setValue(kizunaRuleNumber, forKey: "kizuna")
             kizunaRuleNumberStatic = kizuna
+//            変更されたときに、BehaviorRealyにイベントを流す
+            settingViewModel.acceptKizunaRuleViewModel(number: kizunaRuleNumberStatic)
             self.dismiss(animated: true, completion: nil)
         }
         if let kings = kingsRuleNumber {
             defaults.setValue(kingsRuleNumber, forKey: "kings")
             kingsRuleNumberStatic = kings
+//            変更されたときに、BehaviorRealyにイベントを流す
+            settingViewModel.acceptOusamaRuleViewModel(number: kingsRuleNumberStatic)
             self.dismiss(animated: true, completion: nil)
         }
 //        何も選択せずに、終了した場合にモーダルが閉じないので、以下の文を挿入する
