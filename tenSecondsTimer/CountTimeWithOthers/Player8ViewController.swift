@@ -39,7 +39,7 @@ class Player8ViewController: UIViewController,UITextFieldDelegate {
         return userDefaults.bool(forKey: "isNameSaved")
     }
     func goNext(playerNumber:Int){
-        if isSaved!{
+        if isSaved{
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let nextView = storyBoard.instantiateViewController(withIdentifier: "Player9ViewController") as! Player9ViewController
             nextView.name = "player9"

@@ -40,11 +40,11 @@ enum Setting:CaseIterable{
         func getInt() -> Int{
             switch self {
             case .min:
-                return 7
+                return 9
             case .medium:
                 return 6
             case .max:
-                return 5
+                return 2
             }
         }
         func getName() ->String{
@@ -77,9 +77,9 @@ enum Setting:CaseIterable{
             case .min:
                 return 10
             case .medium:
-                return 9
-            case .max:
                 return 8
+            case .max:
+                return 5
             }
         }
     }
