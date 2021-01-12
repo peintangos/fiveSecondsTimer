@@ -24,12 +24,12 @@ class SettingViewModel{
     
     func isSectionZeroChanged() -> Observable<Bool>{
         return Observable.combineLatest(numberCountViewModel.asObservable(), nameOmitVieModel.asObservable()).map { numberCountViewModel, nameOmitVieModel  in
-            numberCountViewModel == 5 && nameOmitVieModel == true
+            numberCountViewModel == 5 && nameOmitVieModel == false
         }
     }
     func isSectionOneChaned() -> Observable<Bool>{
-        return Observable.combineLatest(iconViewModel.asObservable(), circleColorViewModel.asObservable(), buttonTextColorViewModel.asObservable(), buttonSizeViewModel.asObservable(), buttonBorderColorViewModel.asObservable(), buttonBorderWidthViewModel.asObservable(), backGroundColorViewModel.asObservable()).map { (iconViewModel,circleColorViewModel,buttonColorViewModel,buttonSizeViewModel,buttonBorderColorViewModel,buttonBorderWidthViewModel,backGroundColorViewModel) in
-            iconViewModel == 1 && circleColorViewModel == 3 && buttonColorViewModel == 3 && buttonSizeViewModel == 3 && buttonBorderColorViewModel == 2 && buttonBorderColorViewModel == 5 && buttonBorderWidthViewModel == 1 && backGroundColorViewModel == 0
+        return Observable.combineLatest(iconViewModel.asObservable(), circleColorViewModel.asObservable(), buttonTextColorViewModel.asObservable(), buttonSizeViewModel.asObservable(), buttonBorderColorViewModel.asObservable(), buttonBorderWidthViewModel.asObservable(), backGroundColorViewModel.asObservable()).map { icon,circle,buttonTextColor,buttonSize,buttonBorderColor,buttonBorderWidth,backGroundColor in
+            icon == 1 && circle == 3 && buttonTextColor == 3 && buttonSize == 2 && buttonBorderColor == 5 && buttonBorderWidth == 1 && backGroundColor == 0
         }
     }
     func isSectionSecondChaned() -> Observable<Bool>{
@@ -40,6 +40,11 @@ class SettingViewModel{
     func changed() -> Observable<Bool>{
         return Observable.combineLatest(isSectionZeroChanged(), isSectionOneChaned(), isSectionSecondChaned()).map { (zero, one, second) in
             zero && one && second
+        }
+    }
+    func changedNew() -> Observable<Bool>{
+        return Observable.combineLatest(isSectionZeroChanged(), isSectionSecondChaned()).map { (zero, one) in
+            zero && one
         }
     }
 //    例
