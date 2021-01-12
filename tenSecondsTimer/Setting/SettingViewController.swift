@@ -170,6 +170,37 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        ViewModel→UIへのバインド
         settingViewModel.changed().bind(to: switchD.rx.isOn).disposed(by: disposeBag)
         
+        switchD.rx.isOn.subscribe { isOn in
+            if let value = isOn.element {
+                timeNumberStatic = 5
+                isSaved = false
+                iconNumberStatic = 1
+                colorNumberStatic = 3
+                buttonTextColorNumberStatic = 3
+                buttonTextSizeNumberStatic = 2
+                buttonColorNumberStatic = 5
+                buttonWidthNumberStatic = 1
+                backgroundColorNumberStatic = 0
+                nomikaiModeStatic = 1
+                kizunaRuleNumberStatic = 1
+                kingsRuleNumberStatic = 1
+                
+                let defaults = UserDefaults.standard
+                defaults.set(timeNumberStatic,forKey: "timeNumber")
+                defaults.set(false, forKey: "isNameSaved")
+                defaults.set(iconNumberStatic, forKey: "iconNumber")
+                defaults.set(colorNumberStatic, forKey: "circleColorNumber")
+                defaults.set(buttonTextColorNumberStatic, forKey: "buttonTextColorNumber")
+                defaults.set(buttonTextSizeNumberStatic, forKey: "buttonTextSizeNumber")
+                defaults.set(buttonColorNumberStatic, forKey: "buttonWidthColorNumber")
+                defaults.set(buttonWidthNumberStatic, forKey: "buttonWidthNumber")
+                defaults.set(backgroundColorNumberStatic, forKey: "backgroundColorNumber")
+                defaults.set(nomikaiModeStatic, forKey: "nomikaiMode")
+                defaults.set(kizunaRuleNumberStatic, forKey: "kizuna")
+                defaults.set(kingsRuleNumberStatic, forKey: "kings")
+            }
+                }.disposed(by: self.disposeBag)
+        
     }
     override func viewDidAppear(_ animated: Bool) {
     }
